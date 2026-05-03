@@ -87,32 +87,39 @@ nav{
 }
 .hero-content{
   position:relative;z-index:2;
-  max-width:740px;padding:0 2rem;
+  max-width:1200px;padding:0 2rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  @media(max-width:968px){grid-template-columns:1fr;gap:2rem}
 }
 .hero-logo-wrap{
-  width:84px;height:84px;border-radius:50%;
-  background:rgba(255,255,255,.1);
-  border:2px solid rgba(255,255,255,.25);
+  width: 110%;height: 110%;border-radius:50%;
+  /* background:rgba(255,255,255,.08); */
+  /* border:3px solid rgba(183,121,31,.6); */
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1.75rem;
-  font-size:2.4rem;
-  backdrop-filter:blur(4px);
+  margin:0 auto;
+  font-size:5.6rem;
+  /* box-shadow:0 0 60px rgba(183,121,31,.25),inset 0 0 40px rgba(183,121,31,.15); */
+  /* backdrop-filter:blur(8px); */
+  @media(max-width:968px){width:280px;height:280px;font-size:4rem}
+}
+.hero-text-wrap{
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
 }
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(183,121,31,.22);border:1px solid rgba(183,121,31,.45);
-  color:var(--gold-lt);font-size:.72rem;font-weight:500;
-  letter-spacing:2.5px;text-transform:uppercase;
-  padding:5px 18px;border-radius:20px;margin-bottom:1.4rem;
+  background:rgba(183,121,31,.15);border:1px solid rgba(183,121,31,.3);
+  color:rgba(246,224,94,.7);font-size:.65rem;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;margin-bottom:1rem;text-align:left;
 }
 .hero h1{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.8rem,6vw,5rem);line-height:1.08;
-  color:white;font-weight:600;margin-bottom:1.25rem;
+  font-size:clamp(2.4rem,3.5vw,4.2rem);line-height:1.1;
+  color:white;font-weight:600;margin-bottom:1.2rem;text-align:left;
 }
 .hero h1 em{font-style:italic;color:var(--gold-lt)}
-.hero-sub{font-size:1rem;color:rgba(255,255,255,.72);max-width:480px;margin:0 auto 2.5rem;line-height:1.85}
-.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.65);max-width:100%;margin:0 0 2.2rem 0;line-height:1.8;text-align:left}
+.hero-ctas{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap}
 .btn-primary{
   padding:12px 28px;background:var(--gold);color:white;
   border:none;border-radius:8px;font-size:.9rem;font-weight:500;
@@ -455,7 +462,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <li><a href="#profil" data-i="nav-profil">Profil Desa</a></li>
     <li><a href="#highlights" data-i="nav-hl">Galeri</a></li>
     <li><a href="#sejarah" data-i="nav-sej">Sejarah</a></li>
-    <li><a href="#facilities" data-i="nav-fac">Wahana</a></li>
+    <li><a href="#facilities" data-i="nav-fac">Fasilitas</a></li>
     <li><a href="#reservation" data-i="nav-res">Reservasi</a></li>
     <li><a href="#sosmed" data-i="nav-sm">Media Sosial</a></li>
   </ul>
@@ -469,25 +476,34 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
 <section id="home" class="hero">
   <div class="hero-slides">
     <div class="hero-slide active">
-      <div class="hero-slide-bg s1"></div>
+      <div class="hero-slide-bg s1">
+        <img src="assets/img_placeholder1.jpg" alt="Deskripsi">
+      </div>
     </div>
     <div class="hero-slide">
-      <div class="hero-slide-bg s2"></div>
+      <div class="hero-slide-bg s2">
+        <img src="assets/img_placeholder2.jpg" alt="Deskripsi">
+      </div>
     </div>
     <div class="hero-slide">
-      <div class="hero-slide-bg s3"></div>
+      <div class="hero-slide-bg s3">
+        <img src="assets/img_placeholder3.jpg" alt="Deskripsi">
+      </div>
     </div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <!-- Logo placeholder: ganti dengan <img src="logo.png"> di dalam .hero-logo-wrap -->
-    <div class="hero-logo-wrap">🏔️</div>
-    <div class="hero-eyebrow" data-i="hero-ey">✦ Desa Wisata Nglumut, Magelang</div>
-    <h1 data-i="hero-h1">Surga <em>Alam</em> di Kaki<br>Gunung Merapi</h1>
-    <p class="hero-sub" data-i="hero-p">Jelajahi pesona Desa Wisata Nglumut — alam yang asri, budaya yang kaya, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.</p>
-    <div class="hero-ctas">
-      <a href="#reservation" class="btn-primary" data-i="hero-cta1">Rencanakan Kunjungan →</a>
-      <a href="#highlights" class="btn-ghost" data-i="hero-cta2">Lihat Galeri</a>
+    <div class="hero-logo-wrap">
+      <img src="assets/logo_desa-wisata.PNG" alt="Deskripsi" style="width:100%;border-radius:10px;margin:1.5rem 0">
+    </div>
+    <div class="hero-text-wrap">
+      <div class="hero-eyebrow" data-i="hero-ey">✦ Desa Wisata Nglumut, Magelang</div>
+      <h1 data-i="hero-h1">Surga <em>Alam</em> di Kaki<br>Gunung Merapi</h1>
+      <p class="hero-sub" data-i="hero-p">Jelajahi pesona Desa Wisata Nglumut — alam yang asri, manisnya buah salak, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.</p>
+      <div class="hero-ctas">
+        <a href="#reservation" class="btn-primary" data-i="hero-cta1">Rencanakan Kunjungan →</a>
+        <a href="#highlights" class="btn-ghost" data-i="hero-cta2">Lihat Galeri</a>
+      </div>
     </div>
   </div>
   <div class="hero-dots">
@@ -508,46 +524,58 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <button class="gallery-nav prev" onclick="shiftGallery(-1)">&#8592;</button>
     <div class="gallery-track" id="galleryTrack">
       <div class="gallery-item">
-        <div class="gallery-item-bg g1">🏞️</div>
-        <div class="gallery-caption">
+        <div class="gallery-item-bg g1">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- <div class="gallery-caption">
           <div class="gallery-caption-title" data-i="g1t">View Sabo Dam</div>
           <div class="gallery-caption-sub" data-i="g1s">Bendungan Pengendali Vulkanik</div>
-        </div>
+        </div> -->
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-bg g2">🌊</div>
-        <div class="gallery-caption">
+        <div class="gallery-item-bg g2">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- <div class="gallery-caption">
           <div class="gallery-caption-title" data-i="g2t">Wahana Tubing</div>
           <div class="gallery-caption-sub" data-i="g2s">Meluncur di Arus Sungai Segar</div>
-        </div>
+        </div> -->
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-bg g3">🏡</div>
-        <div class="gallery-caption">
+        <div class="gallery-item-bg g3">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- <div class="gallery-caption">
           <div class="gallery-caption-title" data-i="g3t">Pendopo Wisata</div>
           <div class="gallery-caption-sub" data-i="g3s">Area Bersantai Keluarga &amp; Komunitas</div>
-        </div>
+        </div> -->
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-bg g4">🌿</div>
-        <div class="gallery-caption">
+        <div class="gallery-item-bg g4">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- <div class="gallery-caption">
           <div class="gallery-caption-title" data-i="g4t">Alam Pegunungan</div>
           <div class="gallery-caption-sub" data-i="g4s">Pemandangan Hijau Kaki Merapi</div>
-        </div>
+        </div> -->
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-bg g5">🌅</div>
-        <div class="gallery-caption">
+        <div class="gallery-item-bg g5">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- <div class="gallery-caption">
           <div class="gallery-caption-title" data-i="g5t">Panorama Senja</div>
           <div class="gallery-caption-sub" data-i="g5s">Golden Hour di Nglumut</div>
-        </div>
+        </div> -->
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-bg g6">🎋</div>
-        <div class="gallery-caption">
-          <div class="gallery-caption-title" data-i="g6t">Wisata Budaya</div>
-          <div class="gallery-caption-sub" data-i="g6s">Kearifan Lokal Desa Nglumut</div>
+        <div class="gallery-item-bg g6">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
         </div>
+        <!-- <div class="gallery-caption"> -->
+          <!-- <div class="gallery-caption-title" data-i="g6t">Wisata Budaya</div>   
+          <div class="gallery-caption-sub" data-i="g6s">Kearifan Lokal Desa Nglumut</div> -->
+        <!-- </div> -->
       </div>
     </div>
     <button class="gallery-nav next" onclick="shiftGallery(1)">&#8594;</button>
@@ -631,9 +659,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <!-- Card 1: Sabo Dam -->
     <div class="fac-card" onmouseenter="activateFac(this)">
       <div class="fac-slides">
-        <div class="fac-slide active fd1">🏞️</div>
-        <div class="fac-slide fd2">📸</div>
-        <div class="fac-slide fd4">🌄</div>
+        <div class="fac-slide active fd1">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd2">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd4">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-collapsed-label" data-i="fl1">View Sabo Dam</div>
@@ -647,9 +681,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <!-- Card 2: Tubing -->
     <div class="fac-card" onmouseenter="activateFac(this)">
       <div class="fac-slides">
-        <div class="fac-slide active fd2">🐟</div>
-        <div class="fac-slide fd1">🌊</div>
-        <div class="fac-slide fd5">💧</div>
+        <div class="fac-slide active fd2">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd1">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd5">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-collapsed-label" data-i="fl2">Tubing</div>
@@ -663,9 +703,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <!-- Card 3: Pendopo -->
     <div class="fac-card" onmouseenter="activateFac(this)">
       <div class="fac-slides">
-        <div class="fac-slide active fd3">🏡</div>
-        <div class="fac-slide fd4">🍃</div>
-        <div class="fac-slide fd1">☕</div>
+        <div class="fac-slide active fd3">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd4">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd1">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-collapsed-label" data-i="fl3">Pendopo</div>
@@ -679,9 +725,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <!-- Card 4: Edukasi -->
     <div class="fac-card" onmouseenter="activateFac(this)">
       <div class="fac-slides">
-        <div class="fac-slide active fd4">🎓</div>
-        <div class="fac-slide fd2">📚</div>
-        <div class="fac-slide fd1">🔬</div>
+        <div class="fac-slide active fd4">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd2">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd1">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-collapsed-label" data-i="fl4">Edukasi</div>
@@ -695,9 +747,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <!-- Card 5: Budaya -->
     <div class="fac-card" onmouseenter="activateFac(this)">
       <div class="fac-slides">
-        <div class="fac-slide active fd5">🎭</div>
-        <div class="fac-slide fd3">🥁</div>
-        <div class="fac-slide fd4">🌺</div>
+        <div class="fac-slide active fd5">
+          <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd3">
+          <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="fac-slide fd4">
+          <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
+        </div>  
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-collapsed-label" data-i="fl5">Budaya</div>
@@ -737,16 +795,16 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
           <div class="c-icon">📱</div>
           <div>
             <div class="c-label">WHATSAPP</div>
-            <div class="c-val">+62 8xx-xxxx-xxxx</div>
+            <div class="c-val">+62895377632044</div>
           </div>
         </div>
-        <div class="contact-item">
+        <!-- <div class="contact-item">
           <div class="c-icon">📧</div>
           <div>
             <div class="c-label">EMAIL</div>
             <div class="c-val">nglumut.wisata@gmail.com</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="fade-in">
@@ -799,25 +857,25 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <h2 class="section-title" data-i="sm-h2">Media Sosial<br><em>Desa Wisata Nglumut</em></h2>
     <p class="section-sub" data-i="sm-sub">Update terbaru, foto, dan informasi kegiatan wisata bisa kamu temukan di platform kami.</p>
     <div class="sosmed-grid">
-      <a href="https://instagram.com/nglumut.wisata" target="_blank" class="sosmed-card sm-ig">
+      <a href="https://instagram.com/desa_wisata_nglumut" target="_blank" class="sosmed-card sm-ig">
         <div class="sosmed-icon">📷</div>
         <div class="sosmed-card-name">Instagram</div>
-        <div class="sosmed-card-handle" data-i="sm-ig">@nglumut.wisata</div>
+        <div class="sosmed-card-handle" data-i="sm-ig">@desa_wisata_nglumut</div>
       </a>
-      <a href="https://facebook.com/nglumut" target="_blank" class="sosmed-card sm-fb">
+      <!-- <a href="https://facebook.com/nglumut" target="_blank" class="sosmed-card sm-fb">
         <div class="sosmed-icon">👥</div>
         <div class="sosmed-card-name">Facebook</div>
         <div class="sosmed-card-handle" data-i="sm-fb">Desa Wisata Nglumut</div>
-      </a>
-      <a href="https://youtube.com/@nglumut" target="_blank" class="sosmed-card sm-yt">
+      </a> -->
+      <!-- <a href="https://youtube.com/@nglumut" target="_blank" class="sosmed-card sm-yt">
         <div class="sosmed-icon">▶️</div>
         <div class="sosmed-card-name">YouTube</div>
         <div class="sosmed-card-handle" data-i="sm-yt">Nglumut Official</div>
-      </a>
-      <a href="https://tiktok.com/@nglumut.wisata" target="_blank" class="sosmed-card sm-tt">
+      </a> -->
+      <a href="https://tiktok.com/@desa_wisata_nglumut" target="_blank" class="sosmed-card sm-tt">
         <div class="sosmed-icon">🎵</div>
         <div class="sosmed-card-name">TikTok</div>
-        <div class="sosmed-card-handle" data-i="sm-tt">@nglumut.wisata</div>
+        <div class="sosmed-card-handle" data-i="sm-tt">@desa_wisata_nglumut</div>
       </a>
     </div>
     <p class="sosmed-embed-hint" data-i="sm-hint">
@@ -890,10 +948,10 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
 const T={
   id:{
     'nav-brand':'Desa Wisata Nglumut','nav-profil':'Profil Desa','nav-hl':'Galeri',
-    'nav-sej':'Sejarah','nav-fac':'Wahana','nav-res':'Reservasi','nav-sm':'Media Sosial',
+    'nav-sej':'Sejarah','nav-fac':'Fasilitas','nav-res':'Reservasi','nav-sm':'Media Sosial',
     'hero-ey':'✦ Desa Wisata Nglumut, Magelang',
     'hero-h1':'Surga <em>Alam</em> di Kaki<br>Gunung Merapi',
-    'hero-p':'Jelajahi pesona Desa Wisata Nglumut — alam yang asri, budaya yang kaya, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.',
+    'hero-p':'Jelajahi pesona Desa Wisata Nglumut — alam yang asri, manisnya buah salak, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.',
     'hero-cta1':'Rencanakan Kunjungan →','hero-cta2':'Lihat Galeri',
     'hl-ey':'Foto Unggulan','hl-h2':'Keindahan yang<br><em>Menanti Kamu</em>',
     'hl-sub':'Geser untuk melihat lebih banyak foto destinasi terbaik Desa Nglumut.',
@@ -946,10 +1004,10 @@ const T={
   },
   en:{
     'nav-brand':'Nglumut Village','nav-profil':'About','nav-hl':'Gallery',
-    'nav-sej':'History','nav-fac':'Activities','nav-res':'Reserve','nav-sm':'Social Media',
+    'nav-sej':'History','nav-fac':'Facilities','nav-res':'Reserve','nav-sm':'Social Media',
     'hero-ey':'✦ Nglumut Tourism Village, Magelang',
     'hero-h1':'Nature\'s <em>Paradise</em> at the<br>Foot of Merapi',
-    'hero-p':'Discover the charm of Nglumut Village — breathtaking scenery, rich culture, Sabo Dam tourism, and the warmth of its people.',
+    'hero-p':'Discover the charm of Nglumut Village — breathtaking scenery, sweetness of salak, Sabo Dam tourism, and the warmth of its people.',
     'hero-cta1':'Plan Your Visit →','hero-cta2':'View Gallery',
     'hl-ey':'Featured Photos','hl-h2':'Beauty That<br><em>Awaits You</em>',
     'hl-sub':'Swipe to see more highlights from Nglumut\'s finest destinations.',
