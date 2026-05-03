@@ -87,20 +87,14 @@ nav{
 }
 .hero-content{
   position:relative;z-index:2;
-  max-width:1200px;padding:0 2rem;
+  max-width:1200px;padding:0 4rem;
   display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
-  @media(max-width:968px){grid-template-columns:1fr;gap:2rem}
 }
 .hero-logo-wrap{
-  width: 110%;height: 110%;border-radius:50%;
-  /* background:rgba(255,255,255,.08); */
-  /* border:3px solid rgba(183,121,31,.6); */
+  width:100%;aspect-ratio:1;max-width:360px;
+  border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto;
-  font-size:5.6rem;
-  /* box-shadow:0 0 60px rgba(183,121,31,.25),inset 0 0 40px rgba(183,121,31,.15); */
-  /* backdrop-filter:blur(8px); */
-  @media(max-width:968px){width:280px;height:280px;font-size:4rem}
+  margin:0 auto;overflow:hidden;
 }
 .hero-text-wrap{
   display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
@@ -271,7 +265,49 @@ nav{
 .modal-body p{margin-bottom:1rem}
 .modal-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--forest);margin:1.5rem 0 .5rem;font-weight:600}
 
-/* ══ FACILITIES ══ */
+/* ══ FACILITIES — idle pattern + number badge ══ */
+.fac-idle-pattern{
+  position:absolute;inset:0;
+  background-color:#1b3a2d;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(183,121,31,.18) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 2 L50 26 L26 50 L2 26 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='26' cy='26' r='4' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+  background-size:auto,52px 52px;
+  transition:opacity .4s ease;
+  z-index:1;
+}
+.fac-card.active-fac .fac-idle-pattern,
+.fac-card:hover .fac-idle-pattern{opacity:0;pointer-events:none}
+.fac-slides{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .5s ease}
+.fac-card.active-fac .fac-slides,
+.fac-card:hover .fac-slides{opacity:1}
+.fac-overlay{z-index:3}
+.fac-info{z-index:4}
+.fac-num{
+  position:absolute;
+  left:50%;top:calc(20%);
+  transform:translate(-50%,-50%);
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.9);
+  color:var(--forest);font-size:.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  z-index:1;line-height:1;
+  transition:opacity .3s;
+}
+.fac-card.active-fac .fac-num,
+.fac-card:hover .fac-num{opacity:0}
+.fac-collapsed-label{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotate(-90deg);
+  color:rgba(255,255,255,.55);font-size:.72rem;letter-spacing:2px;
+  text-transform:uppercase;white-space:nowrap;
+  transition:opacity .3s;z-index:5;
+}
+.fac-card:hover .fac-collapsed-label,.fac-card.active-fac .fac-collapsed-label{opacity:0}
+
+/* ══ SOSMED icons via Simple Icons CDN ══ */
+.sosmed-icon img{width:28px;height:28px;display:block;filter:brightness(0) invert(1)}
+.partner-logo-img{width:52px;height:52px;object-fit:contain;display:block}
 #facilities{background:var(--sand);padding:6rem 4rem}
 .fac-head{max-width:1100px;margin:0 auto 2.5rem}
 .fac-expand-wrap{
@@ -322,15 +358,6 @@ nav{
   transition:max-height .4s ease,opacity .3s;opacity:0;
 }
 .fac-card:hover .fac-desc,.fac-card.active-fac .fac-desc{max-height:60px;opacity:1}
-.fac-collapsed-label{
-  position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%) rotate(-90deg);
-  color:rgba(255,255,255,.45);font-size:.72rem;letter-spacing:2px;
-  text-transform:uppercase;white-space:nowrap;
-  transition:opacity .3s;
-}
-.fac-card:hover .fac-collapsed-label,.fac-card.active-fac .fac-collapsed-label{opacity:0}
-
 /* ══ RESERVATION ══ */
 #reservation{background:var(--forest);padding:6rem 4rem}
 .res-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
@@ -434,9 +461,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   nav{padding:0 1.25rem}
   .nav-links{display:none}
   #highlights,#profil,#sejarah,#facilities,#reservation,#sosmed,#partners{padding:4rem 1.5rem}
-  .highlights-head{padding:0 1.5rem}
-  .gallery-track{padding:.75rem 1.5rem 1.25rem}
-  .gallery-item{flex:0 0 280px;height:200px}
+  .gallery-wrap{height:60vw;min-height:220px;max-height:420px}
   .profil-inner{grid-template-columns:1fr}
   .info-cards{grid-template-columns:1fr 1fr}
   .fac-expand-wrap{flex-direction:column;height:auto}
@@ -447,6 +472,11 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   .res-inner{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   footer{padding:2rem 1.5rem}
+  .hero-content{grid-template-columns:1fr;gap:2rem;padding:0 2rem;text-align:center}
+  .hero-logo-wrap{max-width:220px}
+  .hero-text-wrap{align-items:center}
+  .hero h1,.hero-sub,.hero-eyebrow{text-align:center}
+  .hero-ctas{justify-content:center}
 }
 </style>
 </head>
@@ -494,7 +524,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-logo-wrap">
-      <img src="assets/logo_desa-wisata.PNG" alt="Deskripsi" style="width:100%;border-radius:10px;margin:1.5rem 0">
+      <img src="assets/logo_desa-wisata.PNG" alt="Logo Desa Wisata Nglumut" style="width:100%;height:100%;object-fit:contain">
     </div>
     <div class="hero-text-wrap">
       <div class="hero-eyebrow" data-i="hero-ey">✦ Desa Wisata Nglumut, Magelang</div>
@@ -657,7 +687,8 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   <div class="fac-expand-wrap fade-in">
 
     <!-- Card 1: Sabo Dam -->
-    <div class="fac-card" onmouseenter="activateFac(this)">
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern"></div>
       <div class="fac-slides">
         <div class="fac-slide active fd1">
           <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
@@ -670,6 +701,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         </div>
       </div>
       <div class="fac-overlay"></div>
+      <div class="fac-num">1</div>
       <div class="fac-collapsed-label" data-i="fl1">View Sabo Dam</div>
       <div class="fac-info">
         <span class="fac-tag" data-i="ft1">Ikonik</span>
@@ -679,7 +711,8 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     </div>
 
     <!-- Card 2: Tubing -->
-    <div class="fac-card" onmouseenter="activateFac(this)">
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#1a3a5c"></div>
       <div class="fac-slides">
         <div class="fac-slide active fd2">
           <img src="assets/img_placeholder2.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
@@ -692,6 +725,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         </div>
       </div>
       <div class="fac-overlay"></div>
+      <div class="fac-num">2</div>
       <div class="fac-collapsed-label" data-i="fl2">Tubing</div>
       <div class="fac-info">
         <span class="fac-tag" data-i="ft2">Sewa</span>
@@ -701,7 +735,8 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     </div>
 
     <!-- Card 3: Pendopo -->
-    <div class="fac-card" onmouseenter="activateFac(this)">
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#3c2410"></div>
       <div class="fac-slides">
         <div class="fac-slide active fd3">
           <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
@@ -714,6 +749,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         </div>
       </div>
       <div class="fac-overlay"></div>
+      <div class="fac-num">3</div>
       <div class="fac-collapsed-label" data-i="fl3">Pendopo</div>
       <div class="fac-info">
         <span class="fac-tag" data-i="ft3">Sewa</span>
@@ -723,7 +759,8 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     </div>
 
     <!-- Card 4: Edukasi -->
-    <div class="fac-card" onmouseenter="activateFac(this)">
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#0f2a0f"></div>
       <div class="fac-slides">
         <div class="fac-slide active fd4">
           <img src="assets/img_placeholder3.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
@@ -736,6 +773,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         </div>
       </div>
       <div class="fac-overlay"></div>
+      <div class="fac-num">4</div>
       <div class="fac-collapsed-label" data-i="fl4">Edukasi</div>
       <div class="fac-info">
         <span class="fac-tag" data-i="ft4">Edukasi</span>
@@ -745,7 +783,8 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     </div>
 
     <!-- Card 5: Budaya -->
-    <div class="fac-card" onmouseenter="activateFac(this)">
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#2a1240"></div>
       <div class="fac-slides">
         <div class="fac-slide active fd5">
           <img src="assets/img_placeholder1.jpg" alt="Deskripsi" style="width:100%;height:100%;object-fit:cover">
@@ -758,6 +797,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         </div>  
       </div>
       <div class="fac-overlay"></div>
+      <div class="fac-num">5</div>
       <div class="fac-collapsed-label" data-i="fl5">Budaya</div>
       <div class="fac-info">
         <span class="fac-tag" data-i="ft5">Budaya</span>
@@ -858,22 +898,22 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <p class="section-sub" data-i="sm-sub">Update terbaru, foto, dan informasi kegiatan wisata bisa kamu temukan di platform kami.</p>
     <div class="sosmed-grid">
       <a href="https://instagram.com/desa_wisata_nglumut" target="_blank" class="sosmed-card sm-ig">
-        <div class="sosmed-icon">📷</div>
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram"></div>
         <div class="sosmed-card-name">Instagram</div>
         <div class="sosmed-card-handle" data-i="sm-ig">@desa_wisata_nglumut</div>
       </a>
       <!-- <a href="https://facebook.com/nglumut" target="_blank" class="sosmed-card sm-fb">
-        <div class="sosmed-icon">👥</div>
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook"></div>
         <div class="sosmed-card-name">Facebook</div>
         <div class="sosmed-card-handle" data-i="sm-fb">Desa Wisata Nglumut</div>
       </a> -->
       <!-- <a href="https://youtube.com/@nglumut" target="_blank" class="sosmed-card sm-yt">
-        <div class="sosmed-icon">▶️</div>
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/youtube/ffffff" alt="YouTube"></div>
         <div class="sosmed-card-name">YouTube</div>
         <div class="sosmed-card-handle" data-i="sm-yt">Nglumut Official</div>
       </a> -->
       <a href="https://tiktok.com/@desa_wisata_nglumut" target="_blank" class="sosmed-card sm-tt">
-        <div class="sosmed-icon">🎵</div>
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok"></div>
         <div class="sosmed-card-name">TikTok</div>
         <div class="sosmed-card-handle" data-i="sm-tt">@desa_wisata_nglumut</div>
       </a>
@@ -923,20 +963,22 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
       <p>Desa Nglumut terletak di lereng barat Gunung Merapi dan telah dihuni selama ratusan tahun. Masyarakat desa sejak dahulu kala telah belajar hidup berdampingan dengan aktivitas vulkanik yang intens dari Merapi, salah satu gunung berapi paling aktif di dunia.</p>
       
       <!-- FOTO 1: Edit dengan mengganti div ini dengan <img src="path/ke/foto-merapi.jpg" alt="Merapi" style="width:100%;border-radius:10px;margin:1.5rem 0"> -->
-      <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Pemandangan Gunung Merapi dari Nglumut]</div>
-      
+      <!-- <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Pemandangan Gunung Merapi dari Nglumut]</div> -->
+      <img src="assets/img_placeholder1.jpg" alt="Merapi" style="width:100%;border-radius:10px;margin:1.5rem 0">
+
       <h3>Hubungan dengan Gunung Merapi</h3>
       <p>Kehidupan warga Nglumut tak lepas dari pengaruh Merapi. Tanah vulkanik yang subur menjadi berkah tersendiri, menghasilkan pertanian yang produktif — terutama salak pondoh, sayur-mayur, dan palawija. Namun di sisi lain, ancaman lahar dan awan panas selalu menjadi bagian dari keseharian masyarakat.</p>
       
       <!-- FOTO 2: Edit dengan mengganti div ini dengan <img src="path/ke/foto-pertanian.jpg" alt="Pertanian" style="width:100%;border-radius:10px;margin:1.5rem 0"> -->
-      <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Lahan Pertanian Nglumut]</div>
-      
+      <!-- <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Lahan Pertanian Nglumut]</div> -->
+      <img src="assets/img_placeholder2.jpg" alt="Pertanian" style="width:100%;border-radius:10px;margin:1.5rem 0">
       <h3>Pembangunan Sabo Dam</h3>
       <p>Pasca erupsi besar Merapi, pemerintah membangun infrastruktur Sabo Dam — bendungan pengendali sedimen vulkanik — di sepanjang aliran sungai yang berhulu di lereng Merapi. Sabo Dam di wilayah Nglumut menjadi salah satu yang terpenting dalam sistem perlindungan kawasan, menahan lahar dingin sebelum mencapai permukiman dan lahan pertanian di bawahnya.</p>
       
       <!-- FOTO 3: Edit dengan mengganti div ini dengan <img src="path/ke/foto-sabo-dam.jpg" alt="Sabo Dam" style="width:100%;border-radius:10px;margin:1.5rem 0"> -->
-      <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Taman Sabo Dam]</div>
-      
+      <!-- <div style="background:#e5e7eb;height:280px;border-radius:10px;margin:1.5rem 0;display:flex;align-items:center;justify-content:center;color:#999;font-size:.9rem">[Foto: Taman Sabo Dam]</div> -->
+      <img src="assets/img_placeholder3.jpg" alt="Sabo Dam" style="width:100%;border-radius:10px;margin:1.5rem 0">
+
       <h3>Transformasi Menjadi Desa Wisata</h3>
       <p>Berangkat dari potensi alam yang luar biasa dan keberadaan Sabo Dam sebagai daya tarik unik, warga Nglumut bersama pemerintah desa dan dukungan berbagai pihak mulai mengembangkan kawasan ini sebagai destinasi wisata. Dengan semangat gotong royong, Taman Sabo Dam kini menjadi ikon wisata yang menarik pengunjung dari berbagai penjuru untuk menikmati keindahan alam sekaligus belajar tentang teknologi mitigasi bencana.</p>
     </div>
@@ -1081,61 +1123,105 @@ function goHeroSlide(n){
 }
 setInterval(()=>goHeroSlide((heroIdx+1)%heroSlides.length),5500);
 
-// ── HIGHLIGHT GALLERY SWIPE ──
+// ── HIGHLIGHT GALLERY: SWIPE + AUTO-SLIDE ──
 const gTrack=document.getElementById('galleryTrack');
-let gOffset=0,isDragging=false,startX=0,startOffset=0;
-const ITEM_W=window.innerWidth;
-function shiftGallery(dir){
-  const items=gTrack.querySelectorAll('.gallery-item');
-  const maxOff=-(items.length-1)*ITEM_W;
-  gOffset=Math.max(maxOff,Math.min(0,gOffset-dir*ITEM_W));
-  gTrack.style.transform=`translateX(${gOffset}px)`;
+const gWrap=document.getElementById('galleryWrap');
+let gIdx=0,isDragging=false,startX=0,startOffset=0,gOffset=0;
+let galleryAutoTimer=null;
+
+function getItemW(){
+  // Always compute from actual rendered item width for responsive accuracy
+  const item=gTrack.querySelector('.gallery-item');
+  return item ? item.getBoundingClientRect().width : gWrap.getBoundingClientRect().width;
 }
-gTrack.addEventListener('mousedown',e=>{isDragging=true;startX=e.clientX;startOffset=gOffset;gTrack.style.transition='none'});
-document.addEventListener('mousemove',e=>{if(!isDragging)return;const dx=e.clientX-startX;gTrack.style.transform=`translateX(${startOffset+dx}px)`});
+function goGallery(n,fromUser){
+  const items=gTrack.querySelectorAll('.gallery-item');
+  gIdx=((n%items.length)+items.length)%items.length; // safe loop
+  gOffset=-gIdx*getItemW();
+  gTrack.style.transition='transform .5s cubic-bezier(.4,0,.2,1)';
+  gTrack.style.transform=`translateX(${gOffset}px)`;
+  if(fromUser) resetGalleryAuto();
+}
+function shiftGallery(dir){goGallery(gIdx+dir,true)}
+function startGalleryAuto(){
+  galleryAutoTimer=setInterval(()=>goGallery(gIdx+1,false),3000);
+}
+function resetGalleryAuto(){
+  clearInterval(galleryAutoTimer);startGalleryAuto();
+}
+startGalleryAuto();
+
+// Drag/swipe
+gTrack.addEventListener('mousedown',e=>{isDragging=true;startX=e.clientX;startOffset=gOffset;gTrack.style.transition='none';clearInterval(galleryAutoTimer)});
+document.addEventListener('mousemove',e=>{if(!isDragging)return;gTrack.style.transform=`translateX(${startOffset+(e.clientX-startX)}px)`});
 document.addEventListener('mouseup',e=>{
   if(!isDragging)return;isDragging=false;
-  gTrack.style.transition='transform .45s cubic-bezier(.4,0,.2,1)';
   const dx=e.clientX-startX;
-  const items=gTrack.querySelectorAll('.gallery-item');
-  const maxOff=-(items.length-1)*ITEM_W;
-  gOffset=Math.max(maxOff,Math.min(0,startOffset+dx));
-  const snapIdx=Math.round(-gOffset/ITEM_W);
-  gOffset=-snapIdx*ITEM_W;
-  gTrack.style.transform=`translateX(${gOffset}px)`;
+  const w=getItemW();
+  if(Math.abs(dx)>w*0.2) gIdx+=(dx<0?1:-1);
+  goGallery(gIdx,true);
 });
 let tStartX=0;
-gTrack.addEventListener('touchstart',e=>{tStartX=e.touches[0].clientX;startOffset=gOffset;gTrack.style.transition='none'},{passive:true});
-gTrack.addEventListener('touchmove',e=>{const dx=e.touches[0].clientX-tStartX;gTrack.style.transform=`translateX(${startOffset+dx}px)`},{passive:true});
+gTrack.addEventListener('touchstart',e=>{tStartX=e.touches[0].clientX;startOffset=gOffset;gTrack.style.transition='none';clearInterval(galleryAutoTimer)},{passive:true});
+gTrack.addEventListener('touchmove',e=>{gTrack.style.transform=`translateX(${startOffset+(e.touches[0].clientX-tStartX)}px)`},{passive:true});
 gTrack.addEventListener('touchend',e=>{
-  gTrack.style.transition='transform .45s cubic-bezier(.4,0,.2,1)';
   const dx=e.changedTouches[0].clientX-tStartX;
-  const items=gTrack.querySelectorAll('.gallery-item');
-  const maxOff=-(items.length-1)*ITEM_W;
-  const snapIdx=Math.round(-(startOffset+dx)/ITEM_W);
-  gOffset=-snapIdx*ITEM_W;
-  gOffset=Math.max(maxOff,Math.min(0,gOffset));
+  const w=getItemW();
+  if(Math.abs(dx)>w*0.2) gIdx+=(dx<0?1:-1);
+  goGallery(gIdx,true);
+});
+// Re-align on window resize
+window.addEventListener('resize',()=>{
+  gOffset=-gIdx*getItemW();
+  gTrack.style.transition='none';
   gTrack.style.transform=`translateX(${gOffset}px)`;
 });
 
-// ── FACILITY CARDS: EXPAND + SLIDESHOW ──
-let facTimers={};
-function activateFac(card){
-  document.querySelectorAll('.fac-card').forEach(c=>c.classList.remove('active-fac'));
-  card.classList.add('active-fac');
-}
-// Per-card auto slide
-document.querySelectorAll('.fac-card').forEach((card,ci)=>{
+// ── FACILITY CARDS: IDLE PATTERN + HOVER + AUTO-CYCLE + INNER SLIDESHOW ──
+const facCards=Array.from(document.querySelectorAll('.fac-card'));
+let facAutoIdx=0;
+let facAutoTimer=null;
+let isUserHovering=false;
+
+// Per-card inner photo slideshow (independent timers)
+const facSlideTimers={};
+facCards.forEach((card,ci)=>{
   const slides=card.querySelectorAll('.fac-slide');
   let si=0;
-  const tick=()=>{
+  facSlideTimers[ci]=setInterval(()=>{
     slides[si].classList.remove('active');
     si=(si+1)%slides.length;
     slides[si].classList.add('active');
-  };
-  // Stagger start time so cards are out of sync
-  facTimers[ci]=setInterval(tick,2800+(ci*400));
+  },2600+(ci*350));
 });
+
+function activateFacCard(idx){
+  facCards.forEach(c=>c.classList.remove('active-fac'));
+  if(idx>=0&&idx<facCards.length) facCards[idx].classList.add('active-fac');
+  facAutoIdx=idx;
+}
+function startFacAuto(){
+  facAutoTimer=setInterval(()=>{
+    if(!isUserHovering){
+      facAutoIdx=(facAutoIdx+1)%facCards.length;
+      activateFacCard(facAutoIdx);
+    }
+  },3000);
+}
+function stopFacAuto(){clearInterval(facAutoTimer)}
+// Start auto-cycle at card 0
+activateFacCard(0);
+startFacAuto();
+
+function onFacHover(card){
+  isUserHovering=true;
+  activateFacCard(facCards.indexOf(card));
+}
+function onFacLeave(){
+  isUserHovering=false;
+  // Restart auto from current position
+  stopFacAuto();startFacAuto();
+}
 
 // ── HISTORY MODAL ──
 function openHistory(){document.getElementById('historyModal').classList.add('open')}
@@ -1153,7 +1239,7 @@ function sendWA(){
   const msg=lang==='en'
     ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note}\n\nPlease confirm, thank you!`
     :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note}\n\nMohon konfirmasinya, terima kasih!`;
-  const phone='628xxxxxxxxxx'; // GANTI dengan nomor WA pengelola
+  const phone='628895377632044';
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
