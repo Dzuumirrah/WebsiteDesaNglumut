@@ -502,11 +502,66 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   .gallery-wrap{height:60vw;min-height:220px;max-height:420px}
   .profil-inner{grid-template-columns:1fr}
   .info-cards{grid-template-columns:1fr 1fr}
-  .fac-expand-wrap{flex-direction:column;height:auto}
-  .fac-card{flex:none;height:200px;min-width:auto}
-  .fac-card:hover,.fac-card.active-fac{flex:none}
-  .fac-collapsed-label{display:none}
-  .fac-desc{max-height:60px;opacity:1}
+  
+  @media(max-width: 960px) {
+  
+  /* Container: ubah dari flex-row → flex-column */
+  .fac-expand-wrap {
+    flex-direction: column;
+    height: auto;      /* ← hapus height:440px fixed */
+    gap: 8px;
+  }
+
+  /* Setiap kartu: lebar penuh, height collapsed */
+  .fac-card {
+    flex: none;         /* ← nonaktifkan flex grow */
+    width: 100%;
+    height: 64px;       /* tinggi default (collapsed) */
+    min-width: auto;
+    transition: height .45s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* Expanded: tinggi membesar ke bawah */
+  .fac-card:hover,
+  .fac-card.active-fac {
+    flex: none;         /* override desktop flex:3.2 */
+    height: 200px;      /* tinggi saat expanded */
+  }
+
+  /* Nomor badge: pindah ke kiri-tengah */
+  .fac-num {
+    left: auto;
+    right: 16px;
+    top: 50%;
+  }
+
+  /* Label collapsed: sembunyikan (tidak perlu di mobile) */
+  .fac-collapsed-label { display: none; }
+
+  /* Deskripsi: bisa langsung muncul saat active */
+  .fac-card.active-fac .fac-desc {
+    max-height: 60px;
+    opacity: 1;
+  }
+
+  /* Chevron indicator (baru di mobile) */
+  .fac-chevron {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    font-size: 1rem;
+    color: rgba(255,255,255,.5);
+    z-index: 4;
+    transition: transform .35s ease;
+    display: block;   /* default hidden di desktop */
+  }
+
+  .fac-card.active-fac .fac-chevron {
+    transform: rotate(180deg);
+    color: rgba(255,255,255,.8);
+  }
+}
+  
   .res-inner{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   footer{padding:2rem 1.5rem}
@@ -746,6 +801,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <div class="fac-name" data-i="fn1">View Sabo Dam</div>
         <div class="fac-desc" data-i="fd1">Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi</div>
       </div>
+      <div class="fac-chevron">⌄</div>
     </div>
 
     <!-- Card 2: Tubing -->
@@ -770,6 +826,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <div class="fac-name" data-i="fn2">Sewa Tubing</div>
         <div class="fac-desc" data-i="fd2">Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok</div>
       </div>
+      <div class="fac-chevron">⌄</div>
     </div>
 
     <!-- Card 3: Pendopo -->
@@ -794,9 +851,10 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <div class="fac-name" data-i="fn3">Sewa Pendopo</div>
         <div class="fac-desc" data-i="fd3">Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound</div>
       </div>
+      <div class="fac-chevron">⌄</div>
     </div>
 
-    <!-- Card 4: Edukasi -->
+    <!-- Card 4: Outbound -->
     <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
       <div class="fac-idle-pattern" style="background-color:#0f2a0f"></div>
       <div class="fac-slides">
@@ -812,15 +870,16 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-num">4</div>
-      <div class="fac-collapsed-label" data-i="fl4">Edukasi</div>
+      <div class="fac-collapsed-label" data-i="fl4">Outbound</div>
       <div class="fac-info">
-        <span class="fac-tag" data-i="ft4">Edukasi</span>
-        <div class="fac-name" data-i="fn4">Wisata Edukasi</div>
-        <div class="fac-desc" data-i="fd4">Kenali fungsi Sabo Dam dalam mitigasi bencana vulkanik — cocok untuk pelajar &amp; peneliti</div>
+        <span class="fac-tag" data-i="ft4">Outbound</span>
+        <div class="fac-name" data-i="fn4">Fasilitator Outbound</div>
+        <div class="fac-desc" data-i="fd4">Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan</div>
       </div>
+      <div class="fac-chevron">⌄</div>
     </div>
 
-    <!-- Card 5: Budaya -->
+    <!-- Card 5: Greenhouse -->
     <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
       <div class="fac-idle-pattern" style="background-color:#2a1240"></div>
       <div class="fac-slides">
@@ -836,14 +895,15 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
       </div>
       <div class="fac-overlay"></div>
       <div class="fac-num">5</div>
-      <div class="fac-collapsed-label" data-i="fl5">Budaya</div>
+      <div class="fac-collapsed-label" data-i="fl5">Greenhouse</div>
       <div class="fac-info">
-        <span class="fac-tag" data-i="ft5">Budaya</span>
-        <div class="fac-name" data-i="fn5">Wisata Budaya</div>
-        <div class="fac-desc" data-i="fd5">Saksikan kearifan lokal, tradisi desa, dan hasil kerajinan warga Nglumut</div>
+        <span class="fac-tag" data-i="ft5">Edukasi</span>
+        <div class="fac-name" data-i="fn5">Ekowisata Greenhouse</div>
+        <div class="fac-desc" data-i="fd5">Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya. </div>
       </div>
+      <div class="fac-chevron">⌄</div>
     </div>
-
+    
   </div>
 </section>
 
@@ -909,10 +969,9 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
             <option value="View Sabo Dam" data-i="fo1">View Sabo Dam</option>
             <option value="Sewa Tubing" data-i="fo2">Sewa Tubing</option>
             <option value="Sewa Pendopo" data-i="fo3">Sewa Pendopo</option>
-            <option value="Paket Tubing + Pendopo" data-i="fo4">Paket Tubing + Pendopo</option>
-            <option value="Wisata Edukasi" data-i="fo5">Wisata Edukasi</option>
-            <option value="Wisata Budaya" data-i="fo6">Wisata Budaya</option>
-            <option value="Paket Lengkap" data-i="fo7">Paket Lengkap</option>
+            <option value="Fasilitator Outbound" data-i="fo4">Fasilitator Outbound</option>
+            <option value="Wisata Edukasi" data-i="fo5">Ekowisata Greenhouse</option>
+            <option value="Paket Lengkap" data-i="fo6">Paket Lengkap</option>
           </select>
         </div>
         <div class="form-group">
@@ -956,9 +1015,9 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <div class="sosmed-card-handle" data-i="sm-tt">@desa_wisata_nglumut</div>
       </a>
     </div>
-    <p class="sosmed-embed-hint" data-i="sm-hint">
+    <!-- <p class="sosmed-embed-hint" data-i="sm-hint">
       💡 Embed feed Instagram atau TikTok bisa ditambahkan di sini — hubungi tim pengembang untuk integrasi widget media sosial resmi.
-    </p>
+    </p> -->
   </div>
 </section>
 
@@ -1215,51 +1274,117 @@ window.addEventListener('resize',()=>{
   gTrack.style.transform=`translateX(${gOffset}px)`;
 });
 
-// ── FACILITY CARDS: IDLE PATTERN + HOVER + AUTO-CYCLE + INNER SLIDESHOW ──
-const facCards=Array.from(document.querySelectorAll('.fac-card'));
-let facAutoIdx=0;
-let facAutoTimer=null;
-let isUserHovering=false;
+// ── FACILITY CARDS: IDLE PATTERN + HOVER/CLICK + AUTO-CYCLE + INNER SLIDESHOW ──
 
-// Per-card inner photo slideshow (independent timers)
-const facSlideTimers={};
-facCards.forEach((card,ci)=>{
-  const slides=card.querySelectorAll('.fac-slide');
-  let si=0;
-  facSlideTimers[ci]=setInterval(()=>{
+const facCards = Array.from(document.querySelectorAll('.fac-card'));
+let facAutoIdx     = 0;
+let facAutoTimer   = null;
+let isUserHovering = false;
+
+// Dievaluasi SAAT DIBUTUHKAN, bukan saat halaman load
+function isMobile() {
+  return window.innerWidth <= 960;
+}
+
+// ── Inner slideshow foto per kartu (tidak berubah) ──────────
+const facSlideTimers = {};
+facCards.forEach((card, ci) => {
+  const slides = card.querySelectorAll('.fac-slide');
+  let si = 0;
+  facSlideTimers[ci] = setInterval(() => {
     slides[si].classList.remove('active');
-    si=(si+1)%slides.length;
+    si = (si + 1) % slides.length;
     slides[si].classList.add('active');
-  },2600+(ci*350));
+  }, 2600 + (ci * 350));
 });
 
-function activateFacCard(idx){
-  facCards.forEach(c=>c.classList.remove('active-fac'));
-  if(idx>=0&&idx<facCards.length) facCards[idx].classList.add('active-fac');
-  facAutoIdx=idx;
+// ── activateFacCard: set class aktif, TIDAK touch auto-cycle ─
+function activateFacCard(idx) {
+  facCards.forEach(c => c.classList.remove('active-fac'));
+  if (idx >= 0 && idx < facCards.length) {
+    facCards[idx].classList.add('active-fac');
+  }
+  facAutoIdx = idx;
 }
-function startFacAuto(){
-  facAutoTimer=setInterval(()=>{
-    if(!isUserHovering){
-      facAutoIdx=(facAutoIdx+1)%facCards.length;
+
+// ── Auto-cycle: hanya untuk desktop ─────────────────────────
+function stopFacAuto() {
+  clearInterval(facAutoTimer);
+  facAutoTimer = null;
+}
+
+function startFacAuto() {
+  stopFacAuto();                    // pastikan tidak double-timer
+  if (isMobile()) return;           // ← evaluasi SAAT dipanggil
+  facAutoTimer = setInterval(() => {
+    if (!isUserHovering) {
+      facAutoIdx = (facAutoIdx + 1) % facCards.length;
       activateFacCard(facAutoIdx);
     }
-  },3000);
+  }, 3000);
 }
-function stopFacAuto(){clearInterval(facAutoTimer)}
-// Start auto-cycle at card 0
-activateFacCard(0);
-startFacAuto();
 
-function onFacHover(card){
-  isUserHovering=true;
+// ── Hover handlers: hanya aktif di desktop ──────────────────
+function onFacHover(card) {
+  if (isMobile()) return;           // ← evaluasi SAAT event terjadi
+  isUserHovering = true;
   activateFacCard(facCards.indexOf(card));
 }
-function onFacLeave(){
-  isUserHovering=false;
-  // Restart auto from current position
-  stopFacAuto();startFacAuto();
+
+function onFacLeave() {
+  if (isMobile()) return;           // ← evaluasi SAAT event terjadi
+  isUserHovering = false;
+  stopFacAuto();
+  startFacAuto();
 }
+
+// ── Tap handler: hanya aktif di mobile ──────────────────────
+facCards.forEach((card, idx) => {
+  card.addEventListener('click', () => {
+    if (!isMobile()) return;         // ← evaluasi SAAT tap terjadi
+
+    const isAlreadyActive = card.classList.contains('active-fac');
+
+    // Tutup semua dulu
+    facCards.forEach(c => c.classList.remove('active-fac'));
+
+    // Toggle: jika kartu ini sudah aktif → biarkan tertutup
+    if (!isAlreadyActive) {
+      card.classList.add('active-fac');
+      facAutoIdx = idx;
+    }
+    // Tidak memanggil startFacAuto() — mobile tidak pakai auto-cycle
+  });
+});
+
+// ── syncFacMode: dipanggil saat resize ──────────────────────
+// Memastikan mode berganti bersih tanpa state sisa
+function syncFacMode() {
+  if (isMobile()) {
+    stopFacAuto();                  // masuk mobile → matikan auto-cycle
+    isUserHovering = false;
+    // Tutup semua kartu saat resize ke mobile
+    facCards.forEach(c => c.classList.remove('active-fac'));
+  } else {
+    // Kembali ke desktop → restart auto-cycle dari kartu 0
+    facCards.forEach(c => c.classList.remove('active-fac'));
+    facAutoIdx = 0;
+    activateFacCard(0);
+    startFacAuto();
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────────
+activateFacCard(0);
+startFacAuto();                       // isMobile() dicek di dalam fungsi ini
+
+// Resize listener dengan debounce ringan
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(syncFacMode, 120);  // tunggu resize selesai
+});
+
 
 // ── HISTORY MODAL ──
 function openHistory(){document.getElementById('historyModal').classList.add('open')}
@@ -1277,7 +1402,7 @@ function sendWA(){
   const msg=lang==='en'
     ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note}\n\nPlease confirm, thank you!`
     :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note}\n\nMohon konfirmasinya, terima kasih!`;
-  const phone='628895377632044';
+  const phone='62895377632044';
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
