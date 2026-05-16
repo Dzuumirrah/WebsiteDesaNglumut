@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Desa Wisata Nglumut</title>
+
+  <!--
+    ┌─────────────────────────────────────────────────────────────────┐
+    │  DECAP CMS — Admin Panel                                        │
+    │  File ini JANGAN diubah. Letakkan di: public/admin/index.html   │
+    └─────────────────────────────────────────────────────────────────┘
+  -->
+
+  <!-- Decap CMS core (via CDN, tidak perlu install) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <style>
+    /* Loading screen sementara Decap init */
+    #cms-loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #1b3a2d;
+      z-index: 9999;
+      font-family: sans-serif;
+      color: #f6e05e;
+    }
+    #cms-loading .brand {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    #cms-loading .sub {
+      font-size: 0.85rem;
+      color: rgba(246,224,94,0.6);
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(246,224,94,0.2);
+      border-top-color: #f6e05e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- Loading overlay — hilang otomatis saat Decap siap -->
+  <div id="cms-loading">
+    <div class="brand">🏔️ Desa Wisata Nglumut</div>
+    <div class="sub">Memuat panel admin...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    // Sembunyikan loading screen setelah Decap mount
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const el = document.getElementById('cms-loading');
+        if (el) el.style.display = 'none';
+      }, 1800);
+    });
+  </script>
+
+</body>
+</html>
