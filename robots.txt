@@ -1,0 +1,10 @@
+# robots.txt — Google & Bing crawlers
+User-agent: *
+Allow: /
+Disallow: /assets/private/
+
+# Sitemap location
+Sitemap: https://desawisata-nglumut.netlify.app/sitemap.xml
+
+# Crawl delay (optional - adjust if needed)
+Crawl-delay: 1
