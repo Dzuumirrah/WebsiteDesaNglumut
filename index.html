@@ -436,6 +436,15 @@ nav{
 }
 .btn-wa:hover{background:#1fba59}
 .wa-icon{width:18px;height:18px;fill:white;flex-shrink:0}
+.form-error-msg{
+  display:none;background:#fee;border:1px solid #fcc;border-radius:8px;
+  padding:12px 14px;margin-bottom:16px;color:#c33;font-size:.9rem;
+  animation:slideDown .3s ease-out;
+}
+.form-error-msg.show{display:block}
+.form-error-msg ul{margin:0;padding-left:20px;}
+.form-error-msg li{margin:4px 0;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ══ SOSIAL MEDIA ══ */
 #sosmed{background:white;padding:5rem 4rem;text-align:center}
@@ -948,6 +957,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <div class="fade-in">
       <div class="form-card">
         <div class="form-card-title" data-i="form-t">Form Reservasi</div>
+        <div class="form-error-msg" id="formErrorMsg"></div>
         <div class="form-group">
           <label data-i="f-name">Nama Lengkap / Instansi</label>
           <input type="text" id="f_name" placeholder="Contoh: Budi Santoso / SMAN 1 Magelang">
@@ -1394,14 +1404,37 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHistory()});
 
 // ── WHATSAPP ──
 function sendWA(){
-  const name=document.getElementById('f_name').value.trim()||'(tidak diisi)';
-  const date=document.getElementById('f_date').value||'(belum dipilih)';
-  const guests=document.getElementById('f_guests').value||'?';
-  const fac=document.getElementById('f_fac').value||'(belum dipilih)';
-  const note=document.getElementById('f_note').value.trim()||'-';
+  const errorMsgEl = document.getElementById('formErrorMsg');
+  // Get form values
+  const name=document.getElementById('f_name').value.trim();
+  const date=document.getElementById('f_date').value;
+  const guests=document.getElementById('f_guests').value;
+  const fac=document.getElementById('f_fac').value;
+  const note=document.getElementById('f_note').value.trim();
+
+  // Validation: Check for null/empty required fields
+  const errors = [];
+  if (!name) errors.push(lang==='en' ? 'Name/Institution is required' : 'Nama/Instansi harus diisi');
+  if (!date) errors.push(lang==='en' ? 'Date must be selected' : 'Tanggal harus dipilih');
+  if (!guests) errors.push(lang==='en' ? 'Number of guests is required' : 'Jumlah peserta harus diisi');
+  if (!fac) errors.push(lang==='en' ? 'Activity must be selected' : 'Wahana harus dipilih');
+
+  // Show error message if validation fails
+  if (errors.length > 0) {
+    errorMsgEl.innerHTML = `<ul><li>${errors.join('</li><li>')}</li></ul>`;
+    errorMsgEl.classList.add('show');
+    errorMsgEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  // Clear error message on successful submission
+  errorMsgEl.classList.remove('show');
+  errorMsgEl.innerHTML = '';
+
+  // Prepare message with validated values
   const msg=lang==='en'
-    ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note}\n\nPlease confirm, thank you!`
-    :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note}\n\nMohon konfirmasinya, terima kasih!`;
+    ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note || '-'}\n\nPlease confirm, thank you!`
+    :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note || '-'}\n\nMohon konfirmasinya, terima kasih!`;
   const phone='62895377632044';
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
 }
