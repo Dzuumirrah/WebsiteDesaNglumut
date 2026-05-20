@@ -14,12 +14,40 @@
   # Node.js environment
   environment = { NODE_VERSION = "18" }
 
+# ── Redirect admin ke public/admin ──────────────────────────
+[[redirects]]
+  from = "/admin"
+  to = "/public/admin/index.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/public/admin/:splat"
+  status = 200
+  force = false
+
+# ── Config redirect untuk CMS ──────────────────────────────
+[[redirects]]
+  from = "/admin/config.yml"
+  to = "/public/admin/config.yml"
+  status = 200
+  force = false
+
 # ── Decap CMS: izinkan akses ke /admin ────────────────────────
 [[headers]]
   for = "/admin/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/public/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 # ── Cache: foto uploads di-cache lama, HTML tidak ─────────────
 [[headers]]

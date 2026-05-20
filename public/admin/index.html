@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Desa Wisata Nglumut</title>
 
+  <!-- Netlify CMS Config -->
+  <meta name="cms-config-url" content="/admin/config.yml" />
+
   <!--
     ┌─────────────────────────────────────────────────────────────────┐
     │  DECAP CMS — Admin Panel                                        │
     │  File ini JANGAN diubah. Letakkan di: public/admin/index.html   │
     └─────────────────────────────────────────────────────────────────┘
   -->
+
+  <!-- Netlify Identity Widget — PENTING! -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <!-- Decap CMS core (via CDN, tidak perlu install) -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
@@ -48,6 +54,11 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Hide loading screen ketika CMS app sudah mount */
+    .cms-loading-hide {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -60,13 +71,51 @@
   </div>
 
   <script>
-    // Sembunyikan loading screen setelah Decap mount
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const el = document.getElementById('cms-loading');
-        if (el) el.style.display = 'none';
-      }, 1800);
+    // IMPROVED: Hide loading screen when CMS app actually mounts
+    // Instead of just using a timer, we wait for the real signal
+    
+    const loadingEl = document.getElementById('cms-loading');
+    
+    // Method 1: Wait for Netlify Identity to be ready
+    if (window.netlifyIdentity) {
+      console.log('Netlify Identity loaded, initializing CMS...');
+      window.netlifyIdentity.on('init', user => {
+        console.log('Identity initialized');
+      });
+    }
+    
+    // Method 2: Hide loading after DOM has stabilized
+    // (Decap CMS will have injected its content by then)
+    setTimeout(() => {
+      // Check if Decap CMS app has mounted by checking if the page has changed
+      if (document.body.children.length > 1) {
+        // CMS app has mounted, hide loading
+        if (loadingEl) loadingEl.classList.add('cms-loading-hide');
+      }
+    }, 2500);
+    
+    // Method 3: Force hide after max timeout (safety net)
+    setTimeout(() => {
+      if (loadingEl) {
+        loadingEl.classList.add('cms-loading-hide');
+        console.log('Loading screen hidden (timeout)');
+      }
+    }, 5000);
+
+    // Method 4: Listen for any visibility changes
+    const observer = new MutationObserver(() => {
+      // If CMS has rendered content, hide loading
+      const cmsApp = document.querySelector('div[data-testid="cms-app"]') || 
+                     document.querySelector('.cms-root') ||
+                     (document.body.innerHTML.includes('admin') && document.body.children.length > 1);
+      
+      if (cmsApp && loadingEl) {
+        loadingEl.classList.add('cms-loading-hide');
+        observer.disconnect();
+      }
     });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
   </script>
 
 </body>
