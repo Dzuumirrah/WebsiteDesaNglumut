@@ -3,120 +3,136 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin — Desa Wisata Nglumut</title>
-
-  <!-- Netlify CMS Config -->
+  <title>Admin - Desa Wisata Nglumut</title>
   <meta name="cms-config-url" content="/admin/config.yml" />
-
-  <!--
-    ┌─────────────────────────────────────────────────────────────────┐
-    │  DECAP CMS — Admin Panel                                        │
-    │  File ini JANGAN diubah. Letakkan di: public/admin/index.html   │
-    └─────────────────────────────────────────────────────────────────┘
-  -->
-
-  <!-- Netlify Identity Widget — PENTING! -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-  <!-- Decap CMS core (via CDN, tidak perlu install) -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+  <script src="https://unpkg.com/decap-cms@3/dist/decap-cms.js" defer></script>
   <style>
-    /* Loading screen sementara Decap init */
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background: #f6f7f2;
+    }
+
     #cms-loading {
       position: fixed;
       inset: 0;
+      z-index: 9999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
+      padding: 24px;
+      color: #f7e57b;
       background: #1b3a2d;
-      z-index: 9999;
-      font-family: sans-serif;
-      color: #f6e05e;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
     }
+
     #cms-loading .brand {
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      color: #fff7b0;
+      font-size: 1.35rem;
+      font-weight: 700;
     }
+
     #cms-loading .sub {
-      font-size: 0.85rem;
-      color: rgba(246,224,94,0.6);
+      max-width: 520px;
+      color: rgba(255, 247, 176, 0.76);
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
+
+    #cms-loading .help {
+      display: none;
+      max-width: 620px;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    #cms-loading.is-slow .help {
+      display: block;
+    }
+
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid rgba(246,224,94,0.2);
-      border-top-color: #f6e05e;
-      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      border: 3px solid rgba(247, 229, 123, 0.28);
+      border-top-color: #f7e57b;
+      border-radius: 999px;
       animation: spin 0.8s linear infinite;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Hide loading screen ketika CMS app sudah mount */
     .cms-loading-hide {
       display: none !important;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Loading overlay — hilang otomatis saat Decap siap -->
-  <div id="cms-loading">
-    <div class="brand">🏔️ Desa Wisata Nglumut</div>
+  <div id="cms-loading" aria-live="polite">
+    <div class="brand">Desa Wisata Nglumut</div>
     <div class="sub">Memuat panel admin...</div>
-    <div class="spinner"></div>
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="help">
+      Jika halaman ini berhenti terlalu lama, buka <strong>/admin/</strong> lalu pastikan Netlify
+      Identity dan Git Gateway sudah aktif di dashboard Netlify.
+    </div>
   </div>
 
   <script>
-    // IMPROVED: Hide loading screen when CMS app actually mounts
-    // Instead of just using a timer, we wait for the real signal
-    
-    const loadingEl = document.getElementById('cms-loading');
-    
-    // Method 1: Wait for Netlify Identity to be ready
-    if (window.netlifyIdentity) {
-      console.log('Netlify Identity loaded, initializing CMS...');
-      window.netlifyIdentity.on('init', user => {
-        console.log('Identity initialized');
+    (function () {
+      var loadingEl = document.getElementById('cms-loading');
+      var cmsSelectors = [
+        '[data-testid="cms-app"]',
+        '.nc-root',
+        '.css-1gj57a0-AppMainContainer',
+        '[class*="AppMainContainer"]'
+      ];
+
+      function hasCmsMounted() {
+        return document.body.children.length > 1 || cmsSelectors.some(function (selector) {
+          return document.querySelector(selector);
+        });
+      }
+
+      function hideLoading() {
+        if (loadingEl) {
+          loadingEl.classList.add('cms-loading-hide');
+        }
+      }
+
+      var observer = new MutationObserver(function () {
+        if (hasCmsMounted()) {
+          hideLoading();
+          observer.disconnect();
+        }
       });
-    }
-    
-    // Method 2: Hide loading after DOM has stabilized
-    // (Decap CMS will have injected its content by then)
-    setTimeout(() => {
-      // Check if Decap CMS app has mounted by checking if the page has changed
-      if (document.body.children.length > 1) {
-        // CMS app has mounted, hide loading
-        if (loadingEl) loadingEl.classList.add('cms-loading-hide');
-      }
-    }, 2500);
-    
-    // Method 3: Force hide after max timeout (safety net)
-    setTimeout(() => {
-      if (loadingEl) {
-        loadingEl.classList.add('cms-loading-hide');
-        console.log('Loading screen hidden (timeout)');
-      }
-    }, 5000);
 
-    // Method 4: Listen for any visibility changes
-    const observer = new MutationObserver(() => {
-      // If CMS has rendered content, hide loading
-      const cmsApp = document.querySelector('div[data-testid="cms-app"]') || 
-                     document.querySelector('.cms-root') ||
-                     (document.body.innerHTML.includes('admin') && document.body.children.length > 1);
-      
-      if (cmsApp && loadingEl) {
-        loadingEl.classList.add('cms-loading-hide');
-        observer.disconnect();
-      }
-    });
-    
-    observer.observe(document.body, { childList: true, subtree: true });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      window.addEventListener('load', function () {
+        if (hasCmsMounted()) {
+          hideLoading();
+        }
+      });
+
+      setTimeout(function () {
+        if (hasCmsMounted()) {
+          hideLoading();
+        } else if (loadingEl) {
+          loadingEl.classList.add('is-slow');
+        }
+      }, 7000);
+    })();
   </script>
-
 </body>
 </html>
