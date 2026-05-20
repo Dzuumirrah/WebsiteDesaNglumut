@@ -5,10 +5,10 @@
 
 [build]
   # Perintah yang dijalankan sebelum publish
-  command = "node scripts/build.js"
+  # build.js ada di root repo, bukan di folder scripts/
+  command = "node build.js"
 
   # Folder yang di-publish ke CDN Netlify
-  # (root repo = semua file termasuk index.html hasil build)
   publish = "."
 
   # Node.js environment

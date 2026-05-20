@@ -17,7 +17,8 @@
 const fs   = require('fs');
 const path = require('path');
 
-const ROOT     = path.resolve(__dirname, '..');
+// build.js ada di root repo, jadi __dirname = root
+const ROOT     = path.resolve(__dirname);
 const DATA_DIR = path.join(ROOT, '_data');
 const HTML_IN  = path.join(ROOT, 'index.template.html');
 const HTML_OUT = path.join(ROOT, 'index.html');
@@ -54,7 +55,7 @@ function readFolder(name) {
 function esc(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 // ── Fallback foto jika belum diupload ────────────────────────
-function f(val) { return (val && val.trim() !== '') ? val : 'assets/img_placeholder1.jpg'; }
+function f(val) { return (val && String(val).trim() !== '') ? val : 'assets/img_placeholder1.jpg'; }
 
 // ── Inject: ganti atribut di dalam blok marker ───────────────
 // Marker: <!-- CMS:KEY --> ... <img src="..." alt="..."> ... <!-- /CMS:KEY -->
@@ -82,7 +83,7 @@ console.log('🔨 Nglumut Build Script\n');
 
 if (!fs.existsSync(HTML_IN)) {
   console.error('❌ ERROR: index.template.html tidak ditemukan!');
-  console.error('   Rename index.html → index.template.html terlebih dahulu.');
+  console.error('   Pastikan file index.template.html ada di root repo.');
   process.exit(1);
 }
 
@@ -124,7 +125,7 @@ fasilitas.forEach(fac => {
   html = injectVal (html, `fac-${id}-nama`,  fac.nama      || '');
   html = injectVal (html, `fac-${id}-tag`,   fac.tag       || '');
   html = injectVal (html, `fac-${id}-desc`,  fac.deskripsi || '');
-  // Poster modal — src foto & title diinject ke onclick attribute
+  // Poster modal
   html = injectVal(html, `fac-${id}-poster-src`,   f(fac.foto_1));
   html = injectVal(html, `fac-${id}-poster-title`, fac.nama || id);
 });
@@ -142,9 +143,9 @@ if (kontak.whatsapp) {
   html = injectVal(html, 'kontak-wa-display', `+${kontak.whatsapp}`);
   html = injectVal(html, 'kontak-wa-js',      kontak.whatsapp);
 }
-if (kontak.jam_buka)          html = injectVal(html, 'kontak-jam',   kontak.jam_buka);
-if (kontak.hari_operasional)  html = injectVal(html, 'kontak-hari',  kontak.hari_operasional);
-if (kontak.alamat)            html = injectVal(html, 'kontak-alamat',kontak.alamat);
+if (kontak.jam_buka)         html = injectVal(html, 'kontak-jam',   kontak.jam_buka);
+if (kontak.hari_operasional) html = injectVal(html, 'kontak-hari',  kontak.hari_operasional);
+if (kontak.alamat)           html = injectVal(html, 'kontak-alamat',kontak.alamat);
 
 // ── 6. SOSMED LINKS ──────────────────────────────────────────
 console.log('📱 Sosmed...');
