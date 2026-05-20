@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Wisata Nglumut | Wisata Alam Srumbung Magelang</title>
+<meta name="description" content="Desa Wisata Nglumut di kaki Gunung Merapi menawarkan Taman Sabo Dam, tubing, pendopo, dan pengalaman wisata budaya. Lokasi: Srumbung, Magelang, Jawa Tengah.">
+<meta name="keywords" content="Desa Wisata Nglumut, Taman Sabo Dam, tubing, Magelang, Srumbung, wisata alam, Gunung Merapi, desa wisata Jawa Tengah">
+<meta name="author" content="Desa Wisata Nglumut">
+<meta name="robots" content="index, follow">
+<meta name="language" content="Indonesian">
+<meta name="revisit-after" content="7 days">
+<link rel="canonical" href="https://desawisata-nglumut.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://desawisata-nglumut.netlify.app/">
+<meta property="og:title" content="Desa Wisata Nglumut | Wisata Alam Srumbung Magelang">
+<meta property="og:description" content="Jelajahi pesona Desa Wisata Nglumut — alam yang asri, Taman Sabo Dam, dan budaya lokal yang kaya.">
+<meta property="og:image" content="https://desawisata-nglumut.netlify.app/assets/og-image.jpg">
+<meta property="og:site_name" content="Desa Wisata Nglumut">
+<meta property="og:locale" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://desawisata-nglumut.netlify.app/">
+<meta name="twitter:title" content="Desa Wisata Nglumut">
+<meta name="twitter:description" content="Wisata alam di kaki Gunung Merapi dengan Taman Sabo Dam yang unik.">
+<meta name="twitter:image" content="https://desawisata-nglumut.netlify.app/assets/og-image.jpg">
+<link rel="icon" type="image/png" href="assets/logo_desa-wisata.PNG">
+<link rel="apple-touch-icon" href="assets/logo_desa-wisata.PNG">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--forest:#1b3a2d;--forest-mid:#2a5c44;--forest-lt:#3d8a63;--gold:#b7791f;--gold-lt:#f6e05e;--sand:#f5f0e8;--earth:#6b4c2a;--river:#2b6cb0;--text:#1a202c;--muted:#718096;--border:#e2e8f0;--white:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);font-size:16px;line-height:1.7;overflow-x:hidden}
+img{display:block;width:100%;height:100%;object-fit:cover}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 4rem;height:64px;background:rgba(18,38,28,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.07);transition:background .3s}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold-lt);text-decoration:none;letter-spacing:.3px}
+.logo-circle{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;color:white;font-weight:600}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.85rem;font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.lang-toggle{display:flex;gap:2px;background:rgba(255,255,255,.1);border-radius:20px;padding:3px}
+.lang-btn{padding:4px 14px;border:none;background:transparent;color:rgba(255,255,255,.6);border-radius:16px;cursor:pointer;font-size:.78rem;font-weight:500;font-family:'DM Sans',sans-serif;transition:all .2s}
+.lang-btn.active{background:var(--gold);color:white}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-slides{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hero-slide.active{opacity:1}
+.hero-slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform 7s ease}
+.hero-slide.active .hero-slide-bg{transform:scale(1)}
+.s1{background:linear-gradient(160deg,#071810 0%,#0d2e1e 40%,#133826 100%)}
+.s2{background:linear-gradient(160deg,#060f1c 0%,#0f2236 40%,#1a3a5c 100%)}
+.s3{background:linear-gradient(160deg,#150e05 0%,#2c1a08 40%,#4a2f0f 100%)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 50%,rgba(0,0,0,.72) 100%)}
+.hero-content{position:relative;z-index:2;max-width:1200px;padding:0 4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-logo-wrap{width:100%;aspect-ratio:1;max-width:360px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden}
+.hero-text-wrap{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(183,121,31,.15);border:1px solid rgba(183,121,31,.3);color:rgba(246,224,94,.7);font-size:.65rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:1rem;text-align:left}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,3.5vw,4.2rem);line-height:1.1;color:white;font-weight:600;margin-bottom:1.2rem;text-align:left}
+.hero h1 em{font-style:italic;color:var(--gold-lt)}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.65);max-width:100%;margin:0 0 2.2rem 0;line-height:1.8;text-align:left}
+.hero-ctas{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap}
+.btn-primary{padding:12px 28px;background:var(--gold);color:white;border:none;border-radius:8px;font-size:.9rem;font-weight:500;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;transition:background .2s}
+.btn-primary:hover{background:#9c6716}
+.btn-ghost{padding:12px 28px;background:transparent;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.32);border-radius:8px;font-size:.9rem;font-weight:400;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.07)}
+.hero-dots{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:background .3s,transform .3s}
+.hero-dot.active{background:var(--gold-lt);transform:scale(1.3)}
+#highlights{background:var(--sand);padding:5rem 0}
+.section-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:600;line-height:1.15;color:var(--forest);margin-bottom:.75rem}
+.section-title em{font-style:italic}
+.section-sub{font-size:.95rem;color:var(--muted);line-height:1.8}
+.gallery-wrap{position:relative;overflow:hidden;cursor:grab;user-select:none;background:#f5f0e8;height:500px}
+.gallery-wrap:active{cursor:grabbing}
+.gallery-track{display:flex;gap:0;transition:transform .45s cubic-bezier(.4,0,.2,1);height:100%}
+.gallery-item{flex:0 0 100%;height:100%;overflow:hidden;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.gallery-item-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(255,255,255,.15);transition:transform .8s ease;width:100%;height:100%}
+.gallery-item:hover .gallery-item-bg{transform:scale(1.02)}
+.g1{background:linear-gradient(145deg,#0d2318,#1b4d36)}
+.g2{background:linear-gradient(145deg,#1a3a5c,#2b6cb0)}
+.g3{background:linear-gradient(145deg,#3c2410,#6b4c2a)}
+.g4{background:linear-gradient(145deg,#1a3c1a,#2d6a2d)}
+.g5{background:linear-gradient(145deg,#2a1a40,#5b3d8a)}
+.g6{background:linear-gradient(145deg,#1c2a1a,#3a5c35)}
+.gallery-caption{position:absolute;bottom:0;left:0;right:0;padding:20px 4rem 18px;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.gallery-caption-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:white}
+.gallery-caption-sub{font-size:.85rem;color:rgba(255,255,255,.68);margin-top:4px}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:white;border:1.5px solid white;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:1.1rem;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:all .2s;opacity:.7}
+.gallery-nav:hover{opacity:1;transform:translateY(-50%) scale(1.1)}
+.gallery-nav.prev{left:2rem}
+.gallery-nav.next{right:2rem}
+#profil{background:white;padding:6rem 4rem}
+.profil-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.profil-text .section-sub{max-width:none;margin-top:.75rem}
+.info-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2rem}
+.info-card{padding:1rem 1.1rem;border-radius:10px;background:var(--sand);border:1px solid rgba(0,0,0,.06)}
+.info-card-label{font-size:.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.info-card-val{font-size:.92rem;font-weight:500;color:var(--forest)}
+.map-frame{border-radius:14px;overflow:hidden;border:2px solid var(--border);height:340px}
+.map-frame iframe{width:100%;height:100%;border:none}
+.map-caption{margin-top:10px;font-size:.8rem;color:var(--muted);text-align:center}
+#sejarah{background:var(--forest);padding:6rem 4rem;position:relative;overflow:hidden}
+#sejarah::before{content:'';position:absolute;top:-60px;right:-60px;width:350px;height:350px;border-radius:50%;background:rgba(255,255,255,.03)}
+.sejarah-inner{max-width:800px;margin:0 auto;text-align:center}
+.sejarah-inner .section-eyebrow{color:var(--gold-lt)}
+.sejarah-inner .section-title{color:white}
+.sejarah-synopsis{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.9;margin:1.5rem 0;border-left:3px solid var(--gold);text-align:left;padding-left:1.5rem}
+.sejarah-btn{display:inline-flex;align-items:center;gap:8px;margin-top:1rem;padding:12px 28px;background:transparent;color:var(--gold-lt);border:1px solid rgba(246,224,94,.35);border-radius:8px;font-size:.9rem;font-weight:400;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none}
+.sejarah-btn:hover{background:rgba(246,224,94,.08);border-color:var(--gold-lt)}
+.modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:1.5rem}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal-box{background:white;border-radius:16px;max-width:680px;width:100%;max-height:80vh;overflow-y:auto;padding:2.5rem;transform:translateY(20px);transition:transform .3s}
+.modal-backdrop.open .modal-box{transform:none}
+.modal-head{display:flex;align-items:start;justify-content:space-between;margin-bottom:1.5rem;gap:1rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--forest);line-height:1.2}
+.modal-close{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:white;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s}
+.modal-close:hover{background:var(--sand)}
+.modal-body{font-size:.95rem;color:#4a5568;line-height:1.9}
+.modal-body p{margin-bottom:1rem}
+.modal-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--forest);margin:1.5rem 0 .5rem;font-weight:600}
+.poster-modal-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:1.5rem}
+.poster-modal-backdrop.open{opacity:1;pointer-events:all}
+.poster-modal-box{background:white;border-radius:16px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;padding:1.5rem;transform:scale(.95);transition:transform .3s;display:flex;flex-direction:column}
+.poster-modal-backdrop.open .poster-modal-box{transform:scale(1)}
+.poster-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;gap:1rem}
+.poster-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--forest)}
+.poster-modal-image{width:100%;border-radius:10px;object-fit:cover}
+.fac-idle-pattern{position:absolute;inset:0;background-color:#1b3a2d;background-image:radial-gradient(circle at 25% 25%,rgba(183,121,31,.18) 0%,transparent 60%),url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 2 L50 26 L26 50 L2 26 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='26' cy='26' r='4' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");background-size:auto,52px 52px;transition:opacity .4s ease;z-index:1}
+.fac-card.active-fac .fac-idle-pattern,.fac-card:hover .fac-idle-pattern{opacity:0;pointer-events:none}
+.fac-slides{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity .5s ease}
+.fac-card.active-fac .fac-slides,.fac-card:hover .fac-slides{opacity:1}
+.fac-overlay{z-index:3}
+.fac-info{z-index:4}
+.fac-num{position:absolute;left:50%;top:calc(20%);transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--forest);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1;line-height:1;transition:opacity .3s}
+.fac-card.active-fac .fac-num,.fac-card:hover .fac-num{opacity:0}
+.fac-collapsed-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);color:rgba(255,255,255,.55);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;transition:opacity .3s;z-index:5}
+.fac-card:hover .fac-collapsed-label,.fac-card.active-fac .fac-collapsed-label{opacity:0}
+.sosmed-icon img{width:28px;height:28px;display:block;filter:brightness(0) invert(1)}
+#facilities{background:var(--sand);padding:6rem 4rem}
+.fac-head{max-width:1100px;margin:0 auto 2.5rem}
+.fac-expand-wrap{max-width:1100px;margin:0 auto;display:flex;gap:12px;height:440px}
+.fac-card{flex:1;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;transition:flex .5s cubic-bezier(.4,0,.2,1);border:2px solid rgba(255,255,255,.15);min-width:60px}
+.fac-card:hover,.fac-card.active-fac{flex:3.2}
+.fac-slides{position:absolute;inset:0}
+.fac-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;display:flex;align-items:center;justify-content:center;font-size:5rem;color:rgba(255,255,255,.15)}
+.fac-slide.active{opacity:1}
+.fd1{background:linear-gradient(160deg,#071810,#0f2e1e,#1b4d36)}
+.fd2{background:linear-gradient(160deg,#060f1c,#0f2236,#1a3a5c)}
+.fd3{background:linear-gradient(160deg,#1a1206,#2c1a08,#4a2f0f)}
+.fd4{background:linear-gradient(160deg,#0f1a0f,#1a2f1a,#2d6a2d)}
+.fd5{background:linear-gradient(160deg,#1a0a1a,#2a1240,#4a2a7a)}
+.fac-overlay{position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(0,0,0,.8) 100%)}
+.fac-info{position:absolute;bottom:0;left:0;right:0;padding:1.25rem}
+.fac-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.66rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:rgba(183,121,31,.85);color:white;margin-bottom:6px}
+.fac-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:white;line-height:1.2}
+.fac-desc{font-size:.8rem;color:rgba(255,255,255,.68);margin-top:4px;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
+.fac-card:hover .fac-desc,.fac-card.active-fac .fac-desc{max-height:60px;opacity:1}
+.fac-poster-btn{display:none;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.fac-card:hover .fac-poster-btn,.fac-card.active-fac .fac-poster-btn{display:block}
+.fac-poster-btn:hover{background:rgba(255,255,255,.25);border-color:white}
+#reservation{background:var(--forest);padding:6rem 4rem}
+.res-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.res-left .section-title{color:white}
+.res-left .section-eyebrow{color:var(--gold-lt)}
+.res-left .section-sub{color:rgba(255,255,255,.6)}
+.contact-items{margin-top:2rem;display:flex;flex-direction:column;gap:14px}
+.contact-item{display:flex;align-items:flex-start;gap:14px;color:rgba(255,255,255,.75);font-size:.9rem}
+.c-icon{width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.c-label{font-size:.7rem;color:rgba(255,255,255,.4);letter-spacing:.5px;margin-bottom:2px}
+.c-val{color:rgba(255,255,255,.85)}
+.form-card{background:white;border-radius:16px;padding:2.25rem;border:1px solid var(--border)}
+.form-card-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--forest);margin-bottom:1.5rem}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:5px;letter-spacing:.2px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);background:white;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--river);box-shadow:0 0 0 3px rgba(43,108,176,.1)}
+.form-group textarea{min-height:78px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-wa{width:100%;padding:13px;margin-top:8px;background:#25D366;color:white;border:none;border-radius:8px;font-size:.95rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'DM Sans',sans-serif;transition:background .2s}
+.btn-wa:hover{background:#1fba59}
+.wa-icon{width:18px;height:18px;fill:white;flex-shrink:0}
+.form-error-msg{display:none;background:#fee;border:1px solid #fcc;border-radius:8px;padding:12px 14px;margin-bottom:16px;color:#c33;font-size:.9rem;animation:slideDown .3s ease-out}
+.form-error-msg.show{display:block}
+.form-error-msg ul{margin:0;padding-left:20px}
+.form-error-msg li{margin:4px 0}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+#sosmed{background:white;padding:5rem 4rem;text-align:center}
+.sosmed-inner{max-width:900px;margin:0 auto}
+.sosmed-inner .section-sub{margin:0 auto;max-width:480px}
+.sosmed-grid{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap;margin-top:2.5rem}
+.sosmed-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:1.5rem 2rem;border-radius:14px;border:1.5px solid var(--border);background:white;text-decoration:none;color:var(--text);transition:all .25s;min-width:140px}
+.sosmed-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.1)}
+.sosmed-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.sm-ig .sosmed-icon{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.sm-tt .sosmed-icon{background:#000}
+.sosmed-card-name{font-size:.85rem;font-weight:500;color:var(--text)}
+.sosmed-card-handle{font-size:.76rem;color:var(--muted)}
+#partners{background:var(--sand);padding:4rem}
+.partners-inner{max-width:900px;margin:0 auto;text-align:center}
+.partners-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:2rem}
+.partner-logos{display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap}
+.partner-logo-circle{width:80px;height:80px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:2rem;background:white;transition:transform .3s,box-shadow .3s;cursor:pointer}
+.partner-logo-circle:hover{transform:scale(1.1);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-align:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold-lt);margin-bottom:.4rem}
+.footer-tagline{font-size:.85rem;margin-bottom:1.5rem}
+.footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.footer-links a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.83rem;transition:color .2s}
+.footer-links a:hover{color:var(--gold-lt)}
+.footer-copy{font-size:.76rem;opacity:.4}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+.fac-chevron{display:none;position:absolute;right:14px;bottom:12px;font-size:1rem;color:rgba(255,255,255,.5);z-index:4;transition:transform .35s ease}
+@media(max-width:960px){
+  nav{padding:0 1.25rem}
+  .nav-links{display:none}
+  #highlights,#profil,#sejarah,#facilities,#reservation,#sosmed,#partners{padding:4rem 1.5rem}
+  .gallery-wrap{height:60vw;min-height:220px;max-height:420px}
+  .profil-inner{grid-template-columns:1fr}
+  .info-cards{grid-template-columns:1fr 1fr}
+  .fac-expand-wrap{flex-direction:column;height:auto;gap:8px}
+  .fac-card{flex:none;width:100%;height:64px;min-width:auto;transition:height .45s cubic-bezier(.4,0,.2,1)}
+  .fac-card:hover,.fac-card.active-fac{flex:none;height:200px}
+  .fac-num{left:auto;right:16px;top:50%}
+  .fac-collapsed-label{display:none}
+  .fac-card.active-fac .fac-desc{max-height:60px;opacity:1}
+  .fac-chevron{display:block}
+  .fac-card.active-fac .fac-chevron{transform:rotate(180deg);color:rgba(255,255,255,.8)}
+  .res-inner{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  footer{padding:2rem 1.5rem}
+  .hero-content{grid-template-columns:1fr;gap:2rem;padding:0 2rem;text-align:center}
+  .hero-logo-wrap{max-width:220px}
+  .hero-text-wrap{align-items:center}
+  .hero h1,.hero-sub,.hero-eyebrow{text-align:center}
+  .hero-ctas{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="nav-logo">
+    <div class="logo-circle">N</div>
+    <span data-i="nav-brand">Desa Wisata Nglumut</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#profil" data-i="nav-profil">Profil Desa</a></li>
+    <li><a href="#highlights" data-i="nav-hl">Galeri</a></li>
+    <li><a href="#sejarah" data-i="nav-sej">Sejarah</a></li>
+    <li><a href="#facilities" data-i="nav-fac">Fasilitas</a></li>
+    <li><a href="#reservation" data-i="nav-res">Reservasi</a></li>
+    <li><a href="#sosmed" data-i="nav-sm">Media Sosial</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('id')">ID</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="home" class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active">
+      <div class="hero-slide-bg s1">
+        <!-- CMS:hero-slide-1 --><img src="assets/img_placeholder1.jpg" alt="Pemandangan alam Desa Wisata Nglumut" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:hero-slide-1 -->
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-bg s2">
+        <!-- CMS:hero-slide-2 --><img src="assets/img_placeholder2.jpg" alt="Taman Sabo Dam di kaki Gunung Merapi" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:hero-slide-2 -->
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-bg s3">
+        <!-- CMS:hero-slide-3 --><img src="assets/img_placeholder3.jpg" alt="Kegiatan wisata dan budaya Nglumut" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:hero-slide-3 -->
+      </div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="assets/logo_desa-wisata.PNG" alt="Logo Desa Wisata Nglumut" style="width:100%;height:100%;object-fit:contain">
+    </div>
+    <div class="hero-text-wrap">
+      <div class="hero-eyebrow" data-i="hero-ey">✦ Desa Wisata Nglumut, Magelang</div>
+      <h1 data-i="hero-h1">Surga <em>Alam</em> di Kaki<br>Gunung Merapi</h1>
+      <p class="hero-sub" data-i="hero-p">Jelajahi pesona Desa Wisata Nglumut — alam yang asri, manisnya buah salak, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.</p>
+      <div class="hero-ctas">
+        <a href="#reservation" class="btn-primary" data-i="hero-cta1">Rencanakan Kunjungan →</a>
+        <a href="#highlights" class="btn-ghost" data-i="hero-cta2">Lihat Galeri</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active" onclick="goHeroSlide(0)"></div>
+    <div class="hero-dot" onclick="goHeroSlide(1)"></div>
+    <div class="hero-dot" onclick="goHeroSlide(2)"></div>
+  </div>
+</section>
+
+<!-- ══ GALERI ══ -->
+<section id="highlights">
+  <div style="padding:0 4rem;margin-bottom:2rem">
+    <div class="section-eyebrow" data-i="hl-ey">Foto Unggulan</div>
+    <h2 class="section-title" data-i="hl-h2">Keindahan yang<br><em>Menanti Kamu</em></h2>
+    <p class="section-sub" data-i="hl-sub">Geser untuk melihat lebih banyak foto destinasi terbaik Desa Nglumut.</p>
+  </div>
+  <div class="gallery-wrap" id="galleryWrap">
+    <button class="gallery-nav prev" onclick="shiftGallery(-1)">&#8592;</button>
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item"><div class="gallery-item-bg g1"><!-- CMS:galeri-1 --><img src="assets/img_placeholder1.jpg" alt="Galeri 1" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-1 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-1-judul -->Foto Galeri 1<!-- /CMS:galeri-1-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-1-ket --><!-- /CMS:galeri-1-ket --></div></div></div>
+      <div class="gallery-item"><div class="gallery-item-bg g2"><!-- CMS:galeri-2 --><img src="assets/img_placeholder2.jpg" alt="Galeri 2" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-2 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-2-judul -->Foto Galeri 2<!-- /CMS:galeri-2-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-2-ket --><!-- /CMS:galeri-2-ket --></div></div></div>
+      <div class="gallery-item"><div class="gallery-item-bg g3"><!-- CMS:galeri-3 --><img src="assets/img_placeholder3.jpg" alt="Galeri 3" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-3 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-3-judul -->Foto Galeri 3<!-- /CMS:galeri-3-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-3-ket --><!-- /CMS:galeri-3-ket --></div></div></div>
+      <div class="gallery-item"><div class="gallery-item-bg g4"><!-- CMS:galeri-4 --><img src="assets/img_placeholder1.jpg" alt="Galeri 4" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-4 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-4-judul -->Foto Galeri 4<!-- /CMS:galeri-4-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-4-ket --><!-- /CMS:galeri-4-ket --></div></div></div>
+      <div class="gallery-item"><div class="gallery-item-bg g5"><!-- CMS:galeri-5 --><img src="assets/img_placeholder2.jpg" alt="Galeri 5" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-5 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-5-judul -->Foto Galeri 5<!-- /CMS:galeri-5-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-5-ket --><!-- /CMS:galeri-5-ket --></div></div></div>
+      <div class="gallery-item"><div class="gallery-item-bg g6"><!-- CMS:galeri-6 --><img src="assets/img_placeholder3.jpg" alt="Galeri 6" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:galeri-6 --></div><div class="gallery-caption"><div class="gallery-caption-title"><!-- CMS:galeri-6-judul -->Foto Galeri 6<!-- /CMS:galeri-6-judul --></div><div class="gallery-caption-sub"><!-- CMS:galeri-6-ket --><!-- /CMS:galeri-6-ket --></div></div></div>
+    </div>
+    <button class="gallery-nav next" onclick="shiftGallery(1)">&#8594;</button>
+  </div>
+</section>
+
+<!-- ══ PROFIL DESA ══ -->
+<section id="profil">
+  <div class="profil-inner">
+    <div class="profil-text fade-in">
+      <div class="section-eyebrow" data-i="pr-ey">Profil Desa Wisata</div>
+      <h2 class="section-title" data-i="pr-h2">Desa Nglumut,<br><em>Srumbung, Magelang</em></h2>
+      <p class="section-sub" data-i="pr-p">Desa Nglumut terletak di lereng Gunung Merapi, Kecamatan Srumbung, Kabupaten Magelang, Jawa Tengah. Desa ini dikenal dengan keindahan alam pegunungannya, keberadaan Sabo Dam sebagai ikon wisata, serta budaya masyarakat yang masih terjaga.</p>
+      <div class="info-cards">
+        <div class="info-card"><div class="info-card-label" data-i="ic1l">Kecamatan</div><div class="info-card-val" data-i="ic1v">Srumbung</div></div>
+        <div class="info-card"><div class="info-card-label" data-i="ic2l">Kabupaten</div><div class="info-card-val" data-i="ic2v">Magelang</div></div>
+        <div class="info-card"><div class="info-card-label" data-i="ic3l">Ketinggian</div><div class="info-card-val" data-i="ic3v">±600–900 mdpl</div></div>
+        <div class="info-card"><div class="info-card-label" data-i="ic4l">Ikon Wisata</div><div class="info-card-val" data-i="ic4v">Taman Sabo Dam</div></div>
+        <div class="info-card"><div class="info-card-label" data-i="ic5l">Jam Buka</div><div class="info-card-val" data-i="ic5v"><!-- CMS:kontak-jam -->07.00 – 17.00 WIB<!-- /CMS:kontak-jam --></div></div>
+        <div class="info-card"><div class="info-card-label" data-i="ic6l">Status</div><div class="info-card-val" data-i="ic6v">Desa Wisata Aktif</div></div>
+      </div>
+    </div>
+    <div class="profil-map fade-in">
+      <div class="section-eyebrow" data-i="map-ey">Lokasi</div>
+      <h2 class="section-title" style="font-size:1.5rem;margin-bottom:1rem" data-i="map-h">Temukan Kami di Sini</h2>
+      <div class="map-frame">
+        <iframe src="https://maps.google.com/maps?q=Desa+Nglumut+Srumbung+Magelang&output=embed&z=14" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta Desa Nglumut"></iframe>
+      </div>
+      <p class="map-caption" data-i="map-cap"><!-- CMS:kontak-alamat -->Desa Nglumut, Kec. Srumbung, Kab. Magelang, Jawa Tengah 56484<!-- /CMS:kontak-alamat --></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SEJARAH ══ -->
+<section id="sejarah">
+  <div class="sejarah-inner fade-in">
+    <div class="section-eyebrow" data-i="sej-ey">Warisan &amp; Sejarah</div>
+    <h2 class="section-title" data-i="sej-h2">Jejak Panjang<br><em>Desa Nglumut</em></h2>
+    <blockquote class="sejarah-synopsis" data-i="sej-syn">Desa Nglumut menyimpan sejarah panjang yang erat kaitannya dengan aktivitas vulkanik Gunung Merapi. Selama berabad-abad, masyarakat desa membangun kehidupan di lereng gunung yang subur, dengan kearifan lokal dalam menghadapi ancaman lahar dan sedimen vulkanik. Kehadiran Sabo Dam menjadi tonggak penting dalam sejarah perlindungan kawasan ini...</blockquote>
+    <button class="sejarah-btn" onclick="openHistory()"><span data-i="sej-btn">Baca Selengkapnya</span> &#8594;</button>
+  </div>
+</section>
+
+<!-- ══ FACILITIES ══ -->
+<section id="facilities">
+  <div class="fac-head fade-in">
+    <div class="section-eyebrow" data-i="fac-ey">Wahana &amp; Fasilitas</div>
+    <h2 class="section-title" data-i="fac-h2">Yang Bisa Kamu<br><em>Nikmati di Sini</em></h2>
+    <p class="section-sub" data-i="fac-sub">Hover kartu untuk melihat detail. Setiap wahana tersedia untuk reservasi.</p>
+  </div>
+  <div class="fac-expand-wrap fade-in">
+
+    <!-- Card 1: Sabo Dam -->
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern"></div>
+      <div class="fac-slides">
+        <div class="fac-slide active fd1"><!-- CMS:fac-sabo-dam-foto1 --><img src="assets/img_placeholder1.jpg" alt="View Sabo Dam" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-sabo-dam-foto1 --></div>
+        <div class="fac-slide fd2"><!-- CMS:fac-sabo-dam-foto2 --><img src="assets/img_placeholder2.jpg" alt="View Sabo Dam" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-sabo-dam-foto2 --></div>
+        <div class="fac-slide fd4"><!-- CMS:fac-sabo-dam-foto3 --><img src="assets/img_placeholder3.jpg" alt="View Sabo Dam" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-sabo-dam-foto3 --></div>
+      </div>
+      <div class="fac-overlay"></div>
+      <div class="fac-num">1</div>
+      <div class="fac-collapsed-label" data-i="fl1"><!-- CMS:fac-sabo-dam-nama -->View Sabo Dam<!-- /CMS:fac-sabo-dam-nama --></div>
+      <div class="fac-info">
+        <span class="fac-tag" data-i="ft1"><!-- CMS:fac-sabo-dam-tag -->Ikonik<!-- /CMS:fac-sabo-dam-tag --></span>
+        <div class="fac-name" data-i="fn1"><!-- CMS:fac-sabo-dam-nama -->View Sabo Dam<!-- /CMS:fac-sabo-dam-nama --></div>
+        <div class="fac-desc" data-i="fd1"><!-- CMS:fac-sabo-dam-desc -->Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi<!-- /CMS:fac-sabo-dam-desc --></div>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-sabo-dam-poster-title -->View Sabo Dam<!-- /CMS:fac-sabo-dam-poster-title -->', '<!-- CMS:fac-sabo-dam-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-sabo-dam-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
+      </div>
+      <div class="fac-chevron">⌄</div>
+    </div>
+
+    <!-- Card 2: Tubing -->
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#1a3a5c"></div>
+      <div class="fac-slides">
+        <div class="fac-slide active fd2"><!-- CMS:fac-tubing-foto1 --><img src="assets/img_placeholder2.jpg" alt="Sewa Tubing" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-tubing-foto1 --></div>
+        <div class="fac-slide fd1"><!-- CMS:fac-tubing-foto2 --><img src="assets/img_placeholder3.jpg" alt="Sewa Tubing" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-tubing-foto2 --></div>
+        <div class="fac-slide fd5"><!-- CMS:fac-tubing-foto3 --><img src="assets/img_placeholder1.jpg" alt="Sewa Tubing" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-tubing-foto3 --></div>
+      </div>
+      <div class="fac-overlay"></div>
+      <div class="fac-num">2</div>
+      <div class="fac-collapsed-label" data-i="fl2"><!-- CMS:fac-tubing-nama -->Tubing<!-- /CMS:fac-tubing-nama --></div>
+      <div class="fac-info">
+        <span class="fac-tag" data-i="ft2"><!-- CMS:fac-tubing-tag -->Sewa<!-- /CMS:fac-tubing-tag --></span>
+        <div class="fac-name" data-i="fn2"><!-- CMS:fac-tubing-nama -->Sewa Tubing<!-- /CMS:fac-tubing-nama --></div>
+        <div class="fac-desc" data-i="fd2"><!-- CMS:fac-tubing-desc -->Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok<!-- /CMS:fac-tubing-desc --></div>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-tubing-poster-title -->Sewa Tubing<!-- /CMS:fac-tubing-poster-title -->', '<!-- CMS:fac-tubing-poster-src -->assets/img_placeholder2.jpg<!-- /CMS:fac-tubing-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
+      </div>
+      <div class="fac-chevron">⌄</div>
+    </div>
+
+    <!-- Card 3: Pendopo -->
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#3c2410"></div>
+      <div class="fac-slides">
+        <div class="fac-slide active fd3"><!-- CMS:fac-pendopo-foto1 --><img src="assets/img_placeholder3.jpg" alt="Sewa Pendopo" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-pendopo-foto1 --></div>
+        <div class="fac-slide fd4"><!-- CMS:fac-pendopo-foto2 --><img src="assets/img_placeholder2.jpg" alt="Sewa Pendopo" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-pendopo-foto2 --></div>
+        <div class="fac-slide fd1"><!-- CMS:fac-pendopo-foto3 --><img src="assets/img_placeholder1.jpg" alt="Sewa Pendopo" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-pendopo-foto3 --></div>
+      </div>
+      <div class="fac-overlay"></div>
+      <div class="fac-num">3</div>
+      <div class="fac-collapsed-label" data-i="fl3"><!-- CMS:fac-pendopo-nama -->Pendopo<!-- /CMS:fac-pendopo-nama --></div>
+      <div class="fac-info">
+        <span class="fac-tag" data-i="ft3"><!-- CMS:fac-pendopo-tag -->Sewa<!-- /CMS:fac-pendopo-tag --></span>
+        <div class="fac-name" data-i="fn3"><!-- CMS:fac-pendopo-nama -->Sewa Pendopo<!-- /CMS:fac-pendopo-nama --></div>
+        <div class="fac-desc" data-i="fd3"><!-- CMS:fac-pendopo-desc -->Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound<!-- /CMS:fac-pendopo-desc --></div>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-pendopo-poster-title -->Sewa Pendopo<!-- /CMS:fac-pendopo-poster-title -->', '<!-- CMS:fac-pendopo-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-pendopo-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
+      </div>
+      <div class="fac-chevron">⌄</div>
+    </div>
+
+    <!-- Card 4: Outbound -->
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#0f2a0f"></div>
+      <div class="fac-slides">
+        <div class="fac-slide active fd4"><!-- CMS:fac-outbound-foto1 --><img src="assets/img_placeholder3.jpg" alt="Fasilitator Outbound" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-outbound-foto1 --></div>
+        <div class="fac-slide fd2"><!-- CMS:fac-outbound-foto2 --><img src="assets/img_placeholder2.jpg" alt="Fasilitator Outbound" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-outbound-foto2 --></div>
+        <div class="fac-slide fd1"><!-- CMS:fac-outbound-foto3 --><img src="assets/img_placeholder1.jpg" alt="Fasilitator Outbound" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-outbound-foto3 --></div>
+      </div>
+      <div class="fac-overlay"></div>
+      <div class="fac-num">4</div>
+      <div class="fac-collapsed-label" data-i="fl4"><!-- CMS:fac-outbound-nama -->Outbound<!-- /CMS:fac-outbound-nama --></div>
+      <div class="fac-info">
+        <span class="fac-tag" data-i="ft4"><!-- CMS:fac-outbound-tag -->Outbound<!-- /CMS:fac-outbound-tag --></span>
+        <div class="fac-name" data-i="fn4"><!-- CMS:fac-outbound-nama -->Fasilitator Outbound<!-- /CMS:fac-outbound-nama --></div>
+        <div class="fac-desc" data-i="fd4"><!-- CMS:fac-outbound-desc -->Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan<!-- /CMS:fac-outbound-desc --></div>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-outbound-poster-title -->Fasilitator Outbound<!-- /CMS:fac-outbound-poster-title -->', '<!-- CMS:fac-outbound-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-outbound-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
+      </div>
+      <div class="fac-chevron">⌄</div>
+    </div>
+
+    <!-- Card 5: Greenhouse -->
+    <div class="fac-card" onmouseenter="onFacHover(this)" onmouseleave="onFacLeave()">
+      <div class="fac-idle-pattern" style="background-color:#2a1240"></div>
+      <div class="fac-slides">
+        <div class="fac-slide active fd5"><!-- CMS:fac-greenhouse-foto1 --><img src="assets/img_placeholder1.jpg" alt="Ekowisata Greenhouse" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-greenhouse-foto1 --></div>
+        <div class="fac-slide fd3"><!-- CMS:fac-greenhouse-foto2 --><img src="assets/img_placeholder3.jpg" alt="Ekowisata Greenhouse" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-greenhouse-foto2 --></div>
+        <div class="fac-slide fd4"><!-- CMS:fac-greenhouse-foto3 --><img src="assets/img_placeholder2.jpg" alt="Ekowisata Greenhouse" style="width:100%;height:100%;object-fit:cover"><!-- /CMS:fac-greenhouse-foto3 --></div>
+      </div>
+      <div class="fac-overlay"></div>
+      <div class="fac-num">5</div>
+      <div class="fac-collapsed-label" data-i="fl5"><!-- CMS:fac-greenhouse-nama -->Greenhouse<!-- /CMS:fac-greenhouse-nama --></div>
+      <div class="fac-info">
+        <span class="fac-tag" data-i="ft5"><!-- CMS:fac-greenhouse-tag -->Edukasi<!-- /CMS:fac-greenhouse-tag --></span>
+        <div class="fac-name" data-i="fn5"><!-- CMS:fac-greenhouse-nama -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-nama --></div>
+        <div class="fac-desc" data-i="fd5"><!-- CMS:fac-greenhouse-desc -->Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya.<!-- /CMS:fac-greenhouse-desc --></div>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-greenhouse-poster-title -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-poster-title -->', '<!-- CMS:fac-greenhouse-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-greenhouse-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
+      </div>
+      <div class="fac-chevron">⌄</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ RESERVATION ══ -->
+<section id="reservation">
+  <div class="res-inner">
+    <div class="res-left fade-in">
+      <div class="section-eyebrow" data-i="res-ey">Reservasi &amp; Kontak</div>
+      <h2 class="section-title" data-i="res-h2">Rencanakan<br><em>Kunjunganmu</em></h2>
+      <p class="section-sub" data-i="res-p">Reservasi mudah via WhatsApp — isi form dan pesan otomatis langsung terkirim ke pengelola desa wisata.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label" data-i="cl1">LOKASI</div>
+            <div class="c-val" data-i="cv1"><!-- CMS:kontak-alamat -->Desa Nglumut, Kec. Srumbung, Kab. Magelang<!-- /CMS:kontak-alamat --></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">🕐</div>
+          <div>
+            <div class="c-label" data-i="cl2">JAM BUKA</div>
+            <div class="c-val" data-i="cv2"><!-- CMS:kontak-hari -->Senin – Minggu<!-- /CMS:kontak-hari -->, <!-- CMS:kontak-jam -->07.00 – 17.00 WIB<!-- /CMS:kontak-jam --></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📱</div>
+          <div>
+            <div class="c-label">WHATSAPP</div>
+            <div class="c-val"><!-- CMS:kontak-wa-display -->+62895377632044<!-- /CMS:kontak-wa-display --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="form-card">
+        <div class="form-card-title" data-i="form-t">Form Reservasi</div>
+        <div class="form-error-msg" id="formErrorMsg"></div>
+        <div class="form-group">
+          <label data-i="f-name">Nama Lengkap / Instansi</label>
+          <input type="text" id="f_name" placeholder="Contoh: Budi Santoso / SMAN 1 Magelang">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i="f-date">Tanggal Kunjungan</label>
+            <input type="date" id="f_date">
+          </div>
+          <div class="form-group">
+            <label data-i="f-guests">Jumlah Peserta</label>
+            <input type="number" id="f_guests" min="1" placeholder="20">
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i="f-fac">Fasilitas / Wahana</label>
+          <select id="f_fac">
+            <option value="" data-i="fo0">-- Pilih --</option>
+            <option value="View Sabo Dam">View Sabo Dam</option>
+            <option value="Sewa Tubing">Sewa Tubing</option>
+            <option value="Sewa Pendopo">Sewa Pendopo</option>
+            <option value="Fasilitator Outbound">Fasilitator Outbound</option>
+            <option value="Ekowisata Greenhouse">Ekowisata Greenhouse</option>
+            <option value="Paket Lengkap">Paket Lengkap</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i="f-note">Catatan / Kebutuhan Khusus</label>
+          <textarea id="f_note" placeholder="Kebutuhan transportasi, konsumsi, dll..."></textarea>
+        </div>
+        <button class="btn-wa" onclick="sendWA()">
+          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span data-i="btn-wa">Kirim via WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOSMED ══ -->
+<section id="sosmed">
+  <div class="sosmed-inner fade-in">
+    <div class="section-eyebrow" data-i="sm-ey">Ikuti Kami</div>
+    <h2 class="section-title" data-i="sm-h2">Media Sosial<br><em>Desa Wisata Nglumut</em></h2>
+    <p class="section-sub" data-i="sm-sub">Update terbaru, foto, dan informasi kegiatan wisata bisa kamu temukan di platform kami.</p>
+    <div class="sosmed-grid">
+      <a href="<!-- CMS:sosmed-ig-href -->https://instagram.com/desa_wisata_nglumut<!-- /CMS:sosmed-ig-href -->" target="_blank" class="sosmed-card sm-ig">
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram"></div>
+        <div class="sosmed-card-name">Instagram</div>
+        <div class="sosmed-card-handle" data-i="sm-ig">@desa_wisata_nglumut</div>
+      </a>
+      <a href="<!-- CMS:sosmed-tt-href -->https://tiktok.com/@desa_wisata_nglumut<!-- /CMS:sosmed-tt-href -->" target="_blank" class="sosmed-card sm-tt">
+        <div class="sosmed-icon"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok"></div>
+        <div class="sosmed-card-name">TikTok</div>
+        <div class="sosmed-card-handle" data-i="sm-tt">@desa_wisata_nglumut</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ══ -->
+<section id="partners" style="padding:4rem">
+  <div class="partners-inner fade-in">
+    <div class="partners-eyebrow" data-i="par-ey">Didukung Oleh</div>
+    <div class="partner-logos">
+      <div class="partner-logo-circle" title="Dinas Pariwisata Kab. Magelang">🏛️</div>
+      <div class="partner-logo-circle" title="BBWS Serayu Opak">🌊</div>
+      <div class="partner-logo-circle" title="Universitas">🎓</div>
+      <div class="partner-logo-circle" title="Pemerintah Desa Nglumut">🏘️</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">🏔️ Desa Wisata Nglumut</div>
+  <div class="footer-tagline" data-i="ft-tag">Kec. Srumbung, Kab. Magelang, Jawa Tengah</div>
+  <div class="footer-links">
+    <a href="#profil" data-i="fl1">Profil Desa</a>
+    <a href="#highlights" data-i="fl2">Galeri</a>
+    <a href="#sejarah" data-i="fl3">Sejarah</a>
+    <a href="#facilities" data-i="fl4">Wahana</a>
+    <a href="#reservation" data-i="fl5">Reservasi</a>
+    <a href="#sosmed" data-i="fl6">Media Sosial</a>
+  </div>
+  <div class="footer-copy" data-i="fc">© 2025 Desa Wisata Nglumut — Dikembangkan oleh Tim KKN</div>
+</footer>
+
+<!-- ══ HISTORY MODAL ══ -->
+<div class="modal-backdrop" id="historyModal" onclick="closeHistoryOutside(event)">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" data-i="mod-title">Sejarah Desa Nglumut</div>
+      <button class="modal-close" onclick="closeHistory()">✕</button>
+    </div>
+    <div class="modal-body" data-i="mod-body">
+      <p>Desa Nglumut terletak di lereng barat Gunung Merapi dan telah dihuni selama ratusan tahun. Masyarakat desa sejak dahulu kala telah belajar hidup berdampingan dengan aktivitas vulkanik yang intens dari Merapi, salah satu gunung berapi paling aktif di dunia.</p>
+      <!-- CMS:sejarah-merapi --><img src="assets/img_placeholder1.jpg" alt="Gunung Merapi dari Nglumut" style="width:100%;border-radius:10px;margin:1.5rem 0"><!-- /CMS:sejarah-merapi -->
+      <h3>Hubungan dengan Gunung Merapi</h3>
+      <p>Kehidupan warga Nglumut tak lepas dari pengaruh Merapi. Tanah vulkanik yang subur menjadi berkah tersendiri, menghasilkan pertanian yang produktif — terutama salak pondoh, sayur-mayur, dan palawija. Namun di sisi lain, ancaman lahar dan awan panas selalu menjadi bagian dari keseharian masyarakat.</p>
+      <!-- CMS:sejarah-pertanian --><img src="assets/img_placeholder2.jpg" alt="Lahan Pertanian Desa" style="width:100%;border-radius:10px;margin:1.5rem 0"><!-- /CMS:sejarah-pertanian -->
+      <h3>Pembangunan Sabo Dam</h3>
+      <p>Pasca erupsi besar Merapi, pemerintah membangun infrastruktur Sabo Dam — bendungan pengendali sedimen vulkanik — di sepanjang aliran sungai yang berhulu di lereng Merapi. Sabo Dam di wilayah Nglumut menjadi salah satu yang terpenting dalam sistem perlindungan kawasan, menahan lahar dingin sebelum mencapai permukiman dan lahan pertanian di bawahnya.</p>
+      <!-- CMS:sejarah-sabo-dam --><img src="assets/img_placeholder3.jpg" alt="Taman Sabo Dam" style="width:100%;border-radius:10px;margin:1.5rem 0"><!-- /CMS:sejarah-sabo-dam -->
+      <h3>Transformasi Menjadi Desa Wisata</h3>
+      <p>Berangkat dari potensi alam yang luar biasa dan keberadaan Sabo Dam sebagai daya tarik unik, warga Nglumut bersama pemerintah desa dan dukungan berbagai pihak mulai mengembangkan kawasan ini sebagai destinasi wisata. Dengan semangat gotong royong, Taman Sabo Dam kini menjadi ikon wisata yang menarik pengunjung dari berbagai penjuru untuk menikmati keindahan alam sekaligus belajar tentang teknologi mitigasi bencana.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ POSTER MODAL ══ -->
+<div class="poster-modal-backdrop" id="posterModal" onclick="closePosterModalOutside(event)">
+  <div class="poster-modal-box">
+    <div class="poster-modal-head">
+      <div class="poster-modal-title" id="posterModalTitle">Poster</div>
+      <button class="modal-close" onclick="closePosterModal()">✕</button>
+    </div>
+    <img id="posterModalImage" class="poster-modal-image" src="" alt="Poster">
+  </div>
+</div>
+
+<script>
+// ── TRANSLATIONS ──
+const T={
+  id:{'nav-brand':'Desa Wisata Nglumut','nav-profil':'Profil Desa','nav-hl':'Galeri','nav-sej':'Sejarah','nav-fac':'Fasilitas','nav-res':'Reservasi','nav-sm':'Media Sosial','hero-ey':'✦ Desa Wisata Nglumut, Magelang','hero-h1':'Surga <em>Alam</em> di Kaki<br>Gunung Merapi','hero-p':'Jelajahi pesona Desa Wisata Nglumut — alam yang asri, manisnya buah salak, wisata Sabo Dam, dan keramahan warga yang tak terlupakan.','hero-cta1':'Rencanakan Kunjungan →','hero-cta2':'Lihat Galeri','hl-ey':'Foto Unggulan','hl-h2':'Keindahan yang<br><em>Menanti Kamu</em>','hl-sub':'Geser untuk melihat lebih banyak foto destinasi terbaik Desa Nglumut.','pr-ey':'Profil Desa Wisata','pr-h2':'Desa Nglumut,<br><em>Srumbung, Magelang</em>','pr-p':'Desa Nglumut terletak di lereng Gunung Merapi, Kecamatan Srumbung, Kabupaten Magelang, Jawa Tengah. Desa ini dikenal dengan keindahan alam pegunungannya, keberadaan Sabo Dam sebagai ikon wisata, serta budaya masyarakat yang masih terjaga.','ic1l':'Kecamatan','ic1v':'Srumbung','ic2l':'Kabupaten','ic2v':'Magelang','ic3l':'Ketinggian','ic3v':'±600–900 mdpl','ic4l':'Ikon Wisata','ic4v':'Taman Sabo Dam','ic5l':'Jam Buka','ic5v':'07.00 – 17.00 WIB','ic6l':'Status','ic6v':'Desa Wisata Aktif','map-ey':'Lokasi','map-h':'Temukan Kami di Sini','map-cap':'Desa Nglumut, Kec. Srumbung, Kab. Magelang, Jawa Tengah 56484','sej-ey':'Warisan & Sejarah','sej-h2':'Jejak Panjang<br><em>Desa Nglumut</em>','sej-syn':'Desa Nglumut menyimpan sejarah panjang yang erat kaitannya dengan aktivitas vulkanik Gunung Merapi. Selama berabad-abad, masyarakat desa membangun kehidupan di lereng gunung yang subur, dengan kearifan lokal dalam menghadapi ancaman lahar dan sedimen vulkanik. Kehadiran Sabo Dam menjadi tonggak penting dalam sejarah perlindungan kawasan ini...','sej-btn':'Baca Selengkapnya','fac-ey':'Wahana & Fasilitas','fac-h2':'Yang Bisa Kamu<br><em>Nikmati di Sini</em>','fac-sub':'Hover kartu untuk melihat detail. Setiap wahana tersedia untuk reservasi.','fac-poster-btn':'Lihat Poster','fl1':'View Sabo Dam','fl2':'Tubing','fl3':'Pendopo','fl4':'Outbound','fl5':'Greenhouse','ft1':'Ikonik','ft2':'Sewa','ft3':'Sewa','ft4':'Outbound','ft5':'Edukasi','fn1':'View Sabo Dam','fn2':'Sewa Tubing','fn3':'Sewa Pendopo','fn4':'Fasilitator Outbound','fn5':'Ekowisata Greenhouse','fd1':'Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam Merapi','fd2':'Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok','fd3':'Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound','fd4':'Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan','fd5':'Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya.','res-ey':'Reservasi & Kontak','res-h2':'Rencanakan<br><em>Kunjunganmu</em>','res-p':'Reservasi mudah via WhatsApp — isi form dan pesan otomatis langsung terkirim ke pengelola desa wisata.','cl1':'LOKASI','cv1':'Desa Nglumut, Kec. Srumbung, Kab. Magelang','cl2':'JAM BUKA','cv2':'Senin – Minggu, 07.00 – 17.00 WIB','form-t':'Form Reservasi','f-name':'Nama Lengkap / Instansi','f-date':'Tanggal Kunjungan','f-guests':'Jumlah Peserta','f-fac':'Fasilitas / Wahana','fo0':'-- Pilih --','f-note':'Catatan / Kebutuhan Khusus','btn-wa':'Kirim via WhatsApp','sm-ey':'Ikuti Kami','sm-h2':'Media Sosial<br><em>Desa Wisata Nglumut</em>','sm-sub':'Update terbaru, foto, dan informasi kegiatan wisata bisa kamu temukan di platform kami.','sm-ig':'@desa_wisata_nglumut','sm-tt':'@desa_wisata_nglumut','par-ey':'Didukung Oleh','ft-tag':'Kec. Srumbung, Kab. Magelang, Jawa Tengah','fl1':'Profil Desa','fl2':'Galeri','fl3':'Sejarah','fl4':'Wahana','fl5':'Reservasi','fl6':'Media Sosial','fc':'© 2025 Desa Wisata Nglumut — Dikembangkan oleh Tim KKN','mod-title':'Sejarah Desa Nglumut','mod-body':'<p>Desa Nglumut terletak di lereng barat Gunung Merapi dan telah dihuni selama ratusan tahun.</p><h3>Hubungan dengan Gunung Merapi</h3><p>Kehidupan warga Nglumut tak lepas dari pengaruh Merapi. Tanah vulkanik yang subur menjadi berkah tersendiri, menghasilkan pertanian yang produktif — terutama salak pondoh, sayur-mayur, dan palawija.</p><h3>Pembangunan Sabo Dam</h3><p>Pasca erupsi besar Merapi, pemerintah membangun infrastruktur Sabo Dam di sepanjang aliran sungai yang berhulu di lereng Merapi.</p><h3>Transformasi Menjadi Desa Wisata</h3><p>Dengan semangat gotong royong, Taman Sabo Dam kini menjadi ikon wisata yang menarik pengunjung dari berbagai penjuru.</p>'},
+  en:{'nav-brand':'Nglumut Village','nav-profil':'About','nav-hl':'Gallery','nav-sej':'History','nav-fac':'Facilities','nav-res':'Reserve','nav-sm':'Social Media','hero-ey':'✦ Nglumut Tourism Village, Magelang','hero-h1':'Nature\'s <em>Paradise</em> at the<br>Foot of Merapi','hero-p':'Discover the charm of Nglumut Village — breathtaking scenery, sweetness of salak, Sabo Dam tourism, and the warmth of its people.','hero-cta1':'Plan Your Visit →','hero-cta2':'View Gallery','hl-ey':'Featured Photos','hl-h2':'Beauty That<br><em>Awaits You</em>','hl-sub':'Swipe to see more highlights from Nglumut\'s finest destinations.','pr-ey':'Village Profile','pr-h2':'Nglumut Village,<br><em>Srumbung, Magelang</em>','pr-p':'Nglumut Village sits on the slopes of Mount Merapi in Srumbung District, Magelang Regency, Central Java.','ic1l':'District','ic1v':'Srumbung','ic2l':'Regency','ic2v':'Magelang','ic3l':'Altitude','ic3v':'±600–900 masl','ic4l':'Tourism Icon','ic4v':'Sabo Dam Park','ic5l':'Opening Hours','ic5v':'07:00 – 17:00 WIB','ic6l':'Status','ic6v':'Active Tourism Village','map-ey':'Location','map-h':'Find Us Here','map-cap':'Nglumut Village, Srumbung, Magelang Regency, Central Java 56484','sej-ey':'Heritage & History','sej-h2':'The Long Journey<br><em>of Nglumut</em>','sej-syn':'Nglumut Village holds a rich history deeply intertwined with the volcanic activity of Mount Merapi.','sej-btn':'Read More','fac-ey':'Activities & Facilities','fac-h2':'What You Can<br><em>Enjoy Here</em>','fac-sub':'Hover a card to see details. All activities are available for reservation.','fac-poster-btn':'View Poster','fl1':'Sabo Dam','fl2':'Tubing','fl3':'Pavilion','fl4':'Outbound','fl5':'Greenhouse','ft1':'Iconic','ft2':'Rental','ft3':'Rental','ft4':'Outbound','ft5':'Education','fn1':'Sabo Dam View','fn2':'Tubing Rental','fn3':'Pavilion Rental','fn4':'Outbound Facilitator','fn5':'Greenhouse Ecotourism','fd1':'Premium photo spot with the majestic dam and crystal-clear river amid Merapi\'s greenery','fd2':'Glide down refreshing river currents — thrilling for families and groups','fd3':'Comfortable open-air area for family events and outbound activities','fd4':'Join outbound activities guided by friendly and fun facilitators','fd5':'Enjoy the experience of picking and tasting fresh fruit straight from the source.','res-ey':'Reservation & Contact','res-h2':'Plan Your<br><em>Visit</em>','res-p':'Easy booking via WhatsApp — fill out the form and your message goes straight to the village tourism team.','cl1':'LOCATION','cv1':'Nglumut Village, Srumbung, Magelang','cl2':'OPENING HOURS','cv2':'Mon – Sun, 07:00 – 17:00 WIB','form-t':'Reservation Form','f-name':'Full Name / Institution','f-date':'Visit Date','f-guests':'Number of Guests','f-fac':'Facility / Activity','fo0':'-- Select --','f-note':'Notes / Special Requirements','btn-wa':'Send via WhatsApp','sm-ey':'Follow Us','sm-h2':'Social Media<br><em>Nglumut Tourism Village</em>','sm-sub':'Latest updates, photos, and event information can be found on our platforms.','sm-ig':'@desa_wisata_nglumut','sm-tt':'@desa_wisata_nglumut','par-ey':'Supported By','ft-tag':'Srumbung, Magelang, Central Java','fl1':'Village Profile','fl2':'Gallery','fl3':'History','fl4':'Activities','fl5':'Reserve','fl6':'Social Media','fc':'© 2025 Nglumut Tourism Village — Built by KKN Team','mod-title':'History of Nglumut Village','mod-body':'<p>Nglumut Village sits on the western slopes of Mount Merapi and has been inhabited for hundreds of years.</p><h3>Relationship with Mount Merapi</h3><p>The fertile volcanic soil produces productive agriculture — especially salak pondoh, vegetables, and secondary crops.</p><h3>Sabo Dam Construction</h3><p>Following major Merapi eruptions, the government built Sabo Dam infrastructure along river channels from Merapi\'s slopes.</p><h3>Transformation into a Tourism Village</h3><p>Through the spirit of gotong royong, Sabo Dam Park has become an iconic attraction drawing visitors from all over.</p>'}
+};
+
+let lang='id';
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+  const d=T[l];
+  document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(d[k]!==undefined)el.innerHTML=d[k]});
+}
+
+// ── HERO ──
+let heroIdx=0;
+const heroSlides=document.querySelectorAll('.hero-slide');
+const heroDots=document.querySelectorAll('.hero-dot');
+function goHeroSlide(n){heroSlides[heroIdx].classList.remove('active');heroDots[heroIdx].classList.remove('active');heroIdx=n;heroSlides[heroIdx].classList.add('active');heroDots[heroIdx].classList.add('active')}
+setInterval(()=>goHeroSlide((heroIdx+1)%heroSlides.length),5500);
+
+// ── GALLERY ──
+const gTrack=document.getElementById('galleryTrack');
+const gWrap=document.getElementById('galleryWrap');
+let gIdx=0,isDragging=false,startX=0,startOffset=0,gOffset=0,galleryAutoTimer=null;
+function getItemW(){const item=gTrack.querySelector('.gallery-item');return item?item.getBoundingClientRect().width:gWrap.getBoundingClientRect().width}
+function goGallery(n,fromUser){const items=gTrack.querySelectorAll('.gallery-item');gIdx=((n%items.length)+items.length)%items.length;gOffset=-gIdx*getItemW();gTrack.style.transition='transform .5s cubic-bezier(.4,0,.2,1)';gTrack.style.transform=`translateX(${gOffset}px)`;if(fromUser)resetGalleryAuto()}
+function shiftGallery(dir){goGallery(gIdx+dir,true)}
+function startGalleryAuto(){galleryAutoTimer=setInterval(()=>goGallery(gIdx+1,false),3000)}
+function resetGalleryAuto(){clearInterval(galleryAutoTimer);startGalleryAuto()}
+startGalleryAuto();
+gTrack.addEventListener('mousedown',e=>{isDragging=true;startX=e.clientX;startOffset=gOffset;gTrack.style.transition='none';clearInterval(galleryAutoTimer)});
+document.addEventListener('mousemove',e=>{if(!isDragging)return;gTrack.style.transform=`translateX(${startOffset+(e.clientX-startX)}px)`});
+document.addEventListener('mouseup',e=>{if(!isDragging)return;isDragging=false;const dx=e.clientX-startX;const w=getItemW();if(Math.abs(dx)>w*0.2)gIdx+=(dx<0?1:-1);goGallery(gIdx,true)});
+let tStartX=0;
+gTrack.addEventListener('touchstart',e=>{tStartX=e.touches[0].clientX;startOffset=gOffset;gTrack.style.transition='none';clearInterval(galleryAutoTimer)},{passive:true});
+gTrack.addEventListener('touchmove',e=>{gTrack.style.transform=`translateX(${startOffset+(e.touches[0].clientX-tStartX)}px)`},{passive:true});
+gTrack.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tStartX;const w=getItemW();if(Math.abs(dx)>w*0.2)gIdx+=(dx<0?1:-1);goGallery(gIdx,true)});
+window.addEventListener('resize',()=>{gOffset=-gIdx*getItemW();gTrack.style.transition='none';gTrack.style.transform=`translateX(${gOffset}px)`});
+
+// ── FACILITY CARDS ──
+const facCards=Array.from(document.querySelectorAll('.fac-card'));
+let facAutoIdx=0,facAutoTimer=null,isUserHovering=false;
+function isMobile(){return window.innerWidth<=960}
+const facSlideTimers={};
+facCards.forEach((card,ci)=>{const slides=card.querySelectorAll('.fac-slide');let si=0;facSlideTimers[ci]=setInterval(()=>{slides[si].classList.remove('active');si=(si+1)%slides.length;slides[si].classList.add('active')},2600+(ci*350))});
+function activateFacCard(idx){facCards.forEach(c=>c.classList.remove('active-fac'));if(idx>=0&&idx<facCards.length)facCards[idx].classList.add('active-fac');facAutoIdx=idx}
+function stopFacAuto(){clearInterval(facAutoTimer);facAutoTimer=null}
+function startFacAuto(){stopFacAuto();if(isMobile())return;facAutoTimer=setInterval(()=>{if(!isUserHovering){facAutoIdx=(facAutoIdx+1)%facCards.length;activateFacCard(facAutoIdx)}},3000)}
+function onFacHover(card){if(isMobile())return;isUserHovering=true;activateFacCard(facCards.indexOf(card))}
+function onFacLeave(){if(isMobile())return;isUserHovering=false;stopFacAuto();startFacAuto()}
+facCards.forEach((card,idx)=>{card.addEventListener('click',()=>{if(!isMobile())return;const isActive=card.classList.contains('active-fac');facCards.forEach(c=>c.classList.remove('active-fac'));if(!isActive){card.classList.add('active-fac');facAutoIdx=idx}})});
+function syncFacMode(){if(isMobile()){stopFacAuto();isUserHovering=false;facCards.forEach(c=>c.classList.remove('active-fac'))}else{facCards.forEach(c=>c.classList.remove('active-fac'));facAutoIdx=0;activateFacCard(0);startFacAuto()}}
+activateFacCard(0);startFacAuto();
+let resizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(syncFacMode,120)});
+
+// ── MODALS ──
+function openHistory(){document.getElementById('historyModal').classList.add('open')}
+function closeHistory(){document.getElementById('historyModal').classList.remove('open')}
+function closeHistoryOutside(e){if(e.target===document.getElementById('historyModal'))closeHistory()}
+function openPosterModal(title,imgSrc){document.getElementById('posterModalTitle').textContent=title;document.getElementById('posterModalImage').src=imgSrc;document.getElementById('posterModal').classList.add('open')}
+function closePosterModal(){document.getElementById('posterModal').classList.remove('open')}
+function closePosterModalOutside(e){if(e.target===document.getElementById('posterModal'))closePosterModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHistory();closePosterModal()}});
+
+// ── WHATSAPP ──
+function sendWA(){
+  const errorMsgEl=document.getElementById('formErrorMsg');
+  const name=document.getElementById('f_name').value.trim();
+  const date=document.getElementById('f_date').value;
+  const guests=document.getElementById('f_guests').value;
+  const fac=document.getElementById('f_fac').value;
+  const note=document.getElementById('f_note').value.trim();
+  const errors=[];
+  if(!name)errors.push(lang==='en'?'Name/Institution is required':'Nama/Instansi harus diisi');
+  if(!date)errors.push(lang==='en'?'Date must be selected':'Tanggal harus dipilih');
+  if(!guests)errors.push(lang==='en'?'Number of guests is required':'Jumlah peserta harus diisi');
+  if(!fac)errors.push(lang==='en'?'Activity must be selected':'Wahana harus dipilih');
+  if(errors.length>0){errorMsgEl.innerHTML=`<ul><li>${errors.join('</li><li>')}</li></ul>`;errorMsgEl.classList.add('show');errorMsgEl.scrollIntoView({behavior:'smooth',block:'nearest'});return}
+  errorMsgEl.classList.remove('show');errorMsgEl.innerHTML='';
+  const phone='<!-- CMS:kontak-wa-js -->62895377632044<!-- /CMS:kontak-wa-js -->';
+  const msg=lang==='en'
+    ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note||'-'}\n\nPlease confirm, thank you!`
+    :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note||'-'}\n\nMohon konfirmasinya, terima kasih!`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// ── SMOOTH NAV ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

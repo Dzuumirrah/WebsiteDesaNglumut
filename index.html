@@ -303,6 +303,27 @@ nav{
 .modal-body p{margin-bottom:1rem}
 .modal-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--forest);margin:1.5rem 0 .5rem;font-weight:600}
 
+/* ══ POSTER MODAL ══ */
+.poster-modal-backdrop{
+  position:fixed;inset:0;z-index:9998;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+  padding:1.5rem;
+}
+.poster-modal-backdrop.open{opacity:1;pointer-events:all}
+.poster-modal-box{
+  background:white;border-radius:16px;
+  max-width:600px;width:100%;max-height:85vh;
+  overflow-y:auto;padding:1.5rem;
+  transform:scale(.95);transition:transform .3s;
+  display:flex;flex-direction:column;
+}
+.poster-modal-backdrop.open .poster-modal-box{transform:scale(1)}
+.poster-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;gap:1rem}
+.poster-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--forest)}
+.poster-modal-image{width:100%;border-radius:10px;object-fit:cover}
+
 /* ══ FACILITIES — idle pattern + number badge ══ */
 .fac-idle-pattern{
   position:absolute;inset:0;
@@ -396,6 +417,14 @@ nav{
   transition:max-height .4s ease,opacity .3s;opacity:0;
 }
 .fac-card:hover .fac-desc,.fac-card.active-fac .fac-desc{max-height:60px;opacity:1}
+.fac-poster-btn{
+  display:none;margin-top:10px;padding:8px 16px;
+  background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);
+  border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.fac-card:hover .fac-poster-btn,.fac-card.active-fac .fac-poster-btn{display:block}
+.fac-poster-btn:hover{background:rgba(255,255,255,.25);border-color:white}
 /* ══ RESERVATION ══ */
 #reservation{background:var(--forest);padding:6rem 4rem}
 .res-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
@@ -436,6 +465,15 @@ nav{
 }
 .btn-wa:hover{background:#1fba59}
 .wa-icon{width:18px;height:18px;fill:white;flex-shrink:0}
+.form-error-msg{
+  display:none;background:#fee;border:1px solid #fcc;border-radius:8px;
+  padding:12px 14px;margin-bottom:16px;color:#c33;font-size:.9rem;
+  animation:slideDown .3s ease-out;
+}
+.form-error-msg.show{display:block}
+.form-error-msg ul{margin:0;padding-left:20px;}
+.form-error-msg li{margin:4px 0;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ══ SOSIAL MEDIA ══ */
 #sosmed{background:white;padding:5rem 4rem;text-align:center}
@@ -800,6 +838,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft1">Ikonik</span>
         <div class="fac-name" data-i="fn1">View Sabo Dam</div>
         <div class="fac-desc" data-i="fd1">Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi</div>
+        <button class="fac-poster-btn" onclick="openPosterModal('Sabo Dam', 'assets/img_placeholder1.jpg')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -825,6 +864,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft2">Sewa</span>
         <div class="fac-name" data-i="fn2">Sewa Tubing</div>
         <div class="fac-desc" data-i="fd2">Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok</div>
+        <button class="fac-poster-btn" onclick="openPosterModal('Tubing', 'assets/img_placeholder2.jpg')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -850,6 +890,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft3">Sewa</span>
         <div class="fac-name" data-i="fn3">Sewa Pendopo</div>
         <div class="fac-desc" data-i="fd3">Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound</div>
+        <button class="fac-poster-btn" onclick="openPosterModal('Pendopo', 'assets/img_placeholder3.jpg')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -875,6 +916,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft4">Outbound</span>
         <div class="fac-name" data-i="fn4">Fasilitator Outbound</div>
         <div class="fac-desc" data-i="fd4">Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan</div>
+        <button class="fac-poster-btn" onclick="openPosterModal('Outbound', 'assets/img_placeholder1.jpg')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -900,6 +942,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft5">Edukasi</span>
         <div class="fac-name" data-i="fn5">Ekowisata Greenhouse</div>
         <div class="fac-desc" data-i="fd5">Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya. </div>
+        <button class="fac-poster-btn" onclick="openPosterModal('Greenhouse', 'assets/img_placeholder2.jpg')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -948,6 +991,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <div class="fade-in">
       <div class="form-card">
         <div class="form-card-title" data-i="form-t">Form Reservasi</div>
+        <div class="form-error-msg" id="formErrorMsg"></div>
         <div class="form-group">
           <label data-i="f-name">Nama Lengkap / Instansi</label>
           <input type="text" id="f_name" placeholder="Contoh: Budi Santoso / SMAN 1 Magelang">
@@ -1082,6 +1126,17 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   </div>
 </div>
 
+<!-- ══ POSTER MODAL ══ -->
+<div class="poster-modal-backdrop" id="posterModal" onclick="closePosterModalOutside(event)">
+  <div class="poster-modal-box">
+    <div class="poster-modal-head">
+      <div class="poster-modal-title" id="posterModalTitle">Poster</div>
+      <button class="modal-close" onclick="closePosterModal()">✕</button>
+    </div>
+    <img id="posterModalImage" class="poster-modal-image" src="" alt="Poster">
+  </div>
+</div>
+
 <script>
 // ── TRANSLATIONS ──
 const T={
@@ -1111,6 +1166,7 @@ const T={
     'sej-btn':'Baca Selengkapnya',
     'fac-ey':'Wahana & Fasilitas','fac-h2':'Yang Bisa Kamu<br><em>Nikmati di Sini</em>',
     'fac-sub':'Hover kartu untuk melihat detail. Setiap wahana tersedia untuk reservasi.',
+    'fac-poster-btn':'Lihat Poster',
     'fl1':'View Sabo Dam','fl2':'Tubing','fl3':'Pendopo','fl4':'Edukasi','fl5':'Budaya',
     'ft1':'Ikonik','ft2':'Sewa','ft3':'Sewa','ft4':'Edukasi','ft5':'Budaya',
     'fn1':'View Sabo Dam','fn2':'Sewa Tubing','fn3':'Sewa Pendopo','fn4':'Wisata Edukasi','fn5':'Wisata Budaya',
@@ -1167,6 +1223,7 @@ const T={
     'sej-btn':'Read More',
     'fac-ey':'Activities & Facilities','fac-h2':'What You Can<br><em>Enjoy Here</em>',
     'fac-sub':'Hover a card to see details. All activities are available for reservation.',
+    'fac-poster-btn':'View Poster',
     'fl1':'Sabo Dam View','fl2':'Tubing','fl3':'Pavilion','fl4':'Education','fl5':'Culture',
     'ft1':'Iconic','ft2':'Rental','ft3':'Rental','ft4':'Education','ft5':'Culture',
     'fn1':'Sabo Dam View','fn2':'Tubing Rental','fn3':'Pavilion Rental','fn4':'Educational Tour','fn5':'Cultural Tourism',
@@ -1392,16 +1449,49 @@ function closeHistory(){document.getElementById('historyModal').classList.remove
 function closeHistoryOutside(e){if(e.target===document.getElementById('historyModal'))closeHistory()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHistory()});
 
+// ── POSTER MODAL ──
+function openPosterModal(title, imgSrc){
+  document.getElementById('posterModalTitle').textContent = title;
+  document.getElementById('posterModalImage').src = imgSrc;
+  document.getElementById('posterModal').classList.add('open');
+}
+function closePosterModal(){document.getElementById('posterModal').classList.remove('open')}
+function closePosterModalOutside(e){if(e.target===document.getElementById('posterModal'))closePosterModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePosterModal()});
+
 // ── WHATSAPP ──
 function sendWA(){
-  const name=document.getElementById('f_name').value.trim()||'(tidak diisi)';
-  const date=document.getElementById('f_date').value||'(belum dipilih)';
-  const guests=document.getElementById('f_guests').value||'?';
-  const fac=document.getElementById('f_fac').value||'(belum dipilih)';
-  const note=document.getElementById('f_note').value.trim()||'-';
+  const errorMsgEl = document.getElementById('formErrorMsg');
+  // Get form values
+  const name=document.getElementById('f_name').value.trim();
+  const date=document.getElementById('f_date').value;
+  const guests=document.getElementById('f_guests').value;
+  const fac=document.getElementById('f_fac').value;
+  const note=document.getElementById('f_note').value.trim();
+
+  // Validation: Check for null/empty required fields
+  const errors = [];
+  if (!name) errors.push(lang==='en' ? 'Name/Institution is required' : 'Nama/Instansi harus diisi');
+  if (!date) errors.push(lang==='en' ? 'Date must be selected' : 'Tanggal harus dipilih');
+  if (!guests) errors.push(lang==='en' ? 'Number of guests is required' : 'Jumlah peserta harus diisi');
+  if (!fac) errors.push(lang==='en' ? 'Activity must be selected' : 'Wahana harus dipilih');
+
+  // Show error message if validation fails
+  if (errors.length > 0) {
+    errorMsgEl.innerHTML = `<ul><li>${errors.join('</li><li>')}</li></ul>`;
+    errorMsgEl.classList.add('show');
+    errorMsgEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  // Clear error message on successful submission
+  errorMsgEl.classList.remove('show');
+  errorMsgEl.innerHTML = '';
+
+  // Prepare message with validated values
   const msg=lang==='en'
-    ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note}\n\nPlease confirm, thank you!`
-    :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note}\n\nMohon konfirmasinya, terima kasih!`;
+    ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note || '-'}\n\nPlease confirm, thank you!`
+    :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note || '-'}\n\nMohon konfirmasinya, terima kasih!`;
   const phone='62895377632044';
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
 }
