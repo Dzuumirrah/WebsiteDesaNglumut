@@ -22,6 +22,8 @@ const ROOT     = path.resolve(__dirname);
 const DATA_DIR = path.join(ROOT, '_data');
 const HTML_IN  = path.join(ROOT, 'index.template.html');
 const HTML_OUT = path.join(ROOT, 'index.html');
+const ADMIN_SRC = path.join(ROOT, 'public', 'admin');
+const ADMIN_OUT = path.join(ROOT, 'admin');
 
 // ── Parse frontmatter YAML sederhana (tanpa library) ─────────
 function parseFrontmatter(raw) {
@@ -56,6 +58,16 @@ function esc(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 // ── Fallback foto jika belum diupload ────────────────────────
 function f(val) { return (val && String(val).trim() !== '') ? val : 'assets/img_placeholder1.jpg'; }
+
+function copyAdminFiles() {
+  if (!fs.existsSync(ADMIN_SRC)) {
+    console.warn('  Warning: public/admin tidak ditemukan');
+    return false;
+  }
+
+  fs.cpSync(ADMIN_SRC, ADMIN_OUT, { recursive: true });
+  return true;
+}
 
 // ── Inject: ganti atribut di dalam blok marker ───────────────
 // Marker: <!-- CMS:KEY --> ... <img src="..." alt="..."> ... <!-- /CMS:KEY -->
@@ -154,4 +166,10 @@ if (kontak.tiktok)    html = injectVal(html, 'sosmed-tt-href', kontak.tiktok);
 
 // ── Tulis output ─────────────────────────────────────────────
 fs.writeFileSync(HTML_OUT, html, 'utf8');
-console.log('\n✅ index.html berhasil di-generate!\n');
+console.log('📄 index.html berhasil di-generate');
+
+if (copyAdminFiles()) {
+  console.log('🛠️  Admin CMS berhasil di-generate ke admin/');
+}
+
+console.log('\n✅ Build selesai!\n');

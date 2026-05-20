@@ -16,6 +16,18 @@
 
 # ── Redirect admin ke public/admin ──────────────────────────
 [[redirects]]
+  from = "/config.yml"
+  to = "/admin/config.yml"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/admin/config.yml"
+  to = "/public/admin/config.yml"
+  status = 200
+  force = false
+
+[[redirects]]
   from = "/admin"
   to = "/public/admin/index.html"
   status = 200
@@ -24,13 +36,6 @@
 [[redirects]]
   from = "/admin/*"
   to = "/public/admin/:splat"
-  status = 200
-  force = false
-
-# ── Config redirect untuk CMS ──────────────────────────────
-[[redirects]]
-  from = "/admin/config.yml"
-  to = "/public/admin/config.yml"
   status = 200
   force = false
 
