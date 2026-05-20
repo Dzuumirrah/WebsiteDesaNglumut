@@ -1,0 +1,12 @@
+{
+  "name": "desa-wisata-nglumut",
+  "version": "1.0.0",
+  "description": "Website Desa Wisata Nglumut — Srumbung, Magelang",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js && echo 'Buka index.html di browser'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
