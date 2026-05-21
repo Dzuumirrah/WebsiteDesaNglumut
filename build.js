@@ -25,6 +25,29 @@ const HTML_OUT = path.join(ROOT, 'index.html');
 const ADMIN_SRC = path.join(ROOT, 'public', 'admin');
 const ADMIN_OUT = path.join(ROOT, 'admin');
 
+const facilityFallbacks = {
+  'sabo-dam': [
+    'assets/sabo-dam1.jpg',
+    'assets/sabo-dam2.jpg',
+    'assets/sabo-dam3.jpg'
+  ],
+  'tubing': [
+    'assets/tubing-1.jpeg',
+    'assets/tubing-1.jpeg',
+    'assets/tubing-1.jpeg'
+  ],
+  'outbound': [
+    'assets/outbound.jpg',
+    'assets/outbound.jpg',
+    'assets/outbound.jpg'
+  ],
+  'greenhouse': [
+    'assets/greenhouse1.jpg',
+    'assets/greenhouse2.jpg',
+    'assets/greenhouse3.jpg'
+  ]
+};
+
 // ── Parse frontmatter YAML sederhana (tanpa library) ─────────
 function parseFrontmatter(raw) {
   const match = raw.match(/^---\n([\s\S]*?)\n---/);
@@ -57,7 +80,18 @@ function readFolder(name) {
 function esc(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 // ── Fallback foto jika belum diupload ────────────────────────
-function f(val) { return (val && String(val).trim() !== '') ? val : 'assets/img_placeholder1.jpg'; }
+function f(val, fallback = 'assets/img_placeholder1.jpg') {
+  if (!val || String(val).trim() === '') {
+    return fallback;
+  }
+
+  const cleaned = String(val).replace(/^\//, '');
+  const fullPath = path.join(ROOT, cleaned);
+
+  return fs.existsSync(fullPath)
+    ? val
+    : fallback;
+}
 
 function copyAdminFiles() {
   if (!fs.existsSync(ADMIN_SRC)) {
@@ -131,9 +165,10 @@ galeri.forEach(g => {
 console.log('🎯 Fasilitas...');
 fasilitas.forEach(fac => {
   const id = fac.id;
-  html = injectAttr(html, `fac-${id}-foto1`, 'src', f(fac.foto_1));
-  html = injectAttr(html, `fac-${id}-foto2`, 'src', f(fac.foto_2));
-  html = injectAttr(html, `fac-${id}-foto3`, 'src', f(fac.foto_3));
+  const fb = facilityFallbacks[id] || [];
+  html = injectAttr(html, `fac-${id}-foto1`, 'src', f(fac.foto_1, fb[0]));
+  html = injectAttr(html, `fac-${id}-foto2`, 'src', f(fac.foto_2, fb[1]));
+  html = injectAttr(html, `fac-${id}-foto3`, 'src', f(fac.foto_3, fb[2]));
   html = injectVal (html, `fac-${id}-nama`,  fac.nama      || '');
   html = injectVal (html, `fac-${id}-tag`,   fac.tag       || '');
   html = injectVal (html, `fac-${id}-desc`,  fac.deskripsi || '');
