@@ -190,6 +190,42 @@ collections:
         widget: "image"
         required: false
         hint: "Foto ketiga dalam slideshow kartu ini (opsional)"
+        
+      - label: "Aktifkan Poster?"
+        name: "poster_enabled"
+        widget: "boolean"
+        default: false
+        hint: "Jika aktif, tombol lihat poster akan muncul"
+
+      - label: "Poster 1 Judul"
+        name: "poster_1_judul"
+        widget: "string"
+        required: false
+
+      - label: "Poster 1 Foto"
+        name: "poster_1_foto"
+        widget: "image"
+        required: false
+
+      - label: "Poster 2 Judul"
+        name: "poster_2_judul"
+        widget: "string"
+        required: false
+
+      - label: "Poster 2 Foto"
+        name: "poster_2_foto"
+        widget: "image"
+        required: false
+
+      - label: "Poster 3 Judul"
+        name: "poster_3_judul"
+        widget: "string"
+        required: false
+
+      - label: "Poster 3 Foto"
+        name: "poster_3_foto"
+        widget: "image"
+        required: false
 
 
   # ────────────────────────────────────────────────────────────────

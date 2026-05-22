@@ -107,7 +107,10 @@ function copyAdminFiles() {
 // Marker: <!-- CMS:KEY --> ... <img src="..." alt="..."> ... <!-- /CMS:KEY -->
 function injectAttr(html, key, attr, val) {
   const O = `<!-- CMS:${key} -->`, C = `<!-- /CMS:${key} -->`;
-  if (!html.includes(O)) { console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); return html; }
+  if (!html.includes(O)) { 
+    console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
+    return html; 
+  }
   return html.replace(
     new RegExp(`(${esc(O)}[\\s\\S]*?)${attr}="[^"]*"([\\s\\S]*?${esc(C)})`, 'g'),
     `$1${attr}="${val}"$2`
@@ -116,12 +119,23 @@ function injectAttr(html, key, attr, val) {
 
 // ── Inject: ganti teks/nilai di antara marker inline ─────────
 // Marker: <!-- CMS:KEY -->nilai lama<!-- /CMS:KEY -->
-function injectVal(html, key, val) {
-  const O = `<!-- CMS:${key} -->`, C = `<!-- /CMS:${key} -->`;
-  if (!html.includes(O)) { console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); return html; }
-  return html.replace(new RegExp(`${esc(O)}[\\s\\S]*?${esc(C)}`, 'g'), `${O}${val}${C}`);
+function injectVal(html, key, value) {
+  const safeValue = value ?? '';
+
+  const re = new RegExp(
+    `<!--\\s*CMS:${escapeRegex(key)}\\s*-->[\\s\\S]*?<!--\\s*\\/CMS:${escapeRegex(key)}\\s*-->`,
+    'g'
+  );
+
+  return html.replace(
+    re,
+    `<!-- CMS:${key} -->${safeValue}<!-- /CMS:${key} -->`
+  );
 }
 
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 // ════════════════════════════════════════════════════════════════
 //  MAIN
 // ════════════════════════════════════════════════════════════════
@@ -166,15 +180,28 @@ console.log('🎯 Fasilitas...');
 fasilitas.forEach(fac => {
   const id = fac.id;
   const fb = facilityFallbacks[id] || [];
+  
+  // Inject foto fasilitas (3 gambar di carousel)
   html = injectAttr(html, `fac-${id}-foto1`, 'src', f(fac.foto_1, fb[0]));
   html = injectAttr(html, `fac-${id}-foto2`, 'src', f(fac.foto_2, fb[1]));
   html = injectAttr(html, `fac-${id}-foto3`, 'src', f(fac.foto_3, fb[2]));
+  
+  // Inject nama, tag, deskripsi
   html = injectVal (html, `fac-${id}-nama`,  fac.nama      || '');
   html = injectVal (html, `fac-${id}-tag`,   fac.tag       || '');
   html = injectVal (html, `fac-${id}-desc`,  fac.deskripsi || '');
   // Poster modal
-  html = injectVal(html, `fac-${id}-poster-src`,   f(fac.foto_1));
-  html = injectVal(html, `fac-${id}-poster-title`, fac.nama || id);
+  html = injectVal(
+    html,
+    `fac-${id}-poster-src`,
+    f(fac.foto_1, fb[0] || 'assets/img_placeholder1.jpg')
+  );
+
+  html = injectVal(
+    html,
+    `fac-${id}-poster-title`,
+    fac.nama || id
+  );
 });
 
 // ── 4. SEJARAH MODAL ─────────────────────────────────────────
