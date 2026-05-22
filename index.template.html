@@ -386,10 +386,10 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft1"><!-- CMS:fac-sabo-dam-tag -->Ikonik<!-- /CMS:fac-sabo-dam-tag --></span>
         <div class="fac-name" data-i="fn1"><!-- CMS:fac-sabo-dam-nama -->View Sabo Dam<!-- /CMS:fac-sabo-dam-nama --></div>
         <div class="fac-desc" data-i="fd1"><!-- CMS:fac-sabo-dam-desc -->Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi<!-- /CMS:fac-sabo-dam-desc --></div>
-        <button
+        <button style="display: none;"
         class="fac-poster-btn"
         data-title="<!-- CMS:fac-sabo-dam-poster-title -->View Sabo Dam<!-- /CMS:fac-sabo-dam-poster-title -->"
-        data-poster="<!-- CMS:fac-sabo-dam-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-sabo-dam-poster-src -->"
+        data-poster="<!-- CMS:fac-sabo-dam-poster-src -->assets/poster_outbound-1.jpg<!-- /CMS:fac-sabo-dam-poster-src -->"
         data-i="fac-poster-btn"
         >
           Lihat Poster
@@ -416,7 +416,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <button 
           class="fac-poster-btn" 
           data-title="<!-- CMS:fac-tubing-poster-title -->Sewa Tubing<!-- /CMS:fac-tubing-poster-title -->"
-          data-poster="<!-- CMS:fac-tubing-poster-src -->assets/img_placeholder2.jpg<!-- /CMS:fac-tubing-poster-src -->"
+          data-poster="<!-- CMS:fac-tubing-poster-src -->assets/poster_outbound-1.jpg<!-- /CMS:fac-tubing-poster-src -->"
           data-i="fac-poster-btn"
         >
           Lihat Poster
@@ -443,7 +443,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <button 
           class="fac-poster-btn" 
           data-title="<!-- CMS:fac-pendopo-poster-title -->Sewa Pendopo<!-- /CMS:fac-pendopo-poster-title -->"
-          data-poster="<!-- CMS:fac-pendopo-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-pendopo-poster-src -->"
+          data-poster="<!-- CMS:fac-pendopo-poster-src -->assets/poster_outbound-2.jpg<!-- /CMS:fac-pendopo-poster-src -->"
           data-i="fac-poster-btn"
         >
           Lihat Poster
@@ -470,7 +470,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <button 
           class="fac-poster-btn" 
           data-title="<!-- CMS:fac-outbound-poster-title -->Fasilitator Outbound<!-- /CMS:fac-outbound-poster-title -->"
-          data-poster="<!-- CMS:fac-outbound-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-outbound-poster-src -->"
+          data-poster="<!-- CMS:fac-outbound-poster-src -->assets/poster_outbound-1.jpg<!-- /CMS:fac-outbound-poster-src -->"
           data-i="fac-poster-btn"
         >
           Lihat Poster
@@ -496,7 +496,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <div class="fac-desc" data-i="fd5"><!-- CMS:fac-greenhouse-desc -->Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya.<!-- /CMS:fac-greenhouse-desc --></div>
         <button class="fac-poster-btn" 
           data-title="<!-- CMS:fac-greenhouse-poster-title -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-poster-title -->"
-          data-poster="<!-- CMS:fac-greenhouse-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-greenhouse-poster-src -->"
+          data-poster="<!-- CMS:fac-greenhouse-poster-src -->assets/poster_outbound-1.jpg<!-- /CMS:fac-greenhouse-poster-src -->"
           onclick="openPosterModal(this)"
           data-i="fac-poster-btn"
         >
@@ -731,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.fac-poster-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const title = btn.dataset.title || 'Poster';
-      const imgSrc = btn.dataset.poster || 'assets/img_placeholder1.jpg';
+      const imgSrc = btn.dataset.poster || 'assets/poster_outbound-1.jpeg';
 
       openPosterModal(btn);
     });
@@ -751,10 +751,10 @@ function openPosterModal(btn) {
 
   const img = document.getElementById('posterModalImage');
 
-  img.src = imgSrc || 'assets/img_placeholder1.jpg';
+  img.src = imgSrc;
 
   img.onerror = () => {
-    img.src = 'assets/img_placeholder1.jpg';
+    img.src = 'assets/poster_outbound-1.jpeg';
   };
 
   document
