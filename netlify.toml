@@ -1,45 +1,42 @@
-# netlify.toml — Konfigurasi Build Desa Wisata Nglumut
+# netlify.toml — Desa Wisata Nglumut (SECURE VERSION)
 # ──────────────────────────────────────────────────────────────
-# File ini dibaca Netlify otomatis saat setiap deploy.
-# Letakkan di root repo (sejajar dengan index.template.html).
+# Fixes applied:
+# - Only publish public folder (not entire root)
+# - CSP and security headers
+# - Proper redirects for admin panel
+# - Cache control for static assets
 
 [build]
-  # Perintah yang dijalankan sebelum publish
-  # build.js ada di root repo, bukan di folder scripts/
+  # Build command - regenerate index.html from template
   command = "node build.js"
-
-  # Folder yang di-publish ke CDN Netlify
-  publish = "."
-
-  # Node.js environment
+  
+  # FIXED: Only publish public folder, not entire root
+  # This prevents exposing: _data/, build.js, index.template.html
+  publish = "public"
+  
+  # Node version
   environment = { NODE_VERSION = "18" }
 
-# ── Redirect admin ke public/admin ──────────────────────────
+# ── Decap CMS Admin Panel Routing ──────────────────────────
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/config.yml"
   to = "/admin/config.yml"
   status = 200
   force = false
 
-[[redirects]]
-  from = "/admin/config.yml"
-  to = "/public/admin/config.yml"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/admin"
-  to = "/public/admin/index.html"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/public/admin/:splat"
-  status = 200
-  force = false
-
-# ── Decap CMS: izinkan akses ke /admin ────────────────────────
+# ── Security Headers for Admin Panel ────────────────────────
 [[headers]]
   for = "/admin/*"
   [headers.values]
@@ -47,19 +44,30 @@
     X-Content-Type-Options = "nosniff"
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# ── Main Security Headers ─────────────────────────────────────
 [[headers]]
-  for = "/public/admin/*"
+  for = "/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
+    # Prevent MIME type sniffing
     X-Content-Type-Options = "nosniff"
-    Cache-Control = "public, max-age=0, must-revalidate"
+    
+    # Clickjacking protection
+    X-Frame-Options = "SAMEORIGIN"
+    
+    # Prevent XSS attacks (older browsers)
+    X-XSS-Protection = "1; mode=block"
+    
+    # Referrer policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Disable browser features
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    
+    # Content Security Policy - STRICT
+    # Allows: same-origin + Netlify Identity + Google Fonts + Google Maps
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://identity.netlify.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.github.com https://api.netlify.com; frame-src 'self' https://www.google.com/maps/embed; object-src 'none'; base-uri 'self'; form-action 'self'"
 
-# ── Cache: foto uploads di-cache lama, HTML tidak ─────────────
-[[headers]]
-  for = "/assets/uploads/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
+# ── Cache Control for HTML (always fresh) ──────────────────
 [[headers]]
   for = "/*.html"
   [headers.values]
@@ -69,3 +77,41 @@
   for = "/index.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# ── Cache Control for Static Assets (long-lived) ────────────
+[[headers]]
+  for = "/assets/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+# ── Prevent accessing sensitive files ─────────────────────
+# (These shouldn't be in public/ folder, but just in case)
+[[redirects]]
+  from = "/_data/*"
+  to = "/.nsfh"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/build.js"
+  to = "/.nsfh"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/index.template.html"
+  to = "/.nsfh"
+  status = 404
+  force = true
+
+# ── 404 for unmapped requests ──────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false

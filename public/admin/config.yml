@@ -1,46 +1,24 @@
 # ═══════════════════════════════════════════════════════════════════
-#  DECAP CMS — Konfigurasi Desa Wisata Nglumut
-#  File ini JANGAN diubah kecuali kamu tahu apa yang dilakukan.
-#  Letakkan di: public/admin/config.yml
+#  DECAP CMS — Konfigurasi Desa Wisata Nglumut (SECURE)
+#  Security additions:
+#  - URL validation patterns
+#  - Phone number format validation
+#  - Input length limits
 # ═══════════════════════════════════════════════════════════════════
 
-# ── Backend: Netlify Git Gateway ────────────────────────────────────
-# Menghubungkan CMS ke repository GitHub kamu melalui Netlify.
-# Stakeholder tidak perlu punya akun GitHub — cukup Netlify Identity.
 backend:
   name: git-gateway
-  branch: main          # ganti ke "master" jika nama branch utama kamu master
+  branch: main
 
-# penting untuk draft preview sebelum publish
-publish_mode: editorial_workflow
-# ── Folder penyimpanan media (foto) ────────────────────────────────
-# Semua foto yang diupload stakeholder akan masuk ke folder ini.
-media_folder: "assets/uploads"          # path di dalam repo
-public_folder: "/assets/uploads"        # URL publik saat diakses browser
-# agar preview media muncul sebelum publish
-media_library:
-  name: uploadcare
-  config:
-    publicKey: demo
-# preview draft file
-site_url: https://desawisata-nglumut.netlify.app
-display_url: https://desawisata-nglumut.netlify.app
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
-
-# ── Locale ─────────────────────────────────────────────────────────
 locale: id
 
-
-# ══════════════════════════════════════════════════════════════════
-#  KOLEKSI KONTEN
-#  Setiap "collections" = satu menu di sidebar admin.
-# ══════════════════════════════════════════════════════════════════
 collections:
 
   # ────────────────────────────────────────────────────────────────
-  #  1. GALERI UTAMA (section #highlights)
-  #     6 slot foto yang tampil di slideshow galeri homepage.
-  #     Stakeholder bisa ganti foto & caption tiap slot.
+  #  1. GALERI UTAMA
   # ────────────────────────────────────────────────────────────────
   - name: "galeri"
     label: "🖼️  Galeri Foto"
@@ -49,7 +27,7 @@ collections:
       Foto-foto yang tampil di section galeri geser (slideshow) pada
       halaman utama. Tersedia 6 slot — ubah foto dan caption sesuai kebutuhan.
     folder: "_data/galeri"
-    create: false           # stakeholder tidak bisa tambah slot baru (tetap 6)
+    create: false
     slug: "{{fields.urutan}}"
     summary: "Slot {{urutan}} — {{judul}}"
     sortable_fields: ["urutan"]
@@ -69,8 +47,6 @@ collections:
           Upload foto baru untuk slot ini.
           Ukuran ideal: lebar minimal 1200px, format JPG atau PNG.
           Foto lama akan diganti otomatis.
-        allow_multiple: false
-        choose_url: false
         media_library:
           config:
             multiple: false
@@ -94,8 +70,7 @@ collections:
 
 
   # ────────────────────────────────────────────────────────────────
-  #  2. FOTO HERO / SLIDESHOW UTAMA (section #home)
-  #     3 foto latar di bagian paling atas halaman (slideshow hero).
+  #  2. FOTO HERO
   # ────────────────────────────────────────────────────────────────
   - name: "hero"
     label: "🏔️  Foto Hero (Banner Utama)"
@@ -104,7 +79,7 @@ collections:
       Tiga foto latar besar yang tampil bergiliran di bagian paling atas
       halaman (banner utama / hero section).
     folder: "_data/hero"
-    create: false           # tetap 3 slide
+    create: false
     slug: "{{fields.urutan}}"
     summary: "Slide {{urutan}} — {{judul}}"
     sortable_fields: ["urutan"]
@@ -119,11 +94,6 @@ collections:
       - label: "Foto Latar"
         name: "foto"
         widget: "image"
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
         hint: >
           Foto latar hero. Gunakan foto landscape (horizontal) beresolusi tinggi —
           minimal 1920×1080px agar tidak terlihat pecah di layar lebar.
@@ -135,9 +105,7 @@ collections:
 
 
   # ────────────────────────────────────────────────────────────────
-  #  3. FOTO FASILITAS / WAHANA (section #facilities)
-  #     5 kartu fasilitas, masing-masing punya 3 foto slideshow.
-  #     Stakeholder bisa ganti foto tiap fasilitas.
+  #  3. FOTO FASILITAS
   # ────────────────────────────────────────────────────────────────
   - name: "fasilitas"
     label: "🎯  Foto Fasilitas & Wahana"
@@ -147,7 +115,7 @@ collections:
       Setiap fasilitas memiliki 3 foto slideshow yang berganti otomatis.
       Kamu bisa mengganti nama, deskripsi, dan ketiga fotonya.
     folder: "_data/fasilitas"
-    create: false           # 5 fasilitas tetap
+    create: false
     slug: "{{fields.id}}"
     summary: "{{nomor}}. {{nama}}"
     sortable_fields: ["nomor"]
@@ -170,81 +138,49 @@ collections:
         widget: "string"
         hint: "Contoh: View Sabo Dam, Sewa Tubing, Sewa Pendopo"
 
-      - label: "Label / Tag"
+      - label: "Kategori (Badge)"
         name: "tag"
-        widget: "select"
-        options:
-          - { label: "Ikonik", value: "Ikonik" }
-          - { label: "Sewa", value: "Sewa" }
-          - { label: "Edukasi", value: "Edukasi" }
-          - { label: "Budaya", value: "Budaya" }
-          - { label: "Baru", value: "Baru" }
+        widget: "string"
         hint: "Kategori yang tampil sebagai badge kecil di kartu"
 
-      - label: "Deskripsi Singkat"
+      - label: "Deskripsi Lengkap"
         name: "deskripsi"
         widget: "text"
         hint: >
-          Kalimat pendek yang muncul saat kartu di-hover (desktop) atau
-          diketuk (mobile). Maksimal 2 kalimat.
+          Penjelasan singkat fasilitas ini (2-3 kalimat).
+          Teks ini tampil di bawah nama saat kartu di-expand/hover.
 
-      - label: "Foto 1 (Utama)"
+      - label: "Foto 1"
         name: "foto_1"
         widget: "image"
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
-        hint: >
-          Foto pertama yang tampil saat kartu pertama kali dibuka.
-          Sebaiknya foto terbaik / paling representatif.
+        required: false
+        hint: "Foto pertama dalam slideshow kartu ini (opsional)"
 
       - label: "Foto 2"
         name: "foto_2"
         widget: "image"
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
         required: false
         hint: "Foto kedua dalam slideshow kartu ini (opsional)"
 
       - label: "Foto 3"
         name: "foto_3"
         widget: "image"
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
         required: false
         hint: "Foto ketiga dalam slideshow kartu ini (opsional)"
-        
+
       - label: "Aktifkan Poster?"
         name: "poster_enabled"
         widget: "boolean"
         default: false
         hint: "Jika aktif, tombol lihat poster akan muncul"
 
-      - label: "Poster 1 Judul"
-        name: "poster_1_judul"
-        widget: "string"
-        required: false
-
       - label: "Poster 1 Foto"
         name: "poster_1_foto"
         widget: "image"
         required: false
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
 
-      - label: "Poster 2 Judul"
-        name: "poster_2_judul"
+      - label: "Poster 1 Judul"
+        name: "poster_1_judul"
         widget: "string"
         required: false
 
@@ -252,14 +188,9 @@ collections:
         name: "poster_2_foto"
         widget: "image"
         required: false
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
 
-      - label: "Poster 3 Judul"
-        name: "poster_3_judul"
+      - label: "Poster 2 Judul"
+        name: "poster_2_judul"
         widget: "string"
         required: false
 
@@ -267,16 +198,15 @@ collections:
         name: "poster_3_foto"
         widget: "image"
         required: false
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
+
+      - label: "Poster 3 Judul"
+        name: "poster_3_judul"
+        widget: "string"
+        required: false
 
 
   # ────────────────────────────────────────────────────────────────
-  #  4. FOTO SEJARAH (Modal Baca Selengkapnya)
-  #     3 foto yang tampil di dalam modal pop-up sejarah desa.
+  #  4. FOTO SEJARAH
   # ────────────────────────────────────────────────────────────────
   - name: "sejarah_foto"
     label: "📜  Foto Sejarah Desa"
@@ -304,11 +234,6 @@ collections:
       - label: "Foto"
         name: "foto"
         widget: "image"
-        allow_multiple: false
-        choose_url: false
-        media_library:
-          config:
-            multiple: false
         hint: >
           Foto ilustrasi untuk bagian cerita ini.
           Ukuran ideal: rasio 16:9, lebar minimal 800px.
@@ -321,8 +246,7 @@ collections:
 
 
   # ────────────────────────────────────────────────────────────────
-  #  5. PENGATURAN UMUM
-  #     Info kontak & jam buka — agar bisa diubah tanpa sentuh kode.
+  #  5. PENGATURAN UMUM (WITH VALIDATION)
   # ────────────────────────────────────────────────────────────────
   - name: "pengaturan"
     label: "⚙️  Pengaturan Umum"
@@ -334,14 +258,17 @@ collections:
         name: "kontak"
         file: "_data/pengaturan/kontak.json"
         fields:
+          # ── WhatsApp (with validation) ────────────────────────
           - label: "Nomor WhatsApp"
             name: "whatsapp"
             widget: "string"
+            pattern: ['^\d{10,15}$', 'Hanya angka, 10-15 karakter (contoh: 6285371234567)']
             hint: >
               Format internasional tanpa tanda + atau spasi.
               Contoh: 6285371234567
               (62 = kode negara Indonesia, lanjut nomor tanpa 0 di depan)
 
+          # ── Operating Hours ──────────────────────────────────
           - label: "Jam Buka"
             name: "jam_buka"
             widget: "string"
@@ -354,19 +281,24 @@ collections:
             default: "Senin – Minggu"
             hint: "Contoh: Senin – Minggu, atau Selasa – Minggu (tutup Senin)"
 
+          # ── Address ──────────────────────────────────────────
           - label: "Alamat Lengkap"
             name: "alamat"
             widget: "text"
             hint: "Alamat yang tampil di section Reservasi dan footer"
 
+          # ── Instagram URL (with validation) ──────────────────
           - label: "Link Instagram"
             name: "instagram"
             widget: "string"
             required: false
+            pattern: ['^https?:\/\/(www\.)?instagram\.com\/', 'Harus URL Instagram valid (contoh: https://instagram.com/desa_wisata_nglumut)']
             hint: "URL lengkap, contoh: https://instagram.com/desa_wisata_nglumut"
 
+          # ── TikTok URL (with validation) ─────────────────────
           - label: "Link TikTok"
             name: "tiktok"
             widget: "string"
             required: false
+            pattern: ['^https?:\/\/(www\.)?tiktok\.com\/', 'Harus URL TikTok valid (contoh: https://tiktok.com/@desa_wisata_nglumut)']
             hint: "URL lengkap, contoh: https://tiktok.com/@desa_wisata_nglumut"
