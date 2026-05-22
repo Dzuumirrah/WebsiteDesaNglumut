@@ -46,7 +46,7 @@ function parseFrontmatter(raw) {
 
 function readFolder(name) {
   const dir = path.join(DATA_DIR, name);
-  if (!fs.existsSync(dir)) { addError(`  ⚠ Folder _data/${name} tidak ada`); return []; }
+  if (!fs.existsSync(dir)) { console.warn(`  ⚠ Folder _data/${name} tidak ada`); return []; }
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md'))
     .map(f => parseFrontmatter(fs.readFileSync(path.join(dir, f), 'utf8')))
@@ -172,7 +172,7 @@ function validateAndSafePath(val, fallback = 'assets/img_placeholder1.jpg', labe
 
 function copyAdminFiles() {
   if (!fs.existsSync(ADMIN_SRC)) {
-    addError('  Warning: public/admin tidak ditemukan');
+    console.warn('  Warning: public/admin tidak ditemukan');
     return false;
   }
   fs.cpSync(ADMIN_SRC, ADMIN_OUT, { recursive: true });
@@ -183,7 +183,7 @@ function copyAdminFiles() {
 function injectAttr(html, key, attr, val) {
   const O = `<!-- CMS:${key} -->`, C = `<!-- /CMS:${key} -->`;
   if (!html.includes(O)) { 
-    addError(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
+    console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
     return html; 
   }
   
@@ -200,8 +200,8 @@ function injectAttr(html, key, attr, val) {
 
 // ── Inject HTML content (text between markers) ──────────────
 function injectVal(html, key, value) {
-  const safeValue = escapeHtml(value ?? '');
-  
+  const safeValue = value ?? '';
+
   const re = new RegExp(
     `<!--\\s*CMS:${escapeRegex(key)}\\s*-->[\\s\\S]*?<!--\\s*\\/CMS:${escapeRegex(key)}\\s*-->`,
     'g'
