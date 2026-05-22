@@ -74,7 +74,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:600;line-height:1.15;color:var(--forest);margin-bottom:.75rem}
 .section-title em{font-style:italic}
 .section-sub{font-size:.95rem;color:var(--muted);line-height:1.8}
-.gallery-wrap{position:relative;overflow:hidden;cursor:grab;user-select:none;background:#f5f0e8;height:650px}
+.gallery-wrap{position:relative;overflow:hidden;cursor:grab;user-select:none;background:#f5f0e8;height:500px}
 .gallery-wrap:active{cursor:grabbing}
 .gallery-track{display:flex;gap:0;transition:transform .45s cubic-bezier(.4,0,.2,1);height:100%}
 .gallery-item{flex:0 0 100%;height:100%;overflow:hidden;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
@@ -162,7 +162,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .fac-poster-btn{display:none;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
 .fac-card:hover .fac-poster-btn,.fac-card.active-fac .fac-poster-btn{display:block}
 .fac-poster-btn:hover{background:rgba(255,255,255,.25);border-color:white}
-.poster-hidden{display:none !important}
 #reservation{background:var(--forest);padding:6rem 4rem}
 .res-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
 .res-left .section-title{color:white}
@@ -386,15 +385,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft1"><!-- CMS:fac-sabo-dam-tag -->Ikonik<!-- /CMS:fac-sabo-dam-tag --></span>
         <div class="fac-name" data-i="fn1"><!-- CMS:fac-sabo-dam-nama -->View Sabo Dam<!-- /CMS:fac-sabo-dam-nama --></div>
         <div class="fac-desc" data-i="fd1"><!-- CMS:fac-sabo-dam-desc -->Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi<!-- /CMS:fac-sabo-dam-desc --></div>
-        
-        <button
-        class="fac-poster-btn <!-- CMS:fac-sabo-dam-poster-class --><!-- /CMS:fac-sabo-dam-poster-class -->"
-        data-title="<!-- CMS:fac-sabo-dam-poster-title -->View Sabo Dam<!-- /CMS:fac-sabo-dam-poster-title -->"
-        data-poster="<!-- CMS:fac-sabo-dam-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-sabo-dam-poster-src -->"
-        data-i="fac-poster-btn"
-        >
-          Lihat Poster
-        </button>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-sabo-dam-poster-title -->View Sabo Dam<!-- /CMS:fac-sabo-dam-poster-title -->', '<!-- CMS:fac-sabo-dam-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-sabo-dam-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -414,14 +405,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft2"><!-- CMS:fac-tubing-tag -->Sewa<!-- /CMS:fac-tubing-tag --></span>
         <div class="fac-name" data-i="fn2"><!-- CMS:fac-tubing-nama -->Sewa Tubing<!-- /CMS:fac-tubing-nama --></div>
         <div class="fac-desc" data-i="fd2"><!-- CMS:fac-tubing-desc -->Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok<!-- /CMS:fac-tubing-desc --></div>
-        <button 
-          class="fac-poster-btn <!-- CMS:fac-tubing-poster-class --><!-- /CMS:fac-tubing-poster-class -->"
-          data-title="<!-- CMS:fac-tubing-poster-title -->Sewa Tubing<!-- /CMS:fac-tubing-poster-title -->"
-          data-poster="<!-- CMS:fac-tubing-poster-src -->assets/img_placeholder2.jpg<!-- /CMS:fac-tubing-poster-src -->"
-          data-i="fac-poster-btn"
-        >
-          Lihat Poster
-        </button>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-tubing-poster-title -->Sewa Tubing<!-- /CMS:fac-tubing-poster-title -->', '<!-- CMS:fac-tubing-poster-src -->assets/img_placeholder2.jpg<!-- /CMS:fac-tubing-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -441,14 +425,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft3"><!-- CMS:fac-pendopo-tag -->Sewa<!-- /CMS:fac-pendopo-tag --></span>
         <div class="fac-name" data-i="fn3"><!-- CMS:fac-pendopo-nama -->Sewa Pendopo<!-- /CMS:fac-pendopo-nama --></div>
         <div class="fac-desc" data-i="fd3"><!-- CMS:fac-pendopo-desc -->Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound<!-- /CMS:fac-pendopo-desc --></div>
-        <button 
-          class="fac-poster-btn <!-- CMS:fac-pendopo-poster-class --><!-- /CMS:fac-pendopo-poster-class -->"
-          data-title="<!-- CMS:fac-pendopo-poster-title -->Sewa Pendopo<!-- /CMS:fac-pendopo-poster-title -->"
-          data-poster="<!-- CMS:fac-pendopo-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-pendopo-poster-src -->"
-          data-i="fac-poster-btn"
-        >
-          Lihat Poster
-        </button>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-pendopo-poster-title -->Sewa Pendopo<!-- /CMS:fac-pendopo-poster-title -->', '<!-- CMS:fac-pendopo-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-pendopo-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -468,14 +445,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft4"><!-- CMS:fac-outbound-tag -->Sewa<!-- /CMS:fac-outbound-tag --></span>
         <div class="fac-name" data-i="fn4"><!-- CMS:fac-outbound-nama -->Fasilitator Outbound<!-- /CMS:fac-outbound-nama --></div>
         <div class="fac-desc" data-i="fd4"><!-- CMS:fac-outbound-desc -->Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan<!-- /CMS:fac-outbound-desc --></div>
-        <button 
-          class="fac-poster-btn <!-- CMS:fac-outbound-poster-class --><!-- /CMS:fac-outbound-poster-class -->"
-          data-title="<!-- CMS:fac-outbound-poster-title -->Fasilitator Outbound<!-- /CMS:fac-outbound-poster-title -->"
-          data-poster="<!-- CMS:fac-outbound-poster-src -->assets/img_placeholder3.jpg<!-- /CMS:fac-outbound-poster-src -->"
-          data-i="fac-poster-btn"
-        >
-          Lihat Poster
-        </button>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-outbound-poster-title -->Fasilitator Outbound<!-- /CMS:fac-outbound-poster-title -->', '<!-- CMS:fac-outbound-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-outbound-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -495,14 +465,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
         <span class="fac-tag" data-i="ft5"><!-- CMS:fac-greenhouse-tag -->Edukasi<!-- /CMS:fac-greenhouse-tag --></span>
         <div class="fac-name" data-i="fn5"><!-- CMS:fac-greenhouse-nama -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-nama --></div>
         <div class="fac-desc" data-i="fd5"><!-- CMS:fac-greenhouse-desc -->Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya.<!-- /CMS:fac-greenhouse-desc --></div>
-        <button class="fac-poster-btn <!-- CMS:fac-greenhouse-poster-class --><!-- /CMS:fac-greenhouse-poster-class -->"
-          data-title="<!-- CMS:fac-greenhouse-poster-title -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-poster-title -->"
-          data-poster="<!-- CMS:fac-greenhouse-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-greenhouse-poster-src -->"
-          onclick="openPosterModal(this)"
-          data-i="fac-poster-btn"
-        >
-          Lihat Poster
-        </button>
+        <button class="fac-poster-btn" onclick="openPosterModal('<!-- CMS:fac-greenhouse-poster-title -->Ekowisata Greenhouse<!-- /CMS:fac-greenhouse-poster-title -->', '<!-- CMS:fac-greenhouse-poster-src -->assets/img_placeholder1.jpg<!-- /CMS:fac-greenhouse-poster-src -->')" data-i="fac-poster-btn">Lihat Poster</button>
       </div>
       <div class="fac-chevron">⌄</div>
     </div>
@@ -627,7 +590,7 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
     <a href="#reservation" data-i="fl5">Reservasi</a>
     <a href="#sosmed" data-i="fl6">Media Sosial</a>
   </div>
-  <div class="footer-copy" data-i="fc">© 2026 Desa Wisata Nglumut — Dikembangkan oleh Tim PLK Swakarya Mengabdi</div>
+  <div class="footer-copy" data-i="fc">© 2025 Desa Wisata Nglumut — Dikembangkan oleh Tim KKN</div>
 </footer>
 
 <!-- ══ HISTORY MODAL ══ -->
@@ -657,8 +620,6 @@ footer{background:#0a1f15;color:rgba(255,255,255,.5);padding:2.5rem 4rem;text-al
   <div class="poster-modal-box">
     <div class="poster-modal-head">
       <div class="poster-modal-title" id="posterModalTitle">Poster</div>
-      <button onclick="prevPoster()">←</button>
-      <button onclick="nextPoster()">→</button>
       <button class="modal-close" onclick="closePosterModal()">✕</button>
     </div>
     <img id="posterModalImage" class="poster-modal-image" src="" alt="Poster">
@@ -728,58 +689,11 @@ window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setT
 function openHistory(){document.getElementById('historyModal').classList.add('open')}
 function closeHistory(){document.getElementById('historyModal').classList.remove('open')}
 function closeHistoryOutside(e){if(e.target===document.getElementById('historyModal'))closeHistory()}
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.fac-poster-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const title = btn.dataset.title || 'Poster';
-      const imgSrc = btn.dataset.poster || 'assets/img_placeholder1.jpg';
+function openPosterModal(title,imgSrc){document.getElementById('posterModalTitle').textContent=title;document.getElementById('posterModalImage').src=imgSrc;document.getElementById('posterModal').classList.add('open')}
+function closePosterModal(){document.getElementById('posterModal').classList.remove('open')}
+function closePosterModalOutside(e){if(e.target===document.getElementById('posterModal'))closePosterModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHistory();closePosterModal()}});
 
-      openPosterModal(btn);
-    });
-  });
-});
-
-function cleanCmsText(str = '') {
-  return str.replace(/<!--[\s\S]*?-->/g, '').trim();
-}
-
-function openPosterModal(btn) {
-  const title = cleanCmsText(btn.dataset.title);
-  const imgSrc = cleanCmsText(btn.dataset.poster);
-
-  document.getElementById('posterModalTitle').textContent =
-    title || 'Poster';
-
-  const img = document.getElementById('posterModalImage');
-
-  img.src = imgSrc || 'assets/img_placeholder1.jpg';
-
-  img.onerror = () => {
-    img.src = 'assets/img_placeholder1.jpg';
-  };
-
-  document
-    .getElementById('posterModal')
-    .classList.add('open');
-}
-
-function closePosterModal() {
-  document.getElementById('posterModal')
-    .classList.remove('open');
-}
-
-function closePosterModalOutside(e) {
-  if (e.target === document.getElementById('posterModal')) {
-    closePosterModal();
-  }
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeHistory();
-    closePosterModal();
-  }
-});
 // ── WHATSAPP ──
 function sendWA(){
   const errorMsgEl=document.getElementById('formErrorMsg');
@@ -795,7 +709,7 @@ function sendWA(){
   if(!fac)errors.push(lang==='en'?'Activity must be selected':'Wahana harus dipilih');
   if(errors.length>0){errorMsgEl.innerHTML=`<ul><li>${errors.join('</li><li>')}</li></ul>`;errorMsgEl.classList.add('show');errorMsgEl.scrollIntoView({behavior:'smooth',block:'nearest'});return}
   errorMsgEl.classList.remove('show');errorMsgEl.innerHTML='';
-  const phone=decodeURIComponent('<!-- CMS:kontak-wa-js -->6289537763204<!-- /CMS:kontak-wa-js -->').replace(/[^0-9+]/g,'');
+  const phone='<!-- CMS:kontak-wa-js -->6289537763204<!-- /CMS:kontak-wa-js -->';
   const msg=lang==='en'
     ?`Hello, I'd like to book a visit to Nglumut Tourism Village 🏔️\n\n*Name/Institution:* ${name}\n*Date:* ${date}\n*Guests:* ${guests}\n*Activity:* ${fac}\n*Notes:* ${note||'-'}\n\nPlease confirm, thank you!`
     :`Halo, saya ingin reservasi kunjungan ke Desa Wisata Nglumut 🏔️\n\n*Nama/Instansi:* ${name}\n*Tanggal:* ${date}\n*Jumlah Peserta:* ${guests}\n*Wahana:* ${fac}\n*Catatan:* ${note||'-'}\n\nMohon konfirmasinya, terima kasih!`;

@@ -1,4 +1,3 @@
 *.zip
 documentation/
-/admin/
-index.html
+admin/
