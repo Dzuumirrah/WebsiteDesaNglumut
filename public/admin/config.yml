@@ -11,11 +11,20 @@ backend:
   name: git-gateway
   branch: main          # ganti ke "master" jika nama branch utama kamu master
 
-
+# penting untuk draft preview sebelum publish
+publish_mode: editorial_workflow
 # ── Folder penyimpanan media (foto) ────────────────────────────────
 # Semua foto yang diupload stakeholder akan masuk ke folder ini.
 media_folder: "assets/uploads"          # path di dalam repo
 public_folder: "/assets/uploads"        # URL publik saat diakses browser
+# agar preview media muncul sebelum publish
+media_library:
+  name: uploadcare
+  config:
+    publicKey: demo
+# preview draft file
+site_url: https://desawisata-nglumut.netlify.app
+display_url: https://desawisata-nglumut.netlify.app
 
 
 # ── Locale ─────────────────────────────────────────────────────────
@@ -60,6 +69,8 @@ collections:
           Upload foto baru untuk slot ini.
           Ukuran ideal: lebar minimal 1200px, format JPG atau PNG.
           Foto lama akan diganti otomatis.
+        allow_multiple: false
+        choose_url: false
         media_library:
           config:
             multiple: false
@@ -108,6 +119,11 @@ collections:
       - label: "Foto Latar"
         name: "foto"
         widget: "image"
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
         hint: >
           Foto latar hero. Gunakan foto landscape (horizontal) beresolusi tinggi —
           minimal 1920×1080px agar tidak terlihat pecah di layar lebar.
@@ -175,6 +191,11 @@ collections:
       - label: "Foto 1 (Utama)"
         name: "foto_1"
         widget: "image"
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
         hint: >
           Foto pertama yang tampil saat kartu pertama kali dibuka.
           Sebaiknya foto terbaik / paling representatif.
@@ -182,12 +203,22 @@ collections:
       - label: "Foto 2"
         name: "foto_2"
         widget: "image"
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
         required: false
         hint: "Foto kedua dalam slideshow kartu ini (opsional)"
 
       - label: "Foto 3"
         name: "foto_3"
         widget: "image"
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
         required: false
         hint: "Foto ketiga dalam slideshow kartu ini (opsional)"
         
@@ -206,6 +237,11 @@ collections:
         name: "poster_1_foto"
         widget: "image"
         required: false
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
 
       - label: "Poster 2 Judul"
         name: "poster_2_judul"
@@ -216,6 +252,11 @@ collections:
         name: "poster_2_foto"
         widget: "image"
         required: false
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
 
       - label: "Poster 3 Judul"
         name: "poster_3_judul"
@@ -226,6 +267,11 @@ collections:
         name: "poster_3_foto"
         widget: "image"
         required: false
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
 
 
   # ────────────────────────────────────────────────────────────────
@@ -258,6 +304,11 @@ collections:
       - label: "Foto"
         name: "foto"
         widget: "image"
+        allow_multiple: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
         hint: >
           Foto ilustrasi untuk bagian cerita ini.
           Ukuran ideal: rasio 16:9, lebar minimal 800px.

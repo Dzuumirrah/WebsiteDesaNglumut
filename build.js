@@ -47,7 +47,6 @@ const facilityFallbacks = {
     'assets/greenhouse3.jpg'
   ]
 };
-
 // ── Parse frontmatter YAML sederhana (tanpa library) ─────────
 function parseFrontmatter(raw) {
   const match = raw.match(/^---\n([\s\S]*?)\n---/);
@@ -68,7 +67,7 @@ function parseFrontmatter(raw) {
 // ── Baca folder _data/<name>, sort by urutan/nomor ───────────
 function readFolder(name) {
   const dir = path.join(DATA_DIR, name);
-  if (!fs.existsSync(dir)) { console.warn(`  ⚠ Folder _data/${name} tidak ada`); return []; }
+  if (!fs.existsSync(dir)) { addError(`  ⚠ Folder _data/${name} tidak ada`); return []; }
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md'))
     .map(f => parseFrontmatter(fs.readFileSync(path.join(dir, f), 'utf8')))
@@ -79,26 +78,93 @@ function readFolder(name) {
 // ── Escape karakter regex ─────────────────────────────────────
 function esc(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-// ── Fallback foto jika belum diupload ────────────────────────
-function f(val, fallback = 'assets/img_placeholder1.jpg') {
+// ── Escape HTML attribute values to prevent injection ────────
+function escapeAttr(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// ── Escape HTML content to prevent injection ─────────────────
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Escape string for JavaScript string literal ───────────────
+function escapeJs(str) {
+  return String(str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\t/g, '\\t')
+    .replace(/</g, '\\x3c')
+    .replace(/>/g, '\\x3e');
+}
+
+const IS_DEV = !process.env.NETLIFY;// ── Fallback foto jika belum diupload ────────────────────────
+function f(
+  val,
+  fallback = 'assets/img_placeholder1.jpg',
+  label = ''
+) {
+  // kosong → fallback
   if (!val || String(val).trim() === '') {
+    addWarning(
+      `${label || 'image'} kosong, pakai fallback`
+    );
+
     return fallback;
   }
 
-  const cleaned = String(val).replace(/^\//, '');
-  const fullPath = path.join(ROOT, cleaned);
+  const cleaned =
+    String(val).replace(/^\//, '');
 
-  return fs.existsSync(fullPath)
-    ? val
-    : fallback;
-}
+  const fullPath =
+    path.join(ROOT, cleaned);
 
-function copyAdminFiles() {
-  if (!fs.existsSync(ADMIN_SRC)) {
-    console.warn('  Warning: public/admin tidak ditemukan');
-    return false;
+  const exists =
+    fs.existsSync(fullPath);
+
+  // file ada
+  if (exists) {
+    return val;
   }
 
+  // development mode:
+  // pakai fallback otomatis
+  if (IS_DEV) {
+    addWarning(
+      `[DEV] file tidak ditemukan: ${val}
+→ fallback: ${fallback}`
+    );
+
+    return fallback;
+  }
+
+  // production build di Netlify
+  addWarning(
+    `[PROD] file tidak ditemukan: ${val}
+→ fallback dipakai`
+  );
+
+  return fallback;
+}
+function copyAdminFiles() {
+  if (!fs.existsSync(ADMIN_SRC)) {
+    addError('  Warning: public/admin tidak ditemukan');
+    return false;
+  }
+  
   fs.cpSync(ADMIN_SRC, ADMIN_OUT, { recursive: true });
   return true;
 }
@@ -108,25 +174,30 @@ function copyAdminFiles() {
 function injectAttr(html, key, attr, val) {
   const O = `<!-- CMS:${key} -->`, C = `<!-- /CMS:${key} -->`;
   if (!html.includes(O)) { 
-    console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
+    addError(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
     return html; 
   }
+  const escapedVal = escapeAttr(val);
   return html.replace(
     new RegExp(`(${esc(O)}[\\s\\S]*?)${attr}="[^"]*"([\\s\\S]*?${esc(C)})`, 'g'),
-    `$1${attr}="${val}"$2`
+    `$1${attr}="${escapedVal}"$2`
   );
 }
-
 // ── Inject: ganti teks/nilai di antara marker inline ─────────
 // Marker: <!-- CMS:KEY -->nilai lama<!-- /CMS:KEY -->
 function injectVal(html, key, value) {
-  const safeValue = value ?? '';
-
+  const safeValue = escapeHtml(value ?? '');
+  
   const re = new RegExp(
     `<!--\\s*CMS:${escapeRegex(key)}\\s*-->[\\s\\S]*?<!--\\s*\\/CMS:${escapeRegex(key)}\\s*-->`,
     'g'
   );
-
+  if (!html.match(re)) {
+    addError(
+      `Marker tidak ditemukan: CMS:${key}`
+    );
+    return html;
+  }
   return html.replace(
     re,
     `<!-- CMS:${key} -->${safeValue}<!-- /CMS:${key} -->`
@@ -135,6 +206,78 @@ function injectVal(html, key, value) {
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+// Error 
+const buildErrors = [];
+const buildWarnings = [];
+
+function addError(msg) {
+  buildErrors.push(msg);
+  console.error(`❌ ${msg}`);
+}
+
+function addWarning(msg) {
+  buildWarnings.push(msg);
+  addError(`⚠ ${msg}`);
+}
+function validateFacility(fac) {
+  // const id = fac.id || '(tanpa-id)';
+
+  // const required = [
+  //   'id',
+  //   'nama',
+  //   'tag',
+  //   'deskripsi'
+  // ];
+
+  // for (const field of required) {
+  //   if (
+  //     fac[field] === undefined ||
+  //     fac[field] === ''
+  //   ) {
+  //     addError(
+  //       `Fasilitas "${id}" missing field: ${field}`
+  //     );
+  //   }
+  // }
+
+  // // Validasi poster
+  // if (fac.poster_enabled === true) {
+  //   let posterFound = false;
+
+  //   for (let i = 1; i <= 5; i++) {
+  //     const foto = fac[`poster_${i}_foto`];
+  //     const judul = fac[`poster_${i}_judul`];
+
+  //     if (foto) {
+  //       posterFound = true;
+
+  //       const cleaned =
+  //         String(foto).replace(/^\//, '');
+
+  //       const fullPath =
+  //         path.join(ROOT, cleaned);
+
+  //       if (!fs.existsSync(fullPath)) {
+  //         addWarning(
+  //           `Poster file tidak ditemukan (${id}): ${foto}`
+  //         );
+  //       }
+
+  //       if (!judul) {
+  //         addWarning(
+  //           `Poster ${i} pada "${id}" tidak punya judul`
+  //         );
+  //       }
+  //     }
+  //   }
+
+  //   if (!posterFound) {
+  //     addError(
+  //       `"${id}" poster_enabled=true tapi tidak ada poster_*_foto`
+  //     );
+  //   }
+  // }
 }
 // ════════════════════════════════════════════════════════════════
 //  MAIN
@@ -178,30 +321,55 @@ galeri.forEach(g => {
 // ── 3. FASILITAS (nama, tag, desc, 3 foto, poster) ───────────
 console.log('🎯 Fasilitas...');
 fasilitas.forEach(fac => {
+   validateFacility(fac);
   const id = fac.id;
   const fb = facilityFallbacks[id] || [];
   
   // Inject foto fasilitas (3 gambar di carousel)
-  html = injectAttr(html, `fac-${id}-foto1`, 'src', f(fac.foto_1, fb[0]));
-  html = injectAttr(html, `fac-${id}-foto2`, 'src', f(fac.foto_2, fb[1]));
-  html = injectAttr(html, `fac-${id}-foto3`, 'src', f(fac.foto_3, fb[2]));
+  html = injectAttr(html,`fac-${id}-foto1`,'src',f(fac.foto_1,fb[0],`${id} foto_1`));
+  html = injectAttr(html,`fac-${id}-foto2`,'src',f(fac.foto_2,fb[1],`${id} foto_2`));
+  html = injectAttr(html,`fac-${id}-foto3`,'src',f(fac.foto_3,fb[2],`${id} foto_3`));
+  
   
   // Inject nama, tag, deskripsi
   html = injectVal (html, `fac-${id}-nama`,  fac.nama      || '');
   html = injectVal (html, `fac-${id}-tag`,   fac.tag       || '');
   html = injectVal (html, `fac-${id}-desc`,  fac.deskripsi || '');
-  // Poster modal
-  html = injectVal(
-    html,
-    `fac-${id}-poster-src`,
-    f(fac.foto_1, fb[0] || 'assets/img_placeholder1.jpg')
-  );
+  // ── Poster modal ─────────────────────────
+  const posterEnabled = fac.poster_enabled === true;
+  html = injectVal(html,`fac-${id}-poster-class`,posterEnabled ? '' : 'poster-hidden');
 
-  html = injectVal(
-    html,
-    `fac-${id}-poster-title`,
-    fac.nama || id
-  );
+  if (posterEnabled) {
+    const posters = [];
+    for (let i = 1; i <= 5; i++) {
+      const foto = fac[`poster_${i}_foto`];
+      const judul = fac[`poster_${i}_judul`];
+
+      if (foto) {
+        posters.push({
+          title: judul || fac.nama || `Poster ${i}`,
+          src: f(foto)
+        });
+      }
+    }
+
+    // fallback jika poster kosong
+    if (posters.length === 0) {
+      posters.push({
+        title: fac.nama || id,
+        src: f(fac.foto_1)
+      });
+    }
+     html = injectVal(
+      html,
+      `fac-${id}-poster-data`,
+      encodeURIComponent(JSON.stringify(posters.map(p => ({
+        ...p,
+        title: escapeHtml(p.title)
+      }))))
+    );
+
+  }
 });
 
 // ── 4. SEJARAH MODAL ─────────────────────────────────────────
@@ -215,7 +383,9 @@ sejarah.forEach(s => {
 console.log('📞 Kontak...');
 if (kontak.whatsapp) {
   html = injectVal(html, 'kontak-wa-display', `+${kontak.whatsapp}`);
-  html = injectVal(html, 'kontak-wa-js',      kontak.whatsapp);
+  // Sanitize phone number: only allow digits and +
+  const cleanPhone = String(kontak.whatsapp).replace(/[^0-9+]/g, '');
+  html = injectVal(html, 'kontak-wa-js', escapeJs(cleanPhone));
 }
 if (kontak.jam_buka)         html = injectVal(html, 'kontak-jam',   kontak.jam_buka);
 if (kontak.hari_operasional) html = injectVal(html, 'kontak-hari',  kontak.hari_operasional);
@@ -227,6 +397,17 @@ if (kontak.instagram) html = injectVal(html, 'sosmed-ig-href', kontak.instagram)
 if (kontak.tiktok)    html = injectVal(html, 'sosmed-tt-href', kontak.tiktok);
 
 // ── Tulis output ─────────────────────────────────────────────
+// if (buildErrors.length > 0) {
+//   console.error('\n════════════════════════════');
+//   console.error('❌ CMS BUILD FAILED');
+//   console.error('════════════════════════════');
+
+//   buildErrors.forEach(err =>
+//     console.error(`• ${err}`)
+//   );
+
+//   process.exit(1);
+// }
 fs.writeFileSync(HTML_OUT, html, 'utf8');
 console.log('📄 index.html berhasil di-generate');
 
