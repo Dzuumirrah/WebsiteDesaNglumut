@@ -1,0 +1,10 @@
+{
+  "nama":         "Fasilitator Outbound",
+  "tag":          "Outbound",
+  "desc":         "Ikuti kegiatan outbound yang dipandu oleh fasilitator yang ramah dan menyenangkan",
+  "foto_1":       { "src": "assets/outbound.JPG", "alt": "Fasilitator Outbound Nglumut" },
+  "foto_2":       { "src": "assets/outbound.JPG", "alt": "Fasilitator Outbound Nglumut" },
+  "foto_3":       { "src": "assets/outbound.JPG", "alt": "Fasilitator Outbound Nglumut" },
+  "poster_title": "Fasilitator Outbound",
+  "poster_src":   "assets/poster_outbound-1.jpg"
+}

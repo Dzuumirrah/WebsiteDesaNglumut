@@ -1,0 +1,10 @@
+{
+  "nama":         "View Sabo Dam",
+  "tag":          "Ikonik",
+  "desc":         "Spot foto premium berlatar bendungan megah dan aliran sungai jernih di tengah alam pegunungan Merapi",
+  "foto_1":       { "src": "assets/sabo-dam1.JPG", "alt": "View Sabo Dam" },
+  "foto_2":       { "src": "assets/sabo-dam2.JPG", "alt": "View Sabo Dam" },
+  "foto_3":       { "src": "assets/sabo-dam3.JPG", "alt": "View Sabo Dam" },
+  "poster_title": "View Sabo Dam",
+  "poster_src":   "assets/poster_outbound-1.jpg"
+}

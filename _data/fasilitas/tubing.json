@@ -1,0 +1,10 @@
+{
+  "nama":         "Sewa Tubing",
+  "tag":          "Sewa",
+  "desc":         "Meluncur menuruni arus sungai yang segar — seru untuk keluarga dan kelompok",
+  "foto_1":       { "src": "assets/tubing-1.jpeg", "alt": "Sewa Tubing Nglumut" },
+  "foto_2":       { "src": "assets/tubing-1.jpeg", "alt": "Sewa Tubing Nglumut" },
+  "foto_3":       { "src": "assets/tubing-1.jpeg", "alt": "Sewa Tubing Nglumut" },
+  "poster_title": "Sewa Tubing",
+  "poster_src":   "assets/poster_outbound-1.jpg"
+}
