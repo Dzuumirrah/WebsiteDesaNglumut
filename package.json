@@ -1,12 +1,12 @@
 {
-  "name": "desa-wisata-nglumut",
+  "name": "desawisata-nglumut",
   "version": "1.0.0",
-  "description": "Website Desa Wisata Nglumut — Srumbung, Magelang",
+  "description": "Desa Wisata Nglumut — static site with Decap CMS content layer",
   "scripts": {
     "build": "node build.js",
-    "dev": "node build.js && echo 'Buka index.html di browser'"
+    "dev":   "node build.js && echo 'Build done. Run: netlify dev'"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18"
   }
 }

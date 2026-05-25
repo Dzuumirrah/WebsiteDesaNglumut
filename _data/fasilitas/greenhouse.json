@@ -1,0 +1,10 @@
+{
+  "nama":         "Ekowisata Greenhouse",
+  "tag":          "Edukasi",
+  "desc":         "Nikmati pengalaman memetik dan mencicipi buah segar langsung dari sumbernya.",
+  "foto_1":       { "src": "assets/greenhouse1.JPG", "alt": "Ekowisata Greenhouse Nglumut" },
+  "foto_2":       { "src": "assets/greenhouse2.JPG", "alt": "Ekowisata Greenhouse Nglumut" },
+  "foto_3":       { "src": "assets/greenhouse3.JPG", "alt": "Ekowisata Greenhouse Nglumut" },
+  "poster_title": "Poster Ekowisata Greenhouse",
+  "poster_src":   "assets/poster_outbound-1.jpeg"
+}

@@ -1,71 +1,20 @@
-# netlify.toml — Konfigurasi Build Desa Wisata Nglumut
-# ──────────────────────────────────────────────────────────────
-# File ini dibaca Netlify otomatis saat setiap deploy.
-# Letakkan di root repo (sejajar dengan index.template.html).
-
 [build]
-  # Perintah yang dijalankan sebelum publish
-  # build.js ada di root repo, bukan di folder scripts/
   command = "node build.js"
-
-  # Folder yang di-publish ke CDN Netlify
   publish = "."
 
-  # Node.js environment
-  environment = { NODE_VERSION = "18" }
+[build.environment]
+  NODE_VERSION = "20"
 
-# ── Redirect admin ke public/admin ──────────────────────────
+# Ensure /admin loads the SPA shell
 [[redirects]]
-  from = "/config.yml"
-  to = "/admin/config.yml"
+  from   = "/admin"
+  to     = "/admin/index.html"
   status = 200
-  force = false
 
-[[redirects]]
-  from = "/admin/config.yml"
-  to = "/public/admin/config.yml"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/admin"
-  to = "/public/admin/index.html"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/public/admin/:splat"
-  status = 200
-  force = false
-
-# ── Decap CMS: izinkan akses ke /admin ────────────────────────
+# Security headers for admin panel
 [[headers]]
   for = "/admin/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
+    X-Frame-Options        = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/public/admin/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-# ── Cache: foto uploads di-cache lama, HTML tidak ─────────────
-[[headers]]
-  for = "/assets/uploads/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/index.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Referrer-Policy        = "strict-origin-when-cross-origin"

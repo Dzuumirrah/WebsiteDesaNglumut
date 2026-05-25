@@ -1,0 +1,14 @@
+{
+  "foto_merapi": {
+    "src": "assets/tugu_salak.JPG",
+    "alt": "Gunung Merapi dari Nglumut"
+  },
+  "foto_pertanian": {
+    "src": "assets/pendopo1.JPG",
+    "alt": "Lahan Pertanian Desa"
+  },
+  "foto_sabo_dam": {
+    "src": "assets/sabo-dam1.JPG",
+    "alt": "Taman Sabo Dam"
+  }
+}

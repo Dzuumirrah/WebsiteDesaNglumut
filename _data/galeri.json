@@ -1,0 +1,38 @@
+{
+  "foto_1": {
+    "image":      "assets/pendopo1.JPG",
+    "alt":        "Pendopo Desa Wisata Nglumut",
+    "judul":      "Pendopo Nglumut",
+    "keterangan": ""
+  },
+  "foto_2": {
+    "image":      "assets/pendopo2.JPG",
+    "alt":        "Suasana Pendopo dari sisi lain",
+    "judul":      "Sudut Pendopo",
+    "keterangan": ""
+  },
+  "foto_3": {
+    "image":      "assets/pendopo3.JPG",
+    "alt":        "Area pendopo dan sekitarnya",
+    "judul":      "Area Pendopo",
+    "keterangan": ""
+  },
+  "foto_4": {
+    "image":      "assets/sabo-dam3.JPG",
+    "alt":        "Taman Sabo Dam Nglumut",
+    "judul":      "Taman Sabo Dam",
+    "keterangan": ""
+  },
+  "foto_5": {
+    "image":      "assets/greenhouse1.JPG",
+    "alt":        "Greenhouse Desa Wisata Nglumut",
+    "judul":      "Ekowisata Greenhouse",
+    "keterangan": ""
+  },
+  "foto_6": {
+    "image":      "assets/outbound.JPG",
+    "alt":        "Kegiatan outbound di Nglumut",
+    "judul":      "Fasilitator Outbound",
+    "keterangan": ""
+  }
+}

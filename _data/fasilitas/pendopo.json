@@ -1,0 +1,10 @@
+{
+  "nama":         "Sewa Pendopo",
+  "tag":          "Sewa",
+  "desc":         "Area bersantai terbuka yang nyaman untuk acara keluarga, komunitas, dan outbound",
+  "foto_1":       { "src": "assets/pendopo1.JPG", "alt": "Sewa Pendopo Nglumut" },
+  "foto_2":       { "src": "assets/pendopo2.JPG", "alt": "Sewa Pendopo Nglumut" },
+  "foto_3":       { "src": "assets/pendopo3.JPG", "alt": "Sewa Pendopo Nglumut" },
+  "poster_title": "Sewa Pendopo",
+  "poster_src":   "assets/poster_outbound-2.jpg"
+}

@@ -1,0 +1,261 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Decap CMS Configuration — Desa Wisata Nglumut
+#
+# CATATAN BRANCH:
+#   Ubah nilai "branch" di bawah ke nama branch yang ingin diedit oleh editor.
+#   Saat testing di feature branch, gunakan: feature/decap-cms-clean-integration
+#   Setelah merge ke main, ganti ke: main
+# ─────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name:   git-gateway
+  branch: main   # ← ganti sesuai kebutuhan (lihat catatan di atas)
+
+# Lokasi penyimpanan file yang diupload editor
+media_folder:  assets/uploads
+public_folder: assets/uploads
+
+# Tampilkan preview lokal (nonaktifkan jika tidak pakai netlify dev)
+local_backend: false
+
+# ─── KOLEKSI KONTEN ───────────────────────────────────────────────────────────
+collections:
+
+  # ── 1. PENGATURAN SITUS ────────────────────────────────────────────────────
+  - name:  pengaturan
+    label: "⚙️ Pengaturan Situs"
+    files:
+      - name:  kontak
+        label: "Informasi Kontak & Jam Operasional"
+        file:  _data/pengaturan.json
+        fields:
+          - name:  kontak_alamat
+            label: "Alamat Lengkap"
+            widget: string
+            hint:  "Ditampilkan di bagian Profil Desa dan footer."
+          - name:  kontak_jam
+            label: "Jam Buka (jam operasional)"
+            widget: string
+            hint:  "Contoh: 07.00 – 17.00 WIB"
+          - name:  kontak_hari
+            label: "Hari Buka"
+            widget: string
+            hint:  "Contoh: Senin – Minggu"
+          - name:  whatsapp
+            label: "Nomor WhatsApp (tanpa +)"
+            widget: string
+            hint:  "Contoh: 62895377632044 (kode negara tanpa +)"
+
+  # ── 2. HERO — GAMBAR UTAMA HALAMAN ────────────────────────────────────────
+  - name:  hero
+    label: "🖼️ Gambar Utama (Hero)"
+    files:
+      - name:  slides
+        label: "Tiga Slide Gambar Hero"
+        file:  _data/hero.json
+        fields:
+          - name:  slide_1
+            label: "Slide 1 — Gambar Pertama"
+            widget: object
+            fields:
+              - name:     image
+                label:    "Gambar Slide 1"
+                widget:   image
+                required: true
+                hint:     "Ukuran ideal: 1920×1080 px. Wajib diisi."
+              - name:  alt
+                label: "Deskripsi Gambar (untuk aksesibilitas)"
+                widget: string
+                hint:  "Contoh: Pemandangan Sabo Dam dari atas"
+
+          - name:  slide_2
+            label: "Slide 2 — Gambar Kedua"
+            widget: object
+            fields:
+              - name:     image
+                label:    "Gambar Slide 2"
+                widget:   image
+                required: true
+                hint:     "Ukuran ideal: 1920×1080 px. Wajib diisi."
+              - name:  alt
+                label: "Deskripsi Gambar (untuk aksesibilitas)"
+                widget: string
+
+          - name:  slide_3
+            label: "Slide 3 — Gambar Ketiga"
+            widget: object
+            fields:
+              - name:     image
+                label:    "Gambar Slide 3"
+                widget:   image
+                required: true
+                hint:     "Ukuran ideal: 1920×1080 px. Wajib diisi."
+              - name:  alt
+                label: "Deskripsi Gambar (untuk aksesibilitas)"
+                widget: string
+
+  # ── 3. GALERI FOTO ────────────────────────────────────────────────────────
+  - name:  galeri
+    label: "📸 Galeri Foto"
+    files:
+      - name:  items
+        label: "Enam Foto Galeri"
+        file:  _data/galeri.json
+        fields:
+          - name:  foto_1
+            label: "Foto Galeri 1"
+            widget: object
+            fields: &galeri_fields
+              - name:     image
+                label:    "Gambar"
+                widget:   image
+                required: true
+                hint:     "Wajib diisi."
+              - name:  alt
+                label: "Deskripsi Gambar"
+                widget: string
+              - name:  judul
+                label: "Judul (ditampilkan di bawah foto)"
+                widget: string
+              - name:     keterangan
+                label:    "Keterangan Tambahan (opsional)"
+                widget:   string
+                required: false
+
+          - name:  foto_2
+            label: "Foto Galeri 2"
+            widget: object
+            fields: *galeri_fields
+
+          - name:  foto_3
+            label: "Foto Galeri 3"
+            widget: object
+            fields: *galeri_fields
+
+          - name:  foto_4
+            label: "Foto Galeri 4"
+            widget: object
+            fields: *galeri_fields
+
+          - name:  foto_5
+            label: "Foto Galeri 5"
+            widget: object
+            fields: *galeri_fields
+
+          - name:  foto_6
+            label: "Foto Galeri 6"
+            widget: object
+            fields: *galeri_fields
+
+  # ── 4. FASILITAS & WAHANA ─────────────────────────────────────────────────
+  - name:  fasilitas
+    label: "🏕️ Fasilitas & Wahana"
+    files:
+
+      - name:  sabo_dam
+        label: "1. View Sabo Dam"
+        file:  _data/fasilitas/sabo-dam.json
+        fields: &fac_fields_template
+          - name:  nama
+            label: "Nama Fasilitas"
+            widget: string
+            required: true
+          - name:  tag
+            label: "Tag / Label (misal: Ikonik, Sewa, Edukasi)"
+            widget: string
+          - name:  desc
+            label: "Deskripsi Singkat"
+            widget: text
+            hint:  "Ditampilkan saat kartu di-hover. Maksimal 2 kalimat."
+          - name:  foto_1
+            label: "Foto 1 (wajib)"
+            widget: object
+            fields: &foto_fields
+              - name:     src
+                label:    "Gambar"
+                widget:   image
+                required: true
+              - name:  alt
+                label: "Deskripsi Gambar"
+                widget: string
+          - name:  foto_2
+            label: "Foto 2 (wajib)"
+            widget: object
+            fields: *foto_fields
+          - name:  foto_3
+            label: "Foto 3 (wajib)"
+            widget: object
+            fields: *foto_fields
+          - name:  poster_title
+            label: "Judul Poster"
+            widget: string
+            hint:  "Judul yang muncul di popup poster."
+          - name:     poster_src
+            label:    "Gambar Poster"
+            widget:   image
+            required: false
+            hint:     "Upload poster promosi fasilitas ini (opsional)."
+
+      - name:  tubing
+        label: "2. Sewa Tubing"
+        file:  _data/fasilitas/tubing.json
+        fields: *fac_fields_template
+
+      - name:  pendopo
+        label: "3. Sewa Pendopo"
+        file:  _data/fasilitas/pendopo.json
+        fields: *fac_fields_template
+
+      - name:  outbound
+        label: "4. Fasilitator Outbound"
+        file:  _data/fasilitas/outbound.json
+        fields: *fac_fields_template
+
+      - name:  greenhouse
+        label: "5. Ekowisata Greenhouse"
+        file:  _data/fasilitas/greenhouse.json
+        fields: *fac_fields_template
+
+  # ── 5. SEJARAH — FOTO DI DALAM MODAL ─────────────────────────────────────
+  - name:  sejarah
+    label: "📜 Sejarah (Foto di Modal)"
+    files:
+      - name:  photos
+        label: "Foto Ilustrasi Sejarah"
+        file:  _data/sejarah.json
+        fields:
+          - name:  foto_merapi
+            label: "Foto — Hubungan dengan Merapi"
+            widget: object
+            fields:
+              - name:     src
+                label:    "Gambar"
+                widget:   image
+                required: true
+              - name:  alt
+                label: "Deskripsi Gambar"
+                widget: string
+
+          - name:  foto_pertanian
+            label: "Foto — Pertanian / Kehidupan Desa"
+            widget: object
+            fields:
+              - name:     src
+                label:    "Gambar"
+                widget:   image
+                required: true
+              - name:  alt
+                label: "Deskripsi Gambar"
+                widget: string
+
+          - name:  foto_sabo_dam
+            label: "Foto — Sabo Dam (bagian sejarah)"
+            widget: object
+            fields:
+              - name:     src
+                label:    "Gambar"
+                widget:   image
+                required: true
+              - name:  alt
+                label: "Deskripsi Gambar"
+                widget: string

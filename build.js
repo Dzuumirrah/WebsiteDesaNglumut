@@ -1,237 +1,154 @@
-/**
- * build.js — Nglumut CMS Build Script
- * ─────────────────────────────────────────────────────────────
- * Dijalankan otomatis oleh Netlify sebelum publish (lihat netlify.toml).
- *
- * Cara kerja:
- *   1. Baca index.template.html
- *   2. Baca semua _data/ (frontmatter YAML + kontak.json)
- *   3. Replace konten di antara marker <!-- CMS:KEY --> ... <!-- /CMS:KEY -->
- *   4. Tulis hasil ke index.html (yang di-publish Netlify)
- *
- * Tidak butuh dependency eksternal — murni Node.js built-in.
- */
-
+#!/usr/bin/env node
 'use strict';
+
+/**
+ * build.js
+ * ─────────
+ * Reads CMS-managed data files from _data/ and injects them into
+ * index.template.html, writing the final static index.html.
+ *
+ * Uses only Node built-ins (fs, path) — no npm dependencies.
+ *
+ * Each <!-- CMS:key --> ... <!-- /CMS:key --> block in the template
+ * is replaced with the corresponding CMS value. Markers are preserved
+ * in the output so subsequent builds are idempotent.
+ */
 
 const fs   = require('fs');
 const path = require('path');
+const ROOT = __dirname;
 
-// build.js ada di root repo, jadi __dirname = root
-const ROOT     = path.resolve(__dirname);
-const DATA_DIR = path.join(ROOT, '_data');
-const HTML_IN  = path.join(ROOT, 'index.template.html');
-const HTML_OUT = path.join(ROOT, 'index.html');
-const ADMIN_SRC = path.join(ROOT, 'public', 'admin');
-const ADMIN_OUT = path.join(ROOT, 'admin');
+// ── Utilities ─────────────────────────────────────────────────────────────────
 
-const facilityFallbacks = {
-  'sabo-dam': [
-    'assets/sabo-dam1.jpg',
-    'assets/sabo-dam2.jpg',
-    'assets/sabo-dam3.jpg'
-  ],
-  'tubing': [
-    'assets/tubing-1.jpeg',
-    'assets/tubing-1.jpeg',
-    'assets/tubing-1.jpeg'
-  ],
-  'outbound': [
-    'assets/outbound.jpg',
-    'assets/outbound.jpg',
-    'assets/outbound.jpg'
-  ],
-  'greenhouse': [
-    'assets/greenhouse1.jpg',
-    'assets/greenhouse2.jpg',
-    'assets/greenhouse3.jpg'
-  ]
+/** Read and parse a JSON data file. Throws clearly if missing or malformed. */
+function read(relPath) {
+  const fullPath = path.join(ROOT, relPath);
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Missing required data file: ${relPath}`);
+  }
+  try {
+    return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+  } catch (e) {
+    throw new Error(`JSON parse error in ${relPath}: ${e.message}`);
+  }
+}
+
+/** Escape a string for safe insertion as HTML text content or attribute value. */
+function esc(val) {
+  return String(val == null ? '' : val)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** Generate a cover-style <img> tag (galleries, facilities, hero). */
+function imgCover(src, alt) {
+  return `<img src="${String(src)}" alt="${esc(alt)}" style="width:100%;height:100%;object-fit:cover">`;
+}
+
+/** Generate a rounded <img> tag (modal history photos). */
+function imgRounded(src, alt) {
+  return `<img src="${String(src)}" alt="${esc(alt)}" style="width:100%;border-radius:10px;margin:1.5rem 0">`;
+}
+
+/**
+ * Replace all <!-- CMS:key --> ... <!-- /CMS:key --> occurrences in html
+ * with the given value (preserving the marker comments themselves).
+ * Warns if a key has no corresponding marker in the template.
+ */
+function inject(html, replacements) {
+  for (const [key, value] of Object.entries(replacements)) {
+    const rx      = new RegExp(`<!-- CMS:${key} -->[\\s\\S]*?<!-- /CMS:${key} -->`, 'g');
+    const wrapped = `<!-- CMS:${key} -->${value}<!-- /CMS:${key} -->`;
+    const matchCount = (html.match(new RegExp(rx.source, 'g')) || []).length;
+    if (matchCount === 0) {
+      process.stderr.write(`⚠  No marker found for key: CMS:${key}\n`);
+    }
+    html = html.replace(rx, wrapped);
+  }
+  return html;
+}
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+
+const settings = read('_data/pengaturan.json');
+const hero     = read('_data/hero.json');
+const galeri   = read('_data/galeri.json');
+const sejarah  = read('_data/sejarah.json');
+
+const FAC_IDS  = ['sabo-dam', 'tubing', 'pendopo', 'outbound', 'greenhouse'];
+const fasilitas = {};
+for (const id of FAC_IDS) {
+  fasilitas[id] = read(`_data/fasilitas/${id}.json`);
+}
+
+// ── Build replacement map ─────────────────────────────────────────────────────
+
+const R = {};   // R['cms-key'] = replacement string
+
+// Contact / settings (used in multiple sections — global replace handles repeats)
+R['kontak-alamat'] = esc(settings.kontak_alamat);
+R['kontak-jam']    = esc(settings.kontak_jam);
+R['kontak-hari']   = esc(settings.kontak_hari);
+
+// Hero slides (3 fixed)
+for (let i = 1; i <= 3; i++) {
+  const slide = hero[`slide_${i}`];
+  if (!slide || !slide.image) throw new Error(`hero.slide_${i}.image is required`);
+  R[`hero-slide-${i}`] = imgCover(slide.image, slide.alt || '');
+}
+
+// Gallery (6 fixed)
+for (let i = 1; i <= 6; i++) {
+  const foto = galeri[`foto_${i}`];
+  if (!foto || !foto.image) throw new Error(`galeri.foto_${i}.image is required`);
+  R[`galeri-${i}`]       = imgCover(foto.image, foto.alt || `Galeri ${i}`);
+  R[`galeri-${i}-judul`] = esc(foto.judul || `Foto Galeri ${i}`);
+  R[`galeri-${i}-ket`]   = esc(foto.keterangan || '');
+}
+
+// Facilities (5 fixed, 3 photos each)
+for (const id of FAC_IDS) {
+  const fac = fasilitas[id];
+  if (!fac.nama) throw new Error(`_data/fasilitas/${id}.json: "nama" is required`);
+
+  for (let j = 1; j <= 3; j++) {
+    const f = fac[`foto_${j}`];
+    if (!f || !f.src) throw new Error(`_data/fasilitas/${id}.json: foto_${j}.src is required`);
+    R[`fac-${id}-foto${j}`] = imgCover(f.src, f.alt || fac.nama);
+  }
+
+  // nama appears twice per card (collapsed-label + fac-name) — both replaced
+  R[`fac-${id}-nama`]         = esc(fac.nama);
+  R[`fac-${id}-tag`]          = esc(fac.tag || '');
+  R[`fac-${id}-desc`]         = esc(fac.desc || '');
+  R[`fac-${id}-poster-title`] = esc(fac.poster_title || fac.nama);
+  // poster-src goes in a data-attribute; preserve raw path (no entity escaping for /)
+  R[`fac-${id}-poster-src`]   = String(fac.poster_src || '');
+}
+
+// History / sejarah modal photos (rounded style)
+const sejarahKeys = {
+  foto_merapi:    'sejarah-merapi',
+  foto_pertanian: 'sejarah-pertanian',
+  foto_sabo_dam:  'sejarah-sabo-dam',
 };
-
-// ── Parse frontmatter YAML sederhana (tanpa library) ─────────
-function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return {};
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const m = line.match(/^([\w_]+):\s*(.+)$/);
-    if (!m) return;
-    let val = m[2].trim().replace(/^["']|["']$/g, '');
-    if (val === 'true')  val = true;
-    else if (val === 'false') val = false;
-    else if (!isNaN(val) && val !== '') val = Number(val);
-    data[m[1]] = val;
-  });
-  return data;
+for (const [dataKey, cmsKey] of Object.entries(sejarahKeys)) {
+  const foto = sejarah[dataKey];
+  if (!foto || !foto.src) throw new Error(`sejarah.${dataKey}.src is required`);
+  R[cmsKey] = imgRounded(foto.src, foto.alt || '');
 }
 
-// ── Baca folder _data/<name>, sort by urutan/nomor ───────────
-function readFolder(name) {
-  const dir = path.join(DATA_DIR, name);
-  if (!fs.existsSync(dir)) { console.warn(`  ⚠ Folder _data/${name} tidak ada`); return []; }
-  return fs.readdirSync(dir)
-    .filter(f => f.endsWith('.md'))
-    .map(f => parseFrontmatter(fs.readFileSync(path.join(dir, f), 'utf8')))
-    .filter(d => Object.keys(d).length > 0)
-    .sort((a, b) => (a.urutan || a.nomor || 0) - (b.urutan || b.nomor || 0));
+// ── Read template → inject → write output ─────────────────────────────────────
+
+const tplPath = path.join(ROOT, 'index.template.html');
+if (!fs.existsSync(tplPath)) {
+  throw new Error('index.template.html not found — create it from the current index.html');
 }
 
-// ── Escape karakter regex ─────────────────────────────────────
-function esc(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+let html = fs.readFileSync(tplPath, 'utf8');
+html = inject(html, R);
 
-// ── Fallback foto jika belum diupload ────────────────────────
-function f(val, fallback = 'assets/img_placeholder1.jpg') {
-  if (!val || String(val).trim() === '') {
-    return fallback;
-  }
-
-  const cleaned = String(val).replace(/^\//, '');
-  const fullPath = path.join(ROOT, cleaned);
-
-  return fs.existsSync(fullPath)
-    ? val
-    : fallback;
-}
-
-function copyAdminFiles() {
-  if (!fs.existsSync(ADMIN_SRC)) {
-    console.warn('  Warning: public/admin tidak ditemukan');
-    return false;
-  }
-
-  fs.cpSync(ADMIN_SRC, ADMIN_OUT, { recursive: true });
-  return true;
-}
-
-// ── Inject: ganti atribut di dalam blok marker ───────────────
-// Marker: <!-- CMS:KEY --> ... <img src="..." alt="..."> ... <!-- /CMS:KEY -->
-function injectAttr(html, key, attr, val) {
-  const O = `<!-- CMS:${key} -->`, C = `<!-- /CMS:${key} -->`;
-  if (!html.includes(O)) { 
-    console.warn(`  ⚠ Marker CMS:${key} tidak ditemukan`); 
-    return html; 
-  }
-  return html.replace(
-    new RegExp(`(${esc(O)}[\\s\\S]*?)${attr}="[^"]*"([\\s\\S]*?${esc(C)})`, 'g'),
-    `$1${attr}="${val}"$2`
-  );
-}
-
-// ── Inject: ganti teks/nilai di antara marker inline ─────────
-// Marker: <!-- CMS:KEY -->nilai lama<!-- /CMS:KEY -->
-function injectVal(html, key, value) {
-  const safeValue = value ?? '';
-
-  const re = new RegExp(
-    `<!--\\s*CMS:${escapeRegex(key)}\\s*-->[\\s\\S]*?<!--\\s*\\/CMS:${escapeRegex(key)}\\s*-->`,
-    'g'
-  );
-
-  return html.replace(
-    re,
-    `<!-- CMS:${key} -->${safeValue}<!-- /CMS:${key} -->`
-  );
-}
-
-function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-// ════════════════════════════════════════════════════════════════
-//  MAIN
-// ════════════════════════════════════════════════════════════════
-console.log('🔨 Nglumut Build Script\n');
-
-if (!fs.existsSync(HTML_IN)) {
-  console.error('❌ ERROR: index.template.html tidak ditemukan!');
-  console.error('   Pastikan file index.template.html ada di root repo.');
-  process.exit(1);
-}
-
-let html = fs.readFileSync(HTML_IN, 'utf8');
-
-// Baca semua data
-const hero      = readFolder('hero');
-const galeri    = readFolder('galeri');
-const fasilitas = readFolder('fasilitas');
-const sejarah   = readFolder('sejarah');
-const kontakFile = path.join(DATA_DIR, 'pengaturan', 'kontak.json');
-const kontak = fs.existsSync(kontakFile)
-  ? JSON.parse(fs.readFileSync(kontakFile, 'utf8')) : {};
-
-// ── 1. HERO SLIDES ───────────────────────────────────────────
-console.log('📸 Hero slides...');
-hero.forEach(s => {
-  html = injectAttr(html, `hero-slide-${s.urutan}`, 'src', f(s.foto));
-  html = injectAttr(html, `hero-slide-${s.urutan}`, 'alt', s.judul || `Hero ${s.urutan}`);
-});
-
-// ── 2. GALERI ────────────────────────────────────────────────
-console.log('🖼️  Galeri...');
-galeri.forEach(g => {
-  if (g.aktif === false) return;
-  html = injectAttr(html, `galeri-${g.urutan}`, 'src', f(g.foto));
-  html = injectAttr(html, `galeri-${g.urutan}`, 'alt', g.judul || `Galeri ${g.urutan}`);
-  if (g.judul)      html = injectVal(html, `galeri-${g.urutan}-judul`, g.judul);
-  if (g.keterangan) html = injectVal(html, `galeri-${g.urutan}-ket`,   g.keterangan);
-});
-
-// ── 3. FASILITAS (nama, tag, desc, 3 foto, poster) ───────────
-console.log('🎯 Fasilitas...');
-fasilitas.forEach(fac => {
-  const id = fac.id;
-  const fb = facilityFallbacks[id] || [];
-  
-  // Inject foto fasilitas (3 gambar di carousel)
-  html = injectAttr(html, `fac-${id}-foto1`, 'src', f(fac.foto_1, fb[0]));
-  html = injectAttr(html, `fac-${id}-foto2`, 'src', f(fac.foto_2, fb[1]));
-  html = injectAttr(html, `fac-${id}-foto3`, 'src', f(fac.foto_3, fb[2]));
-  
-  // Inject nama, tag, deskripsi
-  html = injectVal (html, `fac-${id}-nama`,  fac.nama      || '');
-  html = injectVal (html, `fac-${id}-tag`,   fac.tag       || '');
-  html = injectVal (html, `fac-${id}-desc`,  fac.deskripsi || '');
-  // Poster modal
-  html = injectVal(
-    html,
-    `fac-${id}-poster-src`,
-    f(fac.foto_1, fb[0] || 'assets/img_placeholder1.jpg')
-  );
-
-  html = injectVal(
-    html,
-    `fac-${id}-poster-title`,
-    fac.nama || id
-  );
-});
-
-// ── 4. SEJARAH MODAL ─────────────────────────────────────────
-console.log('📜 Sejarah...');
-sejarah.forEach(s => {
-  html = injectAttr(html, `sejarah-${s.id}`, 'src', f(s.foto));
-  html = injectAttr(html, `sejarah-${s.id}`, 'alt', s.judul_bagian || s.id);
-});
-
-// ── 5. KONTAK ────────────────────────────────────────────────
-console.log('📞 Kontak...');
-if (kontak.whatsapp) {
-  html = injectVal(html, 'kontak-wa-display', `+${kontak.whatsapp}`);
-  html = injectVal(html, 'kontak-wa-js',      kontak.whatsapp);
-}
-if (kontak.jam_buka)         html = injectVal(html, 'kontak-jam',   kontak.jam_buka);
-if (kontak.hari_operasional) html = injectVal(html, 'kontak-hari',  kontak.hari_operasional);
-if (kontak.alamat)           html = injectVal(html, 'kontak-alamat',kontak.alamat);
-
-// ── 6. SOSMED LINKS ──────────────────────────────────────────
-console.log('📱 Sosmed...');
-if (kontak.instagram) html = injectVal(html, 'sosmed-ig-href', kontak.instagram);
-if (kontak.tiktok)    html = injectVal(html, 'sosmed-tt-href', kontak.tiktok);
-
-// ── Tulis output ─────────────────────────────────────────────
-fs.writeFileSync(HTML_OUT, html, 'utf8');
-console.log('📄 index.html berhasil di-generate');
-
-if (copyAdminFiles()) {
-  console.log('🛠️  Admin CMS berhasil di-generate ke admin/');
-}
-
-console.log('\n✅ Build selesai!\n');
+fs.writeFileSync(path.join(ROOT, 'index.html'), html, 'utf8');
+process.stdout.write('✓  index.html built successfully\n');
